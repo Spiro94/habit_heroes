@@ -9,15 +9,15 @@ part of 'task_completion.dart';
 TaskCompletion _$TaskCompletionFromJson(Map<String, dynamic> json) =>
     TaskCompletion(
       id: json['id'] as String,
-      taskId: json['taskId'] as String,
-      kidId: json['kidId'] as String,
-      completedAt: DateTime.parse(json['completedAt'] as String),
+      taskId: json['task_id'] as String,
+      kidId: json['kid_id'] as String,
+      completedAt: DateTime.parse(json['completed_at'] as String),
     );
 
 Map<String, dynamic> _$TaskCompletionToJson(TaskCompletion instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'taskId': instance.taskId,
-      'kidId': instance.kidId,
-      'completedAt': instance.completedAt.toIso8601String(),
+      'task_id': instance.taskId,
+      'kid_id': instance.kidId,
+      'completed_at': instance.completedAt.toIso8601String(),
     };

@@ -7,7 +7,7 @@ enum TimeOfDayCategory { morning, afternoon, evening }
 
 enum Repetition { daily, weekly }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Task extends Equatable {
   const Task({
     required this.id,

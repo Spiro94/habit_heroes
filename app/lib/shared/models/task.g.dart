@@ -8,28 +8,28 @@ part of 'task.dart';
 
 Task _$TaskFromJson(Map<String, dynamic> json) => Task(
   id: json['id'] as String,
-  familyId: json['familyId'] as String,
+  familyId: json['family_id'] as String,
   title: json['title'] as String,
   points: (json['points'] as num).toInt(),
-  timeOfDay: $enumDecode(_$TimeOfDayCategoryEnumMap, json['timeOfDay']),
+  timeOfDay: $enumDecode(_$TimeOfDayCategoryEnumMap, json['time_of_day']),
   repeat: $enumDecode(_$RepetitionEnumMap, json['repeat']),
-  daysOfWeek: (json['daysOfWeek'] as List<dynamic>)
+  daysOfWeek: (json['days_of_week'] as List<dynamic>)
       .map((e) => (e as num).toInt())
       .toList(),
-  createdAt: DateTime.parse(json['createdAt'] as String),
+  createdAt: DateTime.parse(json['created_at'] as String),
   description: json['description'] as String?,
 );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
   'id': instance.id,
-  'familyId': instance.familyId,
+  'family_id': instance.familyId,
   'title': instance.title,
   'description': instance.description,
   'points': instance.points,
-  'timeOfDay': _$TimeOfDayCategoryEnumMap[instance.timeOfDay]!,
+  'time_of_day': _$TimeOfDayCategoryEnumMap[instance.timeOfDay]!,
   'repeat': _$RepetitionEnumMap[instance.repeat]!,
-  'daysOfWeek': instance.daysOfWeek,
-  'createdAt': instance.createdAt.toIso8601String(),
+  'days_of_week': instance.daysOfWeek,
+  'created_at': instance.createdAt.toIso8601String(),
 };
 
 const _$TimeOfDayCategoryEnumMap = {

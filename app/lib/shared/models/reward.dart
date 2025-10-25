@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'reward.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Reward extends Equatable {
   const Reward({
     required this.id,

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'task_completion.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class TaskCompletion extends Equatable {
   const TaskCompletion({
     required this.id,
