@@ -72,6 +72,11 @@ signUp:
       error:
         empty: "Please enter a password."
         invalid: "Minimum 8 characters, upper and lower case, with at least one special character."
+    repeatPassword:
+      label: "Repeat Password"
+      error:
+        empty: "Please repeat your password."
+        mismatch: "Passwords do not match."
     submit:
       label: "Sign Up"
   resendEmailVerification:

@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forui/forui.dart';
 
 import '../../../../../outside/theme/theme.dart';
 import '../../../../../shared/mixins/logging.dart';
-import '../../../../../shared/models/app_user.dart';
 import '../../../../blocs/sign_up/bloc.dart';
 import '../../../../blocs/sign_up/events.dart';
 import 'button_submit.dart';
 import 'input_email.dart';
-import 'input_family_code.dart';
-import 'input_family_name.dart';
 import 'input_name.dart';
 import 'input_password.dart';
-import 'input_role.dart';
-
-enum FamilyOption { familyJoin, familyCreation }
+import 'input_repeat_password.dart';
 
 class SignUp_Form_SignUp extends StatefulWidget with SharedMixin_Logging {
   const SignUp_Form_SignUp({super.key});
@@ -30,15 +24,8 @@ class _SignUp_Form_SignUpState extends State<SignUp_Form_SignUp> {
 
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
+  late final TextEditingController repeatPasswordController;
   late final TextEditingController nameController;
-  late final TextEditingController familyCodeController;
-  late final TextEditingController familyNameController;
-  final controller = FSelectGroupController<FamilyOption>.radio(
-    FamilyOption.familyJoin,
-  );
-
-  UserRole? selectedRole;
-  bool isJoiningFamily = true;
 
   void _refresh() {
     setState(() {});
@@ -50,24 +37,21 @@ class _SignUp_Form_SignUpState extends State<SignUp_Form_SignUp> {
 
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    repeatPasswordController = TextEditingController();
     nameController = TextEditingController();
-    familyCodeController = TextEditingController();
-    familyNameController = TextEditingController();
 
     emailController.addListener(_refresh);
     passwordController.addListener(_refresh);
+    repeatPasswordController.addListener(_refresh);
     nameController.addListener(_refresh);
-    familyCodeController.addListener(_refresh);
-    familyNameController.addListener(_refresh);
   }
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    repeatPasswordController.dispose();
     nameController.dispose();
-    familyCodeController.dispose();
-    familyNameController.dispose();
     super.dispose();
   }
 
@@ -89,11 +73,7 @@ class _SignUp_Form_SignUpState extends State<SignUp_Form_SignUp> {
       SignUp_Event_SignUp(
         email: emailController.text,
         password: passwordController.text,
-        displayName: nameController.text,
-        role: selectedRole!,
-        isJoiningFamily: isJoiningFamily,
-        familyCode: isJoiningFamily ? familyCodeController.text : null,
-        familyName: isJoiningFamily ? null : familyNameController.text,
+        name: nameController.text,
       ),
     );
   }
@@ -110,40 +90,16 @@ class _SignUp_Form_SignUpState extends State<SignUp_Form_SignUp> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(height: context.tokens.spacing.medium),
+          SignUp_Input_Name(controller: nameController),
+          SizedBox(height: context.tokens.spacing.medium),
           SignUp_Input_Email(controller: emailController),
           SizedBox(height: context.tokens.spacing.medium),
           SignUp_Input_Password(controller: passwordController),
           SizedBox(height: context.tokens.spacing.medium),
-          SignUp_Input_Name(controller: nameController),
-          SizedBox(height: context.tokens.spacing.medium),
-          SignUp_Input_Role(onChanged: (value) => selectedRole = value),
-          SizedBox(height: context.tokens.spacing.medium),
-          FSelectGroup(
-            controller: controller,
-            label: const Text('Family option'),
-            onSelect: (value) {
-              setState(() {
-                isJoiningFamily = value.$1 == FamilyOption.familyJoin;
-              });
-            },
-            validator: (values) =>
-                values?.isEmpty ?? true ? 'Please select a value.' : null,
-            children: [
-              FRadio.grouped(
-                value: FamilyOption.familyJoin,
-                label: const Text('Join a Family'),
-              ),
-              FRadio.grouped(
-                value: FamilyOption.familyCreation,
-                label: const Text('Create a Family'),
-              ),
-            ],
+          SignUp_Input_RepeatPassword(
+            controller: repeatPasswordController,
+            passwordController: passwordController,
           ),
-          SizedBox(height: context.tokens.spacing.medium),
-          if (controller.value.first == FamilyOption.familyJoin)
-            SignUp_Input_FamilyCode(controller: familyCodeController)
-          else
-            SignUp_Input_FamilyName(controller: familyNameController),
           SizedBox(height: context.tokens.spacing.medium),
           SignUp_Button_Submit(onSubmit: _onSubmit),
           SizedBox(height: context.tokens.spacing.medium),

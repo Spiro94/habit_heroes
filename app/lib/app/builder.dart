@@ -47,15 +47,10 @@ Future<Widget> appBuilder({
       id: supabaseUser.id,
     );
 
-    final family = await repositories.familyRepository.getFamilyForUser(
-      supabaseUser.id,
-    );
-
     authState = Auth_State(
       status: Auth_Status.authenticated,
       accessToken: accessToken,
       appUser: appUser,
-      family: family,
     );
   } else {
     authState = const Auth_State(
@@ -69,7 +64,6 @@ Future<Widget> appBuilder({
   final authBloc = Auth_Bloc(
     appUserRepository: repositories.appUserRepository,
     authRepository: repositories.authRepository,
-    familyRepository: repositories.familyRepository,
     initialState: authState,
   );
 

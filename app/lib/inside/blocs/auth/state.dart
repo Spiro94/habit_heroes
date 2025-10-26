@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../shared/models/app_user.dart';
-import '../../../shared/models/family.dart';
 
 part 'state.g.dart';
 
@@ -14,16 +13,14 @@ class Auth_State extends Equatable {
     required this.status,
     required this.accessToken,
     this.appUser,
-    this.family,
   });
 
   final Auth_Status status;
   final String? accessToken;
   final AppUser? appUser;
-  final Family? family;
 
   @override
-  List<Object?> get props => [status, accessToken, appUser, family];
+  List<Object?> get props => [status, accessToken, appUser];
 
   // coverage:ignore-start
   factory Auth_State.fromJson(Map<String, dynamic> json) =>

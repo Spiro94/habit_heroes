@@ -9,11 +9,11 @@ part of 'state.dart';
 ParentTasks_State _$ParentTasks_StateFromJson(Map<String, dynamic> json) =>
     ParentTasks_State(
       status: $enumDecode(_$ParentTasks_StatusEnumMap, json['status']),
-      tasks: (json['tasks'] as List<dynamic>)
-          .map((e) => Task.fromJson(e as Map<String, dynamic>))
+      taskInstances: (json['taskInstances'] as List<dynamic>)
+          .map((e) => TaskInstance.fromJson(e as Map<String, dynamic>))
           .toList(),
       kids: (json['kids'] as List<dynamic>)
-          .map((e) => AppUser.fromJson(e as Map<String, dynamic>))
+          .map((e) => Kid.fromJson(e as Map<String, dynamic>))
           .toList(),
       errorMessage: json['errorMessage'] as String?,
     );
@@ -21,7 +21,7 @@ ParentTasks_State _$ParentTasks_StateFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ParentTasks_StateToJson(ParentTasks_State instance) =>
     <String, dynamic>{
       'status': _$ParentTasks_StatusEnumMap[instance.status]!,
-      'tasks': instance.tasks,
+      'taskInstances': instance.taskInstances,
       'kids': instance.kids,
       'errorMessage': instance.errorMessage,
     };

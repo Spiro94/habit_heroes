@@ -17,9 +17,11 @@ import '../outside/repositories/all.dart';
 import '../outside/repositories/app_user/repository.dart';
 import '../outside/repositories/auth/repository.dart';
 import '../outside/repositories/completions/repository.dart';
-import '../outside/repositories/family/repository.dart';
+import '../outside/repositories/kid/repository.dart';
 import '../outside/repositories/rewards/repository.dart';
-import '../outside/repositories/tasks/repository.dart';
+import '../outside/repositories/task_instances/repository.dart';
+import '../outside/repositories/task_schedules/repository.dart';
+import '../outside/repositories/task_templates/repository.dart';
 import 'builder.dart';
 import 'configurations/configuration.dart';
 
@@ -78,16 +80,22 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
       sentryClientProvider: clientProviders.sentryClientProvider,
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
+    kidRepository: SupabaseKid_Repository(
+      supabaseClient: clientProviders.supabaseClientProvider.client,
+    ),
     rewardRepository: SupabaseReward_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
     taskCompletionRepository: SupabaseTaskCompletion_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
-    taskRepository: SupabaseTask_Repository(
+    taskTemplateRepository: SupabaseTaskTemplate_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
-    familyRepository: Family_Repository(
+    taskScheduleRepository: SupabaseTaskSchedule_Repository(
+      supabaseClient: clientProviders.supabaseClientProvider.client,
+    ),
+    taskInstanceRepository: SupabaseTaskInstance_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
   );

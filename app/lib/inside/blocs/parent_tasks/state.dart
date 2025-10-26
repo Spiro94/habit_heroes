@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../shared/models/app_user.dart';
-import '../../../shared/models/task.dart';
+import '../../../shared/models/kid.dart';
+import '../../../shared/models/task_instance.dart';
 
 part 'state.g.dart';
 
@@ -12,25 +12,25 @@ enum ParentTasks_Status { initial, loading, loaded, error }
 class ParentTasks_State extends Equatable {
   const ParentTasks_State({
     required this.status,
-    required this.tasks,
+    required this.taskInstances,
     required this.kids,
     this.errorMessage,
   });
 
   final ParentTasks_Status status;
-  final List<Task> tasks;
-  final List<AppUser> kids;
+  final List<TaskInstance> taskInstances;
+  final List<Kid> kids;
   final String? errorMessage;
 
   ParentTasks_State copyWith({
     ParentTasks_Status? status,
-    List<Task>? tasks,
-    List<AppUser>? kids,
+    List<TaskInstance>? taskInstances,
+    List<Kid>? kids,
     String? Function()? setErrorMessage,
   }) {
     return ParentTasks_State(
       status: status ?? this.status,
-      tasks: tasks ?? this.tasks,
+      taskInstances: taskInstances ?? this.taskInstances,
       kids: kids ?? this.kids,
       errorMessage: setErrorMessage != null ? setErrorMessage() : errorMessage,
     );
@@ -39,14 +39,14 @@ class ParentTasks_State extends Equatable {
   factory ParentTasks_State.initial() {
     return const ParentTasks_State(
       status: ParentTasks_Status.initial,
-      tasks: [],
+      taskInstances: [],
       kids: [],
       errorMessage: null,
     );
   }
 
   @override
-  List<Object?> get props => [status, tasks, kids, errorMessage];
+  List<Object?> get props => [status, taskInstances, kids, errorMessage];
 
   Map<String, dynamic> toJson() => _$ParentTasks_StateToJson(this);
   factory ParentTasks_State.fromJson(Map<String, dynamic> json) =>

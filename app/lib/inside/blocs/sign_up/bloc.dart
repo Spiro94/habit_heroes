@@ -30,11 +30,7 @@ class SignUp_Bloc extends Bloc_Base<SignUp_Event, SignUp_State> {
       await _authRepository.signUp(
         email: event.email.trim(),
         password: event.password.trim(),
-        displayName: event.displayName.trim(),
-        role: event.role,
-        isJoiningFamily: event.isJoiningFamily,
-        familyCode: event.familyCode?.trim(),
-        familyName: event.familyName?.trim(),
+        name: event.name.trim(),
       );
       emit(state.copyWith(status: SignUp_Status.signUpSuccess));
     } catch (e, stackTrace) {

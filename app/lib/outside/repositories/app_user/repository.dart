@@ -11,8 +11,6 @@ abstract class AppUser_Repository extends Repository_Base {
   Future<AppUser> updateAppUser({required AppUser appUser});
 
   Future<void> deleteAppUser({required String id});
-
-  Future<List<AppUser>> getFamilyMembers();
 }
 
 class SupabaseAppUser_Repository extends AppUser_Repository {
@@ -28,7 +26,7 @@ class SupabaseAppUser_Repository extends AppUser_Repository {
   Future<AppUser> createAppUser({required AppUser appUser}) async {
     log.info('createAppUser');
     final response = await _supabaseClient
-        .from('app_users')
+        .from('profiles')
         .insert(appUser.toJson())
         .select()
         .single();
@@ -39,7 +37,7 @@ class SupabaseAppUser_Repository extends AppUser_Repository {
   Future<AppUser?> getAppUser({required String id}) async {
     log.info('getAppUser');
     final response = await _supabaseClient
-        .from('app_users')
+        .from('profiles')
         .select()
         .eq('id', id)
         .maybeSingle();
@@ -51,7 +49,7 @@ class SupabaseAppUser_Repository extends AppUser_Repository {
   Future<AppUser> updateAppUser({required AppUser appUser}) async {
     log.info('updateAppUser');
     final response = await _supabaseClient
-        .from('app_users')
+        .from('profiles')
         .update(appUser.toJson())
         .eq('id', appUser.id)
         .select()
@@ -62,16 +60,6 @@ class SupabaseAppUser_Repository extends AppUser_Repository {
   @override
   Future<void> deleteAppUser({required String id}) async {
     log.info('deleteAppUser');
-    await _supabaseClient.from('app_users').delete().eq('id', id);
-  }
-
-  @override
-  Future<List<AppUser>> getFamilyMembers() async {
-    log.info('getFamilyMembers');
-    final response = await _supabaseClient.rpc<List<Map<String, dynamic>>>(
-      'get_my_family_members',
-    );
-
-    return response.map(AppUser.fromJson).toList();
+    await _supabaseClient.from('profiles').delete().eq('id', id);
   }
 }

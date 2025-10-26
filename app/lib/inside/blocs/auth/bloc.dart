@@ -6,9 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 import '../../../outside/repositories/app_user/repository.dart';
 import '../../../outside/repositories/auth/repository.dart';
-import '../../../outside/repositories/family/repository.dart';
 import '../../../shared/models/app_user.dart';
-import '../../../shared/models/family.dart';
 import '../base.dart';
 import 'events.dart';
 import 'state.dart';
@@ -17,11 +15,9 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
   Auth_Bloc({
     required AppUser_Repository appUserRepository,
     required Auth_Repository authRepository,
-    required Family_Repository familyRepository,
     required Auth_State initialState,
   }) : _appUserRepository = appUserRepository,
        _authRepository = authRepository,
-       _familyRepository = familyRepository,
        super(initialState) {
     on<Auth_Event_SignOut>(_onSignOut, transformer: sequential());
     on<Auth_Event_AccessTokenAdded>(
@@ -40,7 +36,6 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
 
   final AppUser_Repository _appUserRepository;
   final Auth_Repository _authRepository;
-  final Family_Repository _familyRepository;
 
   Future<void> _onSignOut(
     Auth_Event_SignOut event,
@@ -75,18 +70,8 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
 
     if (appUser == null) {
       log.warning(
-        'AppUser not found for id: ${supabaseUser.id}, creating a new one.',
+        'AppUser profile not found for id: ${supabaseUser.id}. The profile should be created automatically by the database trigger.',
       );
-      // TODO: handle this case properly
-    }
-
-    // Fetch family model
-    Family? family;
-    try {
-      family = await _familyRepository.getFamilyForUser(supabaseUser.id);
-    } catch (e) {
-      log.warning('Failed to fetch or create family: $e');
-      family = null;
     }
 
     emit(
@@ -94,7 +79,6 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
         status: Auth_Status.authenticated,
         accessToken: event.accessToken,
         appUser: appUser,
-        family: family,
       ),
     );
 
@@ -118,7 +102,6 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
         status: Auth_Status.unauthenticated,
         accessToken: null,
         appUser: null,
-        family: null,
       ),
     );
 
@@ -140,23 +123,16 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
         refreshToken: event.refreshToken,
       );
 
-      // After retrieving the access token, try to fetch the app user and
-      // family so the authenticated state is fully populated.
+      // After retrieving the access token, try to fetch the app user
+      // so the authenticated state is fully populated.
       final supabaseUser = _authRepository.getCurrentUser();
       AppUser? appUser;
-      Family? family;
 
       if (supabaseUser != null) {
         try {
           appUser = await _appUserRepository.getAppUser(id: supabaseUser.id);
         } catch (e) {
           log.warning('Failed to fetch AppUser after URI auth: $e');
-        }
-
-        try {
-          family = await _familyRepository.getFamilyForUser(supabaseUser.id);
-        } catch (e) {
-          log.warning('Failed to fetch/create family after URI auth: $e');
         }
       }
 
@@ -165,7 +141,6 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
           status: Auth_Status.authenticated,
           accessToken: accessToken,
           appUser: appUser,
-          family: family,
         ),
       );
 

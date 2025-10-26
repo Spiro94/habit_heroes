@@ -3,25 +3,21 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'app_user.g.dart';
 
-enum UserRole {
-  parent('Parent'),
-  kid('Kid');
-
-  final String name;
-  const UserRole(this.name);
-}
-
 @JsonSerializable(fieldRename: FieldRename.snake)
 class AppUser extends Equatable {
   const AppUser({
     required this.id,
-    required this.displayName,
-    required this.role,
+    required this.name,
+    this.avatarUrl,
+    this.createdAt,
+    this.updatedAt,
   });
 
   final String id;
-  final String displayName;
-  final UserRole role;
+  final String name;
+  final String? avatarUrl;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
@@ -29,5 +25,5 @@ class AppUser extends Equatable {
   Map<String, dynamic> toJson() => _$AppUserToJson(this);
 
   @override
-  List<Object?> get props => [id, displayName, role];
+  List<Object?> get props => [id, name, avatarUrl, createdAt, updatedAt];
 }

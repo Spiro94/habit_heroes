@@ -72,6 +72,11 @@ signUp:
       error:
         empty: 'Por favor ingresa una contraseña.'
         invalid: 'Mínimo 8 caracteres, mayúsculas y minúsculas, con al menos un caracter especial.'
+    repeatPassword:
+      label: 'Repetir contraseña'
+      error:
+        empty: 'Por favor repite tu contraseña.'
+        mismatch: 'Las contraseñas no coinciden.'
     submit:
       label: 'Regístrate'
   resendEmailVerification:

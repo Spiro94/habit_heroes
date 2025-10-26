@@ -82,7 +82,7 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
                 ),
               );
             }
-            if (state.tasks.isEmpty) {
+            if (state.taskInstances.isEmpty) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

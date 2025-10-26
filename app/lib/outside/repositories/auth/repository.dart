@@ -1,6 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../shared/models/app_user.dart';
 import '../../client_providers/sentry/client_provider.dart';
 import '../../effect_providers/mixpanel/effect_provider.dart';
 import '../base.dart';
@@ -59,11 +58,7 @@ class Auth_Repository extends Repository_Base {
   Future<void> signUp({
     required String email,
     required String password,
-    required String displayName,
-    required UserRole role,
-    required bool isJoiningFamily,
-    String? familyCode,
-    String? familyName,
+    required String name,
   }) async {
     log.info('signUp');
     log.fine('email: $email');
@@ -73,19 +68,10 @@ class Auth_Repository extends Repository_Base {
       email: email,
       emailRedirectTo: _signUpRedirectUrl,
       password: password,
+      data: {'name': name, 'avatar_url': ''},
     );
 
-    if (authResponse.user != null) {
-      await _supabaseClient.rpc<dynamic>(
-        'complete_user_signup',
-        params: {
-          'p_display_name': displayName,
-          'p_user_role': role.name.toLowerCase(),
-          'p_family_name': familyName, // Will be null if joining
-          'p_family_code': familyCode, // Will be null if creating
-        },
-      );
-    } else {
+    if (authResponse.user == null) {
       log.severe('signUp failed: No user returned from Supabase');
       throw Exception('Sign up failed. Please try again.');
     }

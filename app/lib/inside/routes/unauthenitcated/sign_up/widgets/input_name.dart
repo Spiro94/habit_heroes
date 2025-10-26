@@ -8,9 +8,9 @@ class SignUp_Input_Name extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const label = 'Display Name';
-    const hint = 'Enter your display name';
-    const emptyError = 'Display name is required';
+    const label = 'Nombre';
+    const hint = 'Ingresa tu nombre';
+    const emptyError = 'El nombre es obligatorio';
 
     return FTextFormField(
       controller: controller,
