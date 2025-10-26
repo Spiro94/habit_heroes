@@ -33,7 +33,11 @@ class ParentRewards_Bloc
     );
   }
 
+  // TODO: implement
+  // ignore: unused_field
   final AppUser_Repository _appUserRepository;
+  // TODO: implement
+  // ignore: unused_field
   final Reward_Repository _rewardRepository;
 
   Future<void> _onLoadRewards(
@@ -44,7 +48,7 @@ class ParentRewards_Bloc
     try {
       // TODO: Implement fetching rewards logic using _rewardRepository
       // For now, just simulate a delay
-      await Future.delayed(const Duration(seconds: 1));
+      await Future<void>.delayed(const Duration(seconds: 1));
       emit(state.copyWith(status: ParentRewards_Status.loaded, rewards: []));
     } catch (e, stackTrace) {
       log.warning('${event.runtimeType}: error', e, stackTrace);

@@ -26,7 +26,7 @@
       "description": "Schemas (e.g. auth,public,storage):",
       "type": "promptString",
       "default": "auth,public,storage"
-    },
+    }
   ],
   "tasks": [
     {
@@ -37,200 +37,219 @@
         "[App] Slang (Watch)",
         "[App] Test Gallery (Serve)",
         "[Project] Documentation (Serve)",
-        "[Supabase] Functions (Serve)",
-      ],
+        "[Supabase] Functions (Serve)"
+      ]
     },
     {
       "label": "[App] Analyze (Once)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/analyze.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/analyze.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Build Runner (Once)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/build_runner_once.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/build_runner_once.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
-      }
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
+      },
+      "problemMatcher": []
     },
     {
       "label": "[App] Build Runner (Watch)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/build_runner_watch.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/build_runner_watch.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Dart Fix (Dry Run)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/dart_fix_dry_run.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/dart_fix_dry_run.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Dart Fix (Apply)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/dart_fix_apply.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/dart_fix_apply.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Modify and Copy Redirect URL for Android Emulator",
       "type": "shell",
       "group": "build",
-      "command": "zsh",
+      "command": "${workspaceFolder}/.vscode/tasks/app/modify_and_copy_redirect_url_for_android_emulator.sh",
       "args": [
-        "${workspaceFolder}/.vscode/tasks/app/modify_and_copy_redirect_url_for_android_emulator.sh",
-        "'${input:redirectUrl}'",
+        "'${input:redirectUrl}'"
       ],
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Prebuild (Once)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/prebuild_once.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/prebuild_once.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Slang (Once)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/slang_once.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/slang_once.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Slang (Watch)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/slang_watch.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/slang_watch.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Test Gallery (Clean)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/test_gallery_clean.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/test_gallery_clean.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Test Gallery (Serve)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/test_gallery_serve.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/test_gallery_serve.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[App] Test Coverage (Serve)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/app/test_coverage_serve.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/app/test_coverage_serve.sh",
       "options": {
-        "cwd": "${workspaceFolder}/app"
+        "cwd": "${workspaceFolder}/app",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Packages] Prebuild (Once)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/packages/prebuild_once.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/packages/prebuild_once.sh",
       "options": {
-        "cwd": "${workspaceFolder}/packages"
+        "cwd": "${workspaceFolder}/packages",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Project] Direnv Allow",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/project/direnv_allow.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/project/direnv_allow.sh",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Project] Documentation (Serve)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/project/documentation_serve.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/project/documentation_serve.sh",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] Start",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/start.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/start.sh",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       },
       "dependsOn": [
         "[Project] Direnv Allow"
@@ -241,75 +260,87 @@
       "label": "[Supabase] Stop",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/stop.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/stop.sh",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] DB Reset",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/db_reset.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/db_reset.sh",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] DB Diff (Local)",
       "type": "shell",
       "group": "build",
-      "command": "zsh",
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/db_diff_local.sh",
       "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/db_diff_local.sh",
-        "'${input:diffSchemas}'",
+        "'${input:diffSchemas}'"
       ],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] DB Diff (Linked)",
       "type": "shell",
       "group": "build",
-      "command": "zsh",
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/db_diff_linked.sh",
       "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/db_diff_linked.sh",
-        "'${input:diffSchemas}'",
+        "'${input:diffSchemas}'"
       ],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] Functions New",
       "type": "shell",
       "group": "build",
-      "command": "zsh",
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/functions_new.sh",
       "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/functions_new.sh",
-        "'${input:functionName}'",
+        "'${input:functionName}'"
       ],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] Functions (Serve)",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/functions_serve.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/functions_serve.sh",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       },
       "dependsOn": [
         "[Supabase] Start"
@@ -320,63 +351,74 @@
       "label": "[Supabase] Migration List",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/migration_list.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/migration_list.sh",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] Migration Up",
       "type": "shell",
       "group": "build",
-      "command": "bash",
-      "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/migration_up.sh"
-      ],
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/migration_up.sh",
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] Migration New",
       "type": "shell",
       "group": "build",
-      "command": "zsh",
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/migration_new.sh",
       "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/migration_new.sh",
-        "'${input:migrationName}'",
+        "'${input:migrationName}'"
       ],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] Migration Repair (Applied)",
       "type": "shell",
       "group": "build",
-      "command": "zsh",
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/migration_repair_applied.sh",
       "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/migration_repair_applied.sh",
-        "'${input:migrationVersion}'",
+        "'${input:migrationVersion}'"
       ],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     },
     {
       "label": "[Supabase] Migration Repair (Reverted)",
       "type": "shell",
       "group": "build",
-      "command": "zsh",
+      "command": "${workspaceFolder}/.vscode/tasks/supabase/migration_repair_reverted.sh",
       "args": [
-        "${workspaceFolder}/.vscode/tasks/supabase/migration_repair_reverted.sh",
-        "'${input:migrationVersion}'",
+        "'${input:migrationVersion}'"
       ],
       "options": {
-        "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+          "args": ["--login", "-i"]
+        }
       }
     }
   ]

@@ -31,11 +31,10 @@ class SignUp_Link_ResendEmailVerification extends StatelessWidget {
                 showAdaptiveDialog<void>(
                   context: context,
                   barrierDismissible: true,
-                  builder:
-                      (context) => BlocProvider.value(
-                        value: signUpBloc,
-                        child: const _Dialog(),
-                      ),
+                  builder: (context) => BlocProvider.value(
+                    value: signUpBloc,
+                    child: const _Dialog(),
+                  ),
                 );
               },
               child: Text(

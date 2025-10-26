@@ -12,7 +12,7 @@ abstract class AppUser_Repository extends Repository_Base {
 
   Future<void> deleteAppUser({required String id});
 
-  Future<List<AppUser>> getAppUsersByFamilyId({required String familyId});
+  Future<List<AppUser>> getFamilyMembers();
 }
 
 class SupabaseAppUser_Repository extends AppUser_Repository {
@@ -66,14 +66,12 @@ class SupabaseAppUser_Repository extends AppUser_Repository {
   }
 
   @override
-  Future<List<AppUser>> getAppUsersByFamilyId({
-    required String familyId,
-  }) async {
-    log.info('getAppUsersByFamilyId');
-    final response = await _supabaseClient
-        .from('app_users')
-        .select()
-        .eq('family_id', familyId);
+  Future<List<AppUser>> getFamilyMembers() async {
+    log.info('getFamilyMembers');
+    final response = await _supabaseClient.rpc<List<Map<String, dynamic>>>(
+      'get_my_family_members',
+    );
+
     return response.map(AppUser.fromJson).toList();
   }
 }

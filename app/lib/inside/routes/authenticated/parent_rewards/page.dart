@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../i18n/translations.g.dart';
+
 @RoutePage()
 class ParentRewards_Page extends StatelessWidget {
   const ParentRewards_Page({super.key});
@@ -8,8 +10,8 @@ class ParentRewards_Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Parent Rewards')),
-      body: const Center(child: Text('List of rewards for parents')),
+      appBar: AppBar(title: Text(context.t.parentRewards.title)),
+      body: Center(child: Text(context.t.parentRewards.body)),
     );
   }
 }

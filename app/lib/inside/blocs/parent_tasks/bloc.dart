@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../outside/repositories/app_user/repository.dart';
 import '../../../outside/repositories/tasks/repository.dart';
+import '../../../shared/models/app_user.dart';
 import '../base.dart';
 import 'events.dart';
 import 'state.dart';
@@ -24,6 +25,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
   }
 
   final AppUser_Repository _appUserRepository;
+
   final Task_Repository _taskRepository;
 
   Future<void> _onLoadTasks(
@@ -32,10 +34,18 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
   ) async {
     emit(state.copyWith(status: ParentTasks_Status.loading));
     try {
-      // TODO: Implement fetching tasks logic using _taskRepository
-      // For now, just simulate a delay
-      await Future.delayed(const Duration(seconds: 1));
-      emit(state.copyWith(status: ParentTasks_Status.loaded, tasks: []));
+      final tasks = await _taskRepository.getTasks();
+      final familyMembers = await _appUserRepository.getFamilyMembers();
+      final kids = familyMembers
+          .where((user) => user.role == UserRole.kid)
+          .toList();
+      emit(
+        state.copyWith(
+          status: ParentTasks_Status.loaded,
+          tasks: tasks,
+          kids: kids,
+        ),
+      );
     } catch (e, stackTrace) {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(

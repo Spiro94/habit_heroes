@@ -39,24 +39,22 @@ class SupabaseTaskCompletion_Repository extends TaskCompletion_Repository {
     required TaskCompletion taskCompletion,
   }) async {
     log.info('createTaskCompletion');
-    final response =
-        await _supabaseClient
-            .from('task_completions')
-            .insert(taskCompletion.toJson())
-            .select()
-            .single();
+    final response = await _supabaseClient
+        .from('task_completions')
+        .insert(taskCompletion.toJson())
+        .select()
+        .single();
     return TaskCompletion.fromJson(response);
   }
 
   @override
   Future<TaskCompletion?> getTaskCompletion({required String id}) async {
     log.info('getTaskCompletion');
-    final response =
-        await _supabaseClient
-            .from('task_completions')
-            .select()
-            .eq('id', id)
-            .single();
+    final response = await _supabaseClient
+        .from('task_completions')
+        .select()
+        .eq('id', id)
+        .single();
     return TaskCompletion.fromJson(response);
   }
 
@@ -65,13 +63,12 @@ class SupabaseTaskCompletion_Repository extends TaskCompletion_Repository {
     required TaskCompletion taskCompletion,
   }) async {
     log.info('updateTaskCompletion');
-    final response =
-        await _supabaseClient
-            .from('task_completions')
-            .update(taskCompletion.toJson())
-            .eq('id', taskCompletion.id)
-            .select()
-            .single();
+    final response = await _supabaseClient
+        .from('task_completions')
+        .update(taskCompletion.toJson())
+        .eq('id', taskCompletion.id)
+        .select()
+        .single();
     return TaskCompletion.fromJson(response);
   }
 

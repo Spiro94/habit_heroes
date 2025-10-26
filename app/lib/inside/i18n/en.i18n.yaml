@@ -1,0 +1,154 @@
+emailVerificationLinkSent:
+  title: "Email Verification Link Sent"
+  subtitle: "Check your email for you email verification link."
+
+forgotPassword:
+  title: "Forgot Password?"
+  form:
+    email:
+      label: "Email"
+      hint: "john.doe@example.com"
+      error:
+        empty: "Please enter your email address."
+        invalid: "Please enter a valid email address."
+    submit:
+      label: "Reset Password"
+
+home:
+  title: "Home"
+
+resetPasswordLinkSent:
+  title: "Reset Password Link"
+  subtitle: "Check your email for your reset password link."
+  resend:
+    question: "Didn't receive a link?"
+    action: "Resend"
+    success: "Your reset password link was resent."
+
+resetPassword:
+  title: "Reset Password"
+  form:
+    password:
+      label: "Password"
+      error:
+        empty: "Please enter a password."
+        invalid: "Minimum 8 characters, upper and lower case, with at least one special character."
+    submit:
+      label: "Reset Password"
+      success: "Your password was reset."
+
+signIn:
+  title: "Sign In"
+  signUp:
+    question: "Need an account?"
+    action: "Sign Up"
+  forgotPassword:
+    question: "Forgot password?"
+  form:
+    email:
+      label: "Email"
+      hint: "john.doe@example.com"
+      error:
+        empty: "Please enter your email address."
+        invalid: "Please enter a valid email address."
+    password:
+      label: "Password"
+      error:
+        empty: "Please enter a password."
+    submit:
+      label: "Sign In"
+
+signUp:
+  title: "Sign Up"
+  form:
+    email:
+      label: "Email"
+      hint: "john.doe@example.com"
+      error:
+        empty: "Please enter your email address."
+        invalid: "Please enter a valid email address."
+    password:
+      label: "Password"
+      error:
+        empty: "Please enter a password."
+        invalid: "Minimum 8 characters, upper and lower case, with at least one special character."
+    submit:
+      label: "Sign Up"
+  resendEmailVerification:
+    question: "Still need to verify you email?"
+    action: "Resend"
+    dialog:
+      title: "Email Verification Link"
+      cancel: "Cancel"
+      submit:
+        label: "Resend"
+        success: "Your email verification link was resent."
+
+family:
+  title: "Familia"
+  addMember: "Agregar Miembro"
+  noMembers: "No hay miembros en tu familia."
+  invite:
+    title: "Invitar a la Familia"
+    email:
+      label: "Correo electrónico del miembro"
+      hint: "jane.doe@example.com"
+      error:
+        empty: "Por favor ingresa un correo electrónico."
+        invalid: "Por favor ingresa un correo electrónico válido."
+    submit: "Enviar Invitación"
+  invitations:
+    title: "Invitaciones"
+    noInvitations: "No tienes invitaciones pendientes."
+    accept: "Aceptar"
+    decline: "Rechazar"
+
+newFamilyMember:
+  title: "Nuevo Miembro de la Familia"
+  form:
+    name:
+      label: "Nombre"
+      hint: "Jane Doe"
+      error:
+        empty: "Por favor ingresa un nombre."
+    email:
+      label: "Correo electrónico"
+      hint: "jane.doe@example.com"
+      error:
+        empty: "Por favor ingresa un correo electrónico."
+        invalid: "Por favor ingresa un correo electrónico válido."
+    submit:
+      label: "Agregar Miembro"
+      success: "Miembro de la familia agregado."
+
+newFamily:
+  title: "Nueva Familia"
+  form:
+    name:
+      label: "Nombre de la Familia"
+      hint: "Los Doe"
+      error:
+        empty: "Por favor ingresa un nombre para la familia."
+    submit:
+      label: "Crear Familia"
+      success: "Familia creada."
+
+profile:
+  title: "Perfil"
+  update: "Actualizar Perfil"
+  signOut: "Cerrar Sesión"
+  form:
+    name:
+      label: "Nombre"
+      hint: "John Doe"
+    avatarUrl:
+      label: "URL del Avatar"
+      hint: "https://example.com/avatar.png"
+
+parentDashboard:
+  title: "Tablero de Padres"
+  welcome: "¡Bienvenido al Tablero de Padres!"
+
+parentRewards:
+  title: "Recompensas para Padres"
+  body: "Lista de recompensas para padres"

@@ -21,9 +21,9 @@ void main() {
       expect(task.title, 'Do dishes');
       expect(task.description, 'Wash all the dishes in the sink');
       expect(task.points, 10);
-      expect(task.timeOfDay, TimeOfDayCategory.morning);
-      expect(task.repeat, Repetition.daily);
-      expect(task.daysOfWeek, [1, 2, 3]);
+      expect(task.partOfDay, TimeOfDayCategory.morning);
+      expect(task.isRepetitive, Repetition.daily);
+      expect(task.dueDaysOfWeek, [1, 2, 3]);
       expect(task.createdAt, DateTime.parse('2023-01-01T00:00:00.000Z'));
     });
 
@@ -34,9 +34,9 @@ void main() {
         title: 'Do dishes',
         description: 'Wash all the dishes in the sink',
         points: 10,
-        timeOfDay: TimeOfDayCategory.morning,
-        repeat: Repetition.daily,
-        daysOfWeek: const [1, 2, 3],
+        partOfDay: TimeOfDayCategory.morning,
+        isRepetitive: Repetition.daily,
+        dueDaysOfWeek: const [1, 2, 3],
         createdAt: DateTime.parse('2023-01-01T00:00:00.000Z'),
       );
 
@@ -60,9 +60,9 @@ void main() {
         title: 'Do dishes',
         description: 'Wash all the dishes in the sink',
         points: 10,
-        timeOfDay: TimeOfDayCategory.morning,
-        repeat: Repetition.daily,
-        daysOfWeek: const [1, 2, 3],
+        partOfDay: TimeOfDayCategory.morning,
+        isRepetitive: Repetition.daily,
+        dueDaysOfWeek: const [1, 2, 3],
         createdAt: DateTime.parse('2023-01-01T00:00:00.000Z'),
       );
       final task2 = Task(
@@ -71,9 +71,9 @@ void main() {
         title: 'Do dishes',
         description: 'Wash all the dishes in the sink',
         points: 10,
-        timeOfDay: TimeOfDayCategory.morning,
-        repeat: Repetition.daily,
-        daysOfWeek: const [1, 2, 3],
+        partOfDay: TimeOfDayCategory.morning,
+        isRepetitive: Repetition.daily,
+        dueDaysOfWeek: const [1, 2, 3],
         createdAt: DateTime.parse('2023-01-01T00:00:00.000Z'),
       );
       final task3 = Task(
@@ -82,9 +82,9 @@ void main() {
         title: 'Clean room',
         description: 'Tidy up your room',
         points: 20,
-        timeOfDay: TimeOfDayCategory.evening,
-        repeat: Repetition.weekly,
-        daysOfWeek: const [5],
+        partOfDay: TimeOfDayCategory.evening,
+        isRepetitive: Repetition.weekly,
+        dueDaysOfWeek: const [5],
         createdAt: DateTime.parse('2023-01-02T00:00:00.000Z'),
       );
 

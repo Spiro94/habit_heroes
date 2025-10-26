@@ -1,11 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'enums/part_of_day.dart';
+
 part 'task.g.dart';
-
-enum TimeOfDayCategory { morning, afternoon, evening }
-
-enum Repetition { daily, weekly }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Task extends Equatable {
@@ -14,10 +12,12 @@ class Task extends Equatable {
     required this.familyId,
     required this.title,
     required this.points,
-    required this.timeOfDay,
-    required this.repeat,
-    required this.daysOfWeek,
+    required this.partOfDay,
+    required this.isRepetitive,
+    required this.dueDaysOfWeek,
     required this.createdAt,
+    required this.assigneeId,
+    this.dueDate,
     this.description,
   });
 
@@ -28,9 +28,11 @@ class Task extends Equatable {
   final String title;
   final String? description;
   final int points;
-  final TimeOfDayCategory timeOfDay;
-  final Repetition repeat;
-  final List<int> daysOfWeek;
+  final PartOfDay partOfDay;
+  final bool isRepetitive;
+  final List<int> dueDaysOfWeek;
+  final String assigneeId;
+  final DateTime? dueDate;
   final DateTime createdAt;
 
   Map<String, dynamic> toJson() => _$TaskToJson(this);
@@ -42,9 +44,11 @@ class Task extends Equatable {
     title,
     description,
     points,
-    timeOfDay,
-    repeat,
-    daysOfWeek,
+    partOfDay,
+    isRepetitive,
+    dueDaysOfWeek,
     createdAt,
+    assigneeId,
+    dueDate,
   ];
 }

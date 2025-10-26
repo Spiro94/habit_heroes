@@ -13,13 +13,12 @@ import 'configuration.dart';
 
 void main() {
   final configuration = AppConfiguration(
-    appLocale: AppLocale.en,
+    appLocale: AppLocale.esCo,
     logLevel: logging.Level.INFO,
     theme: OutsideThemes.lightTheme,
-    deepLinkBaseUri:
-        kIsWeb
-            ? 'CHANGE_ME'
-            : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
+    deepLinkBaseUri: kIsWeb
+        ? 'CHANGE_ME'
+        : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
     clientProvidersConfigurations: ClientProvidersConfigurations(
       sentry: const Sentry_ClientProvider_Configuration(
         dsn: 'CHANGE_ME',

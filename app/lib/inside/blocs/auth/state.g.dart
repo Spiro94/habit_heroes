@@ -12,6 +12,9 @@ Auth_State _$Auth_StateFromJson(Map<String, dynamic> json) => Auth_State(
   appUser: json['appUser'] == null
       ? null
       : AppUser.fromJson(json['appUser'] as Map<String, dynamic>),
+  family: json['family'] == null
+      ? null
+      : Family.fromJson(json['family'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$Auth_StateToJson(Auth_State instance) =>
@@ -19,6 +22,7 @@ Map<String, dynamic> _$Auth_StateToJson(Auth_State instance) =>
       'status': _$Auth_StatusEnumMap[instance.status]!,
       'accessToken': instance.accessToken,
       'appUser': instance.appUser,
+      'family': instance.family,
     };
 
 const _$Auth_StatusEnumMap = {

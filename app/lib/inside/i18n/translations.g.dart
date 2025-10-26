@@ -3,10 +3,10 @@
 /// Source: lib/inside/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 1
-/// Strings: 46
+/// Locales: 2
+/// Strings: 172 (86 per locale)
 ///
-/// Built on 2025-02-26 at 07:55 UTC
+/// Built on 2025-10-25 at 22:00 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -17,21 +17,23 @@ import 'package:slang/generated.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 export 'package:slang_flutter/slang_flutter.dart';
 
-part 'translations_en.g.dart';
+import 'translations_en.g.dart' deferred as l_en;
+part 'translations_es_CO.g.dart';
 
 /// Supported locales.
 ///
 /// Usage:
-/// - LocaleSettings.setLocale(AppLocale.en) // set locale
-/// - Locale locale = AppLocale.en.flutterLocale // get flutter locale from enum
-/// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
+/// - LocaleSettings.setLocale(AppLocale.esCo) // set locale
+/// - Locale locale = AppLocale.esCo.flutterLocale // get flutter locale from enum
+/// - if (LocaleSettings.currentLocale == AppLocale.esCo) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
+  esCo(languageCode: 'es', countryCode: 'CO'),
   en(languageCode: 'en');
 
   const AppLocale({
     required this.languageCode,
-    this.scriptCode, // ignore: unused_element
-    this.countryCode, // ignore: unused_element
+    this.scriptCode, // ignore: unused_element, unused_element_parameter
+    this.countryCode, // ignore: unused_element, unused_element_parameter
   });
 
   @override
@@ -48,8 +50,15 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
     PluralResolver? ordinalResolver,
   }) async {
     switch (this) {
+      case AppLocale.esCo:
+        return TranslationsEsCo(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.en:
-        return TranslationsEn(
+        await l_en.loadLibrary();
+        return l_en.TranslationsEn(
           overrides: overrides,
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
@@ -64,8 +73,14 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
     PluralResolver? ordinalResolver,
   }) {
     switch (this) {
+      case AppLocale.esCo:
+        return TranslationsEsCo(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.en:
-        return TranslationsEn(
+        return l_en.TranslationsEn(
           overrides: overrides,
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
@@ -189,7 +204,7 @@ class LocaleSettings
 /// Provides utility functions without any side effects.
 class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
   AppLocaleUtils._()
-    : super(baseLocale: AppLocale.en, locales: AppLocale.values);
+    : super(baseLocale: AppLocale.esCo, locales: AppLocale.values);
 
   static final instance = AppLocaleUtils._();
 

@@ -27,6 +27,22 @@ class Authenticated_Routes extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CreateTask_Page]
+class CreateTask_Route extends PageRouteInfo<void> {
+  const CreateTask_Route({List<PageRouteInfo>? children})
+    : super(CreateTask_Route.name, initialChildren: children);
+
+  static const String name = 'CreateTask_Route';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreateTask_Page();
+    },
+  );
+}
+
+/// generated route for
 /// [EmailVerificationLinkSent_Page]
 class EmailVerificationLinkSent_Route extends PageRouteInfo<void> {
   const EmailVerificationLinkSent_Route({List<PageRouteInfo>? children})
@@ -123,17 +139,17 @@ class ParentRewards_Route extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ParentTasks_Page]
-class ParentTasks_Route extends PageRouteInfo<void> {
-  const ParentTasks_Route({List<PageRouteInfo>? children})
-    : super(ParentTasks_Route.name, initialChildren: children);
+/// [ParentTasks_Router]
+class ParentTasks_Routes extends PageRouteInfo<void> {
+  const ParentTasks_Routes({List<PageRouteInfo>? children})
+    : super(ParentTasks_Routes.name, initialChildren: children);
 
-  static const String name = 'ParentTasks_Route';
+  static const String name = 'ParentTasks_Routes';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ParentTasks_Page();
+      return const ParentTasks_Router();
     },
   );
 }
@@ -182,6 +198,16 @@ class ResetPasswordLinkSent_RouteArgs {
   String toString() {
     return 'ResetPasswordLinkSent_RouteArgs{email: $email, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ResetPasswordLinkSent_RouteArgs) return false;
+    return email == other.email && key == other.key;
+  }
+
+  @override
+  int get hashCode => email.hashCode ^ key.hashCode;
 }
 
 /// generated route for
@@ -228,6 +254,22 @@ class SignUp_Route extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return WrappedRoute(child: const SignUp_Page());
+    },
+  );
+}
+
+/// generated route for
+/// [TaskList_Page]
+class TaskList_Route extends PageRouteInfo<void> {
+  const TaskList_Route({List<PageRouteInfo>? children})
+    : super(TaskList_Route.name, initialChildren: children);
+
+  static const String name = 'TaskList_Route';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TaskList_Page();
     },
   );
 }

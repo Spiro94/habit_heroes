@@ -11,12 +11,16 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
   familyId: json['family_id'] as String,
   title: json['title'] as String,
   points: (json['points'] as num).toInt(),
-  timeOfDay: $enumDecode(_$TimeOfDayCategoryEnumMap, json['time_of_day']),
-  repeat: $enumDecode(_$RepetitionEnumMap, json['repeat']),
-  daysOfWeek: (json['days_of_week'] as List<dynamic>)
+  partOfDay: $enumDecode(_$PartOfDayEnumMap, json['part_of_day']),
+  isRepetitive: json['is_repetitive'] as bool,
+  dueDaysOfWeek: (json['due_days_of_week'] as List<dynamic>)
       .map((e) => (e as num).toInt())
       .toList(),
   createdAt: DateTime.parse(json['created_at'] as String),
+  assigneeId: json['assignee_id'] as String,
+  dueDate: json['due_date'] == null
+      ? null
+      : DateTime.parse(json['due_date'] as String),
   description: json['description'] as String?,
 );
 
@@ -26,19 +30,16 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
   'title': instance.title,
   'description': instance.description,
   'points': instance.points,
-  'time_of_day': _$TimeOfDayCategoryEnumMap[instance.timeOfDay]!,
-  'repeat': _$RepetitionEnumMap[instance.repeat]!,
-  'days_of_week': instance.daysOfWeek,
+  'part_of_day': _$PartOfDayEnumMap[instance.partOfDay]!,
+  'is_repetitive': instance.isRepetitive,
+  'due_days_of_week': instance.dueDaysOfWeek,
+  'assignee_id': instance.assigneeId,
+  'due_date': instance.dueDate?.toIso8601String(),
   'created_at': instance.createdAt.toIso8601String(),
 };
 
-const _$TimeOfDayCategoryEnumMap = {
-  TimeOfDayCategory.morning: 'morning',
-  TimeOfDayCategory.afternoon: 'afternoon',
-  TimeOfDayCategory.evening: 'evening',
-};
-
-const _$RepetitionEnumMap = {
-  Repetition.daily: 'daily',
-  Repetition.weekly: 'weekly',
+const _$PartOfDayEnumMap = {
+  PartOfDay.morning: 'morning',
+  PartOfDay.afternoon: 'afternoon',
+  PartOfDay.evening: 'evening',
 };

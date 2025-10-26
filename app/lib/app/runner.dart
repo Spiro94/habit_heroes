@@ -17,6 +17,7 @@ import '../outside/repositories/all.dart';
 import '../outside/repositories/app_user/repository.dart';
 import '../outside/repositories/auth/repository.dart';
 import '../outside/repositories/completions/repository.dart';
+import '../outside/repositories/family/repository.dart';
 import '../outside/repositories/rewards/repository.dart';
 import '../outside/repositories/tasks/repository.dart';
 import 'builder.dart';
@@ -86,6 +87,9 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
     taskRepository: SupabaseTask_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
+    familyRepository: Family_Repository(
+      supabaseClient: clientProviders.supabaseClientProvider.client,
+    ),
   );
   await repositories.initialize();
 
@@ -94,13 +98,12 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
   Bloc.observer = Blocs_Observer();
 
   // Get access token if there is one
-  final accessToken =
-      clientProviders
-          .supabaseClientProvider
-          .client
-          .auth
-          .currentSession
-          ?.accessToken;
+  final accessToken = clientProviders
+      .supabaseClientProvider
+      .client
+      .auth
+      .currentSession
+      ?.accessToken;
 
   // If an access token exists, then update the users in clients
   if (accessToken != null && accessToken.isNotEmpty) {

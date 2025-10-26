@@ -12,7 +12,7 @@ abstract class Task_Repository extends Repository_Base {
 
   Future<void> deleteTask({required String id});
 
-  Future<List<Task>> getTasksByFamilyId({required String familyId});
+  Future<List<Task>> getTasks();
 
   Future<List<Task>> getTasksByAssigneeId({required String assigneeId});
 }
@@ -29,33 +29,34 @@ class SupabaseTask_Repository extends Task_Repository {
   @override
   Future<Task> createTask({required Task task}) async {
     log.info('createTask');
-    final response =
-        await _supabaseClient
-            .from('tasks')
-            .insert(task.toJson())
-            .select()
-            .single();
+    final response = await _supabaseClient
+        .from('tasks')
+        .insert(task.toJson())
+        .select()
+        .single();
     return Task.fromJson(response);
   }
 
   @override
   Future<Task?> getTask({required String id}) async {
     log.info('getTask');
-    final response =
-        await _supabaseClient.from('tasks').select().eq('id', id).single();
+    final response = await _supabaseClient
+        .from('tasks')
+        .select()
+        .eq('id', id)
+        .single();
     return Task.fromJson(response);
   }
 
   @override
   Future<Task> updateTask({required Task task}) async {
     log.info('updateTask');
-    final response =
-        await _supabaseClient
-            .from('tasks')
-            .update(task.toJson())
-            .eq('id', task.id)
-            .select()
-            .single();
+    final response = await _supabaseClient
+        .from('tasks')
+        .update(task.toJson())
+        .eq('id', task.id)
+        .select()
+        .single();
     return Task.fromJson(response);
   }
 
@@ -66,12 +67,10 @@ class SupabaseTask_Repository extends Task_Repository {
   }
 
   @override
-  Future<List<Task>> getTasksByFamilyId({required String familyId}) async {
+  Future<List<Task>> getTasks() async {
     log.info('getTasksByFamilyId');
-    final response = await _supabaseClient
-        .from('tasks')
-        .select()
-        .eq('family_id', familyId);
+    final response = await _supabaseClient.from('tasks').select();
+    // .eq('family_id', familyId);
     return response.map(Task.fromJson).toList();
   }
 

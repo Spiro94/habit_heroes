@@ -7,7 +7,9 @@ import 'authenticated/guard.dart';
 import 'authenticated/home/page.dart';
 import 'authenticated/parent_dashboard/page.dart';
 import 'authenticated/parent_rewards/page.dart';
-import 'authenticated/parent_tasks/page.dart';
+import 'authenticated/parents/tasks/create_task/page.dart';
+import 'authenticated/parents/tasks/router.dart';
+import 'authenticated/parents/tasks/task_list/page.dart';
 import 'authenticated/reset_password/page.dart';
 import 'authenticated/router.dart';
 import 'unauthenitcated/email_verification_link_sent/page.dart';
@@ -67,17 +69,22 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
         AutoRoute(initial: true, path: 'home', page: Home_Route.page),
         AutoRoute(path: 'home/reset-password', page: ResetPassword_Route.page),
         AutoRoute(
+          page: ParentTasks_Routes.page,
+          path: 'home/tasks',
+          children: [
+            AutoRoute(path: '', page: TaskList_Route.page),
+            AutoRoute(path: 'create', page: CreateTask_Route.page),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ],
+        ),
+        AutoRoute(
           path: 'parent-dashboard',
           page: ParentDashboard_Route.page,
           children: [
-            AutoRoute(
-              initial: true,
-              path: 'tasks',
-              page: ParentTasks_Route.page,
-            ),
             AutoRoute(path: 'rewards', page: ParentRewards_Route.page),
           ],
         ),
+
         RedirectRoute(path: '*', redirectTo: 'home'),
       ],
     ),

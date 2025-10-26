@@ -27,33 +27,34 @@ class SupabaseReward_Repository extends Reward_Repository {
   @override
   Future<Reward> createReward({required Reward reward}) async {
     log.info('createReward');
-    final response =
-        await _supabaseClient
-            .from('rewards')
-            .insert(reward.toJson())
-            .select()
-            .single();
+    final response = await _supabaseClient
+        .from('rewards')
+        .insert(reward.toJson())
+        .select()
+        .single();
     return Reward.fromJson(response);
   }
 
   @override
   Future<Reward?> getReward({required String id}) async {
     log.info('getReward');
-    final response =
-        await _supabaseClient.from('rewards').select().eq('id', id).single();
+    final response = await _supabaseClient
+        .from('rewards')
+        .select()
+        .eq('id', id)
+        .single();
     return Reward.fromJson(response);
   }
 
   @override
   Future<Reward> updateReward({required Reward reward}) async {
     log.info('updateReward');
-    final response =
-        await _supabaseClient
-            .from('rewards')
-            .update(reward.toJson())
-            .eq('id', reward.id)
-            .select()
-            .single();
+    final response = await _supabaseClient
+        .from('rewards')
+        .update(reward.toJson())
+        .eq('id', reward.id)
+        .select()
+        .single();
     return Reward.fromJson(response);
   }
 

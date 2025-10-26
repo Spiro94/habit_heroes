@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../shared/models/app_user.dart';
+import '../../../shared/models/family.dart';
 import '../base.dart';
 
 class Family_Repository extends Repository_Base {
@@ -14,6 +15,17 @@ class Family_Repository extends Repository_Base {
 
   Future<void> createFamily(String familyId) async {
     await _supabaseClient.from('families').insert({'id': familyId});
+  }
+
+  /// Creates a family row with an optional name and returns the created Family.
+  Future<Family> createFamilyWithName({String? name}) async {
+    final response = await _supabaseClient
+        .from('families')
+        .insert({'name': name ?? 'My Family'})
+        .select()
+        .single();
+
+    return Family.fromJson(response);
   }
 
   Future<void> addUserToFamily(String familyId, String userId) async {
@@ -43,5 +55,32 @@ class Family_Repository extends Repository_Base {
     return (response as List)
         .map((e) => AppUser.fromJson(e as Map<String, dynamic>))
         .toList();
+  }
+
+  /// Returns the family model for [userId] if exists, otherwise null.
+  Future<Family?> getFamilyForUser(String userId) async {
+    final response = await _supabaseClient
+        .from('family_members')
+        .select('family_id')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+    if (response == null) return null;
+
+    final familyId = response['family_id'] as String?;
+    if (familyId == null) return null;
+
+    return getFamilyById(familyId);
+  }
+
+  Future<Family?> getFamilyById(String familyId) async {
+    final response = await _supabaseClient
+        .from('families')
+        .select()
+        .eq('id', familyId)
+        .maybeSingle();
+
+    if (response == null) return null;
+    return Family.fromJson(response);
   }
 }

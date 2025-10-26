@@ -1,0 +1,154 @@
+emailVerificationLinkSent:
+  title: 'Enlace de verificación de correo electrónico enviado'
+  subtitle: 'Revisa tu correo electrónico para ver el enlace de verificación.'
+
+forgotPassword:
+  title: '¿Olvidaste tu contraseña?'
+  form:
+    email:
+      label: 'Correo electrónico'
+      hint: 'john.doe@example.com'
+      error:
+        empty: 'Por favor ingresa tu correo electrónico.'
+        invalid: 'Por favor ingresa un correo electrónico válido.'
+    submit:
+      label: 'Restablecer contraseña'
+
+home:
+  title: 'Inicio'
+
+resetPasswordLinkSent:
+  title: 'Enlace para restablecer la contraseña'
+  subtitle: 'Revisa tu correo electrónico para ver el enlace para restablecer la contraseña.'
+  resend:
+    question: "¿No recibiste un enlace?"
+    action: 'Reenviar'
+    success: 'Se reenvió el enlace para restablecer la contraseña.'
+
+resetPassword:
+  title: 'Restablecer contraseña'
+  form:
+    password:
+      label: 'Contraseña'
+      error:
+        empty: 'Por favor ingresa una contraseña.'
+        invalid: 'Mínimo 8 caracteres, mayúsculas y minúsculas, con al menos un caracter especial.'
+    submit:
+      label: 'Restablecer contraseña'
+      success: 'Tu contraseña fue restablecida.'
+
+signIn:
+  title: 'Iniciar sesión'
+  signUp:
+    question: '¿Necesitas una cuenta?'
+    action: 'Regístrate'
+  forgotPassword:
+    question: '¿Olvidaste tu contraseña?'
+  form:
+    email:
+      label: 'Correo electrónico'
+      hint: 'john.doe@example.com'
+      error:
+        empty: 'Por favor ingresa tu correo electrónico.'
+        invalid: 'Por favor ingresa un correo electrónico válido.'
+    password:
+      label: 'Contraseña'
+      error:
+        empty: 'Por favor ingresa una contraseña.'
+    submit:
+      label: 'Iniciar sesión'
+
+signUp:
+  title: 'Regístrate'
+  form:
+    email:
+      label: 'Correo electrónico'
+      hint: 'john.doe@example.com'
+      error:
+        empty: 'Por favor ingresa tu correo electrónico.'
+        invalid: 'Por favor ingresa un correo electrónico válido.'
+    password:
+      label: 'Contraseña'
+      error:
+        empty: 'Por favor ingresa una contraseña.'
+        invalid: 'Mínimo 8 caracteres, mayúsculas y minúsculas, con al menos un caracter especial.'
+    submit:
+      label: 'Regístrate'
+  resendEmailVerification:
+    question: '¿Aún necesitas verificar tu correo electrónico?'
+    action: 'Reenviar'
+    dialog:
+      title: 'Enlace de verificación de correo electrónico'
+      cancel: 'Cancelar'
+      submit:
+        label: 'Reenviar'
+        success: 'Se reenvió el enlace de verificación de correo electrónico.'
+
+family:
+  title: 'Familia'
+  addMember: 'Agregar Miembro'
+  noMembers: 'No hay miembros en tu familia.'
+  invite:
+    title: 'Invitar a la Familia'
+    email:
+      label: 'Correo electrónico del miembro'
+      hint: 'jane.doe@example.com'
+      error:
+        empty: 'Por favor ingresa un correo electrónico.'
+        invalid: 'Por favor ingresa un correo electrónico válido.'
+    submit: 'Enviar Invitación'
+  invitations:
+    title: 'Invitaciones'
+    noInvitations: 'No tienes invitaciones pendientes.'
+    accept: 'Aceptar'
+    decline: 'Rechazar'
+
+newFamilyMember:
+  title: 'Nuevo Miembro de la Familia'
+  form:
+    name:
+      label: 'Nombre'
+      hint: 'Jane Doe'
+      error:
+        empty: 'Por favor ingresa un nombre.'
+    email:
+      label: 'Correo electrónico'
+      hint: 'jane.doe@example.com'
+      error:
+        empty: 'Por favor ingresa un correo electrónico.'
+        invalid: 'Por favor ingresa un correo electrónico válido.'
+    submit:
+      label: 'Agregar Miembro'
+      success: 'Miembro de la familia agregado.'
+
+newFamily:
+  title: 'Nueva Familia'
+  form:
+    name:
+      label: 'Nombre de la Familia'
+      hint: 'Los Doe'
+      error:
+        empty: 'Por favor ingresa un nombre para la familia.'
+    submit:
+      label: 'Crear Familia'
+      success: 'Familia creada.'
+
+profile:
+  title: 'Perfil'
+  update: 'Actualizar Perfil'
+  signOut: 'Cerrar Sesión'
+  form:
+    name:
+      label: 'Nombre'
+      hint: 'John Doe'
+    avatarUrl:
+      label: 'URL del Avatar'
+      hint: 'https://example.com/avatar.png'
+
+parentDashboard:
+  title: "Tablero de Padres"
+  welcome: "¡Bienvenido al Tablero de Padres!"
+
+parentRewards:
+  title: "Recompensas para Padres"
+  body: "Lista de recompensas para padres"

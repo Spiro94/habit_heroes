@@ -40,24 +40,36 @@ Future<Widget> appBuilder({
 
   // Set access token if there is one
   _log.fine('access token:\n$accessToken');
-  final authState = accessToken != null && accessToken.isNotEmpty
-      ? Auth_State(
-          status: Auth_Status.authenticated,
-          accessToken: accessToken,
-          appUser: await repositories.appUserRepository.getAppUser(
-            id: repositories.authRepository.getCurrentUser()!.id,
-          ),
-        )
-      : const Auth_State(
-          status: Auth_Status.unauthenticated,
-          accessToken: null,
-        );
+  late final Auth_State authState;
+  if (accessToken != null && accessToken.isNotEmpty) {
+    final supabaseUser = repositories.authRepository.getCurrentUser()!;
+    final appUser = await repositories.appUserRepository.getAppUser(
+      id: supabaseUser.id,
+    );
+
+    final family = await repositories.familyRepository.getFamilyForUser(
+      supabaseUser.id,
+    );
+
+    authState = Auth_State(
+      status: Auth_Status.authenticated,
+      accessToken: accessToken,
+      appUser: appUser,
+      family: family,
+    );
+  } else {
+    authState = const Auth_State(
+      status: Auth_Status.unauthenticated,
+      accessToken: null,
+    );
+  }
 
   // Special case: create AuthBloc outside of widget tree, because it is
   // required by AppRouter, which needs to be created above the widget tree.
   final authBloc = Auth_Bloc(
     appUserRepository: repositories.appUserRepository,
     authRepository: repositories.authRepository,
+    familyRepository: repositories.familyRepository,
     initialState: authState,
   );
 

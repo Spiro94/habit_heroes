@@ -4,6 +4,7 @@ import 'app_user/repository.dart';
 import 'auth/repository.dart';
 import 'base.dart';
 import 'completions/repository.dart';
+import 'family/repository.dart';
 import 'rewards/repository.dart';
 import 'tasks/repository.dart';
 
@@ -19,6 +20,7 @@ class Repositories_All {
     required this.rewardRepository,
     required this.taskCompletionRepository,
     required this.taskRepository,
+    required this.familyRepository,
   });
 
   final AppUser_Repository appUserRepository;
@@ -26,6 +28,7 @@ class Repositories_All {
   final Reward_Repository rewardRepository;
   final TaskCompletion_Repository taskCompletionRepository;
   final Task_Repository taskRepository;
+  final Family_Repository familyRepository;
 
   List<Repository_Base> getList() => [
     appUserRepository,
@@ -33,6 +36,7 @@ class Repositories_All {
     rewardRepository,
     taskCompletionRepository,
     taskRepository,
+    familyRepository,
   ];
 
   List<RepositoryProvider<Repository_Base>> createProviders() {
@@ -44,6 +48,7 @@ class Repositories_All {
         value: taskCompletionRepository,
       ),
       RepositoryProvider<Task_Repository>.value(value: taskRepository),
+      RepositoryProvider<Family_Repository>.value(value: familyRepository),
     ];
   }
 
