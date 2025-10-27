@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../shared/models/kid.dart';
 import '../base.dart';
 
-abstract class Kid_Repository extends Repository_Base {
+abstract class Kids_Repository extends Repository_Base {
   Future<Kid> createKid({required Kid kid});
 
   Future<Kid?> getKid({required String id});
@@ -15,8 +15,8 @@ abstract class Kid_Repository extends Repository_Base {
   Future<void> deleteKid({required String id});
 }
 
-class SupabaseKid_Repository extends Kid_Repository {
-  SupabaseKid_Repository({required SupabaseClient supabaseClient})
+class SupabaseKids_Repository extends Kids_Repository {
+  SupabaseKids_Repository({required SupabaseClient supabaseClient})
     : _supabaseClient = supabaseClient;
 
   final SupabaseClient _supabaseClient;

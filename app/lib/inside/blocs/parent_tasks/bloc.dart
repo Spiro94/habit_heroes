@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../outside/repositories/kid/repository.dart';
+import '../../../outside/repositories/kids/repository.dart';
 import '../../../outside/repositories/task_instances/repository.dart';
 import '../../../outside/repositories/task_schedules/repository.dart';
 import '../../../outside/repositories/task_templates/repository.dart';
@@ -15,7 +15,7 @@ import 'state.dart';
 
 class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
   ParentTasks_Bloc({
-    required Kid_Repository kidRepository,
+    required Kids_Repository kidRepository,
     required TaskInstance_Repository taskInstanceRepository,
     required TaskTemplate_Repository taskTemplateRepository,
     required TaskSchedule_Repository taskScheduleRepository,
@@ -31,7 +31,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
     on<ParentTasks_Event_DeleteTask>(_onDeleteTask, transformer: sequential());
   }
 
-  final Kid_Repository _kidRepository;
+  final Kids_Repository _kidRepository;
   final TaskInstance_Repository _taskInstanceRepository;
   final TaskTemplate_Repository _taskTemplateRepository;
   final TaskSchedule_Repository _taskScheduleRepository;

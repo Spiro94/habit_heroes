@@ -23,6 +23,10 @@
 - Naming: `Feature_Bloc`, `Feature_Event_Action`, `Feature_State`, `Feature_Status`
 - Events drive state changes, widgets listen to state updates
 
+- Coding rules for blocs/pages:
+  - Prefer representing state with a single `Feature_State` class that contains a `Feature_Status` enum (e.g., `initial`, `loading`, `loaded`, `error`) instead of creating many tiny state subclasses. Widgets should read `state.status` to branch UI.
+  - Use relative imports for internal project files (e.g., `../../../../../blocs/kids/state.dart`) when editing pages, blocs, and tests so paths stay consistent with repository layout and codegen output.
+
 **Cubit Pattern** (entity state):
 
 - Single file with methods called directly in widgets

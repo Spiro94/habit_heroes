@@ -4,7 +4,7 @@ import 'app_user/repository.dart';
 import 'auth/repository.dart';
 import 'base.dart';
 import 'completions/repository.dart';
-import 'kid/repository.dart';
+import 'kids/repository.dart';
 import 'rewards/repository.dart';
 import 'task_instances/repository.dart';
 import 'task_schedules/repository.dart';
@@ -29,7 +29,7 @@ class Repositories_All {
 
   final AppUser_Repository appUserRepository;
   final Auth_Repository authRepository;
-  final Kid_Repository kidRepository;
+  final Kids_Repository kidRepository;
   final Reward_Repository rewardRepository;
   final TaskCompletion_Repository taskCompletionRepository;
   final TaskTemplate_Repository taskTemplateRepository;
@@ -51,7 +51,7 @@ class Repositories_All {
     return [
       RepositoryProvider<AppUser_Repository>.value(value: appUserRepository),
       RepositoryProvider<Auth_Repository>.value(value: authRepository),
-      RepositoryProvider<Kid_Repository>.value(value: kidRepository),
+      RepositoryProvider<Kids_Repository>.value(value: kidRepository),
       RepositoryProvider<Reward_Repository>.value(value: rewardRepository),
       RepositoryProvider<TaskCompletion_Repository>.value(
         value: taskCompletionRepository,

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../shared/models/kid.dart';
 
 abstract class Kids_Event extends Equatable {
   const Kids_Event();
@@ -12,35 +13,21 @@ class Kids_Event_LoadKids extends Kids_Event {
 }
 
 class Kids_Event_AddKid extends Kids_Event {
-  const Kids_Event_AddKid({
-    required this.name,
-    this.avatarUrl,
-    this.color,
-  });
+  const Kids_Event_AddKid({required this.kid});
 
-  final String name;
-  final String? avatarUrl;
-  final String? color;
+  final Kid kid;
 
   @override
-  List<Object?> get props => [name, avatarUrl, color];
+  List<Object?> get props => [kid];
 }
 
 class Kids_Event_UpdateKid extends Kids_Event {
-  const Kids_Event_UpdateKid({
-    required this.id,
-    required this.name,
-    this.avatarUrl,
-    this.color,
-  });
+  const Kids_Event_UpdateKid({required this.kid});
 
-  final String id;
-  final String name;
-  final String? avatarUrl;
-  final String? color;
+  final Kid kid;
 
   @override
-  List<Object?> get props => [id, name, avatarUrl, color];
+  List<Object?> get props => [kid];
 }
 
 class Kids_Event_DeleteKid extends Kids_Event {

@@ -1,11 +1,22 @@
-import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'kid.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class Kid extends Equatable {
-  const Kid({
+@JsonSerializable()
+class Kid {
+  final String id;
+  @JsonKey(name: 'parent_id')
+  final String parentId;
+  final String name;
+  @JsonKey(name: 'avatar_url')
+  final String? avatarUrl;
+  final String? color;
+  @JsonKey(name: 'order_index')
+  final int? orderIndex;
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+
+  Kid({
     required this.id,
     required this.parentId,
     required this.name,
@@ -15,19 +26,7 @@ class Kid extends Equatable {
     this.createdAt,
   });
 
-  final String id;
-  final String parentId;
-  final String name;
-  final String? avatarUrl;
-  final String? color;
-  final int? orderIndex;
-  final DateTime? createdAt;
-
   factory Kid.fromJson(Map<String, dynamic> json) => _$KidFromJson(json);
 
   Map<String, dynamic> toJson() => _$KidToJson(this);
-
-  @override
-  List<Object?> get props =>
-      [id, parentId, name, avatarUrl, color, orderIndex, createdAt];
 }

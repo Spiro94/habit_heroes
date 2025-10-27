@@ -11,6 +11,52 @@
 part of 'router.dart';
 
 /// generated route for
+/// [AddEditKid_Page]
+class AddEditKid_Route extends PageRouteInfo<AddEditKid_RouteArgs> {
+  AddEditKid_Route({Key? key, Kid? kid, List<PageRouteInfo>? children})
+    : super(
+        AddEditKid_Route.name,
+        args: AddEditKid_RouteArgs(key: key, kid: kid),
+        initialChildren: children,
+      );
+
+  static const String name = 'AddEditKid_Route';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AddEditKid_RouteArgs>(
+        orElse: () => const AddEditKid_RouteArgs(),
+      );
+      return AddEditKid_Page(key: args.key, kid: args.kid);
+    },
+  );
+}
+
+class AddEditKid_RouteArgs {
+  const AddEditKid_RouteArgs({this.key, this.kid});
+
+  final Key? key;
+
+  final Kid? kid;
+
+  @override
+  String toString() {
+    return 'AddEditKid_RouteArgs{key: $key, kid: $kid}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AddEditKid_RouteArgs) return false;
+    return key == other.key && kid == other.kid;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ kid.hashCode;
+}
+
+/// generated route for
 /// [Authenticated_Router]
 class Authenticated_Routes extends PageRouteInfo<void> {
   const Authenticated_Routes({List<PageRouteInfo>? children})
@@ -107,6 +153,22 @@ class Home_Route extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [KidList_Page]
+class KidList_Route extends PageRouteInfo<void> {
+  const KidList_Route({List<PageRouteInfo>? children})
+    : super(KidList_Route.name, initialChildren: children);
+
+  static const String name = 'KidList_Route';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const KidList_Page();
+    },
+  );
+}
+
+/// generated route for
 /// [ParentDashboard_Page]
 class ParentDashboard_Route extends PageRouteInfo<void> {
   const ParentDashboard_Route({List<PageRouteInfo>? children})
@@ -118,6 +180,22 @@ class ParentDashboard_Route extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ParentDashboard_Page();
+    },
+  );
+}
+
+/// generated route for
+/// [ParentKids_Router]
+class ParentKids_Routes extends PageRouteInfo<void> {
+  const ParentKids_Routes({List<PageRouteInfo>? children})
+    : super(ParentKids_Routes.name, initialChildren: children);
+
+  static const String name = 'ParentKids_Routes';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ParentKids_Router();
     },
   );
 }

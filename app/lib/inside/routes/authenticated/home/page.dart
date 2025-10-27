@@ -43,6 +43,24 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
                   },
                 ),
               ),
+              const SizedBox(height: 16),
+              GestureDetector(
+                onTap: () => context.router.push(const KidList_Route()),
+                child: FCard(
+                  title: const Text('Hijos'),
+                  subtitle: const Text(
+                    'Gestiona los perfiles de tus hijos aquí.',
+                  ),
+                  style: (style) {
+                    return style.copyWith(
+                      decoration: BoxDecoration(
+                        color: Colors.green[50],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
