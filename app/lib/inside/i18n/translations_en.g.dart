@@ -49,6 +49,10 @@ class TranslationsEn implements Translations {
 	@override late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
 	@override late final TranslationsParentDashboardEn parentDashboard = TranslationsParentDashboardEn._(_root);
 	@override late final TranslationsParentRewardsEn parentRewards = TranslationsParentRewardsEn._(_root);
+	@override late final TranslationsKidsEn kids = TranslationsKidsEn._(_root);
+	@override late final TranslationsTasksEn tasks = TranslationsTasksEn._(_root);
+	@override late final TranslationsDaysOfWeekEn daysOfWeek = TranslationsDaysOfWeekEn._(_root);
+	@override late final TranslationsPartOfDayEn partOfDay = TranslationsPartOfDayEn._(_root);
 }
 
 // Path: emailVerificationLinkSent
@@ -202,6 +206,109 @@ class TranslationsParentRewardsEn implements TranslationsParentRewardsEsCo {
 	@override String get body => 'Lista de recompensas para padres';
 }
 
+// Path: kids
+class TranslationsKidsEn implements TranslationsKidsEsCo {
+	TranslationsKidsEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kids';
+	@override String get addKid => 'Add Kid';
+	@override String get addFirstKid => 'Add First Kid';
+	@override String get noKidsYet => 'No kids added yet.';
+	@override String get tryAgain => 'Try Again';
+	@override String get name => 'Name';
+	@override String get nameHint => 'Enter kid\'s name';
+	@override String get color => 'Color';
+	@override String get tapToSelectColor => 'Tap to select a color';
+	@override String get selectColorDescription => 'Select a color for this kid';
+	@override String get pickColor => 'Pick a color';
+	@override String get save => 'Save';
+	@override String get cancel => 'Cancel';
+	@override String get select => 'Select';
+	@override String get deleteKid => 'Delete Kid';
+	@override String deleteKidConfirm({required Object name}) => 'Are you sure you want to delete ${name}?';
+	@override String get pleaseEnterName => 'Please enter a name';
+	@override String get addKidTitle => 'Add Kid';
+	@override String get editKidTitle => 'Edit Kid';
+	@override String get somethingWentWrong => 'Something went wrong';
+}
+
+// Path: tasks
+class TranslationsTasksEn implements TranslationsTasksEsCo {
+	TranslationsTasksEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Listado de tareas';
+	@override String get createTask => 'Crear tarea';
+	@override String get createTaskTitle => 'Crear tarea';
+	@override String get updateTaskTitle => 'Actualizar tarea';
+	@override String get titleLabel => 'Título';
+	@override String get titleHint => 'Ingresa el título de la tarea';
+	@override String get titleRequired => 'El título es requerido';
+	@override String get assignedTo => 'A quién se le asigna?';
+	@override String get assignedToHint => 'Selecciona un niño';
+	@override String get selectAKid => 'Selecciona un niño';
+	@override String get assignedToLabel => 'Asignado a:';
+	@override String get points => 'Puntos (Opcional)';
+	@override String get pointsDescription => 'Cantidad de puntos que vale la tarea';
+	@override String get pointsLabel => 'Puntos:';
+	@override String get pointsHint => '0';
+	@override String get specificDateTask => 'Tarea para fecha específica';
+	@override String get specificDateDescription => 'Marcar si es para un día específico';
+	@override String get specificDate => 'Fecha específica';
+	@override String get specificDateHint => 'Seleccionar fecha';
+	@override String get selectDateDescription => 'Selecciona la fecha para esta tarea';
+	@override String get selectDateError => 'Debes seleccionar una fecha';
+	@override String get weeklySchedule => 'Programación semanal';
+	@override String get weeklyScheduleDescription => 'Selecciona los días y partes del día para la tarea';
+	@override String get scheduleError => 'Selecciona al menos un día y parte del día';
+	@override String get createButton => 'Crear Tarea';
+	@override String get updateButton => 'Actualizar';
+	@override String get noTasksAvailable => 'No hay tareas disponibles.';
+	@override String get createFirstTask => 'Crea tu primer tarea';
+	@override String get noSchedule => 'Sin programación';
+	@override String get dateLabel => 'Fecha:';
+	@override String get errorLoadingTask => 'Error al cargar la tarea';
+	@override String get errorCreatingTask => 'Error al crear la tarea';
+	@override String get errorUpdatingTask => 'Error al actualizar la tarea';
+	@override String get deleteTask => 'Eliminar tarea';
+	@override String get deleteTaskConfirm => '¿Estás seguro que deseas eliminar esta tarea?';
+	@override String get delete => 'Eliminar';
+	@override String get tryAgainButton => 'Intentar de nuevo';
+}
+
+// Path: daysOfWeek
+class TranslationsDaysOfWeekEn implements TranslationsDaysOfWeekEsCo {
+	TranslationsDaysOfWeekEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override late final TranslationsDaysOfWeekMondayEn monday = TranslationsDaysOfWeekMondayEn._(_root);
+	@override late final TranslationsDaysOfWeekTuesdayEn tuesday = TranslationsDaysOfWeekTuesdayEn._(_root);
+	@override late final TranslationsDaysOfWeekWednesdayEn wednesday = TranslationsDaysOfWeekWednesdayEn._(_root);
+	@override late final TranslationsDaysOfWeekThursdayEn thursday = TranslationsDaysOfWeekThursdayEn._(_root);
+	@override late final TranslationsDaysOfWeekFridayEn friday = TranslationsDaysOfWeekFridayEn._(_root);
+	@override late final TranslationsDaysOfWeekSaturdayEn saturday = TranslationsDaysOfWeekSaturdayEn._(_root);
+	@override late final TranslationsDaysOfWeekSundayEn sunday = TranslationsDaysOfWeekSundayEn._(_root);
+}
+
+// Path: partOfDay
+class TranslationsPartOfDayEn implements TranslationsPartOfDayEsCo {
+	TranslationsPartOfDayEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get morning => 'Morning';
+	@override String get afternoon => 'Afternoon';
+	@override String get night => 'Night';
+}
+
 // Path: forgotPassword.form
 class TranslationsForgotPasswordFormEn implements TranslationsForgotPasswordFormEsCo {
 	TranslationsForgotPasswordFormEn._(this._root);
@@ -351,6 +458,83 @@ class TranslationsProfileFormEn implements TranslationsProfileFormEsCo {
 	// Translations
 	@override late final TranslationsProfileFormNameEn name = TranslationsProfileFormNameEn._(_root);
 	@override late final TranslationsProfileFormAvatarUrlEn avatarUrl = TranslationsProfileFormAvatarUrlEn._(_root);
+}
+
+// Path: daysOfWeek.monday
+class TranslationsDaysOfWeekMondayEn implements TranslationsDaysOfWeekMondayEsCo {
+	TranslationsDaysOfWeekMondayEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get short => 'Mon';
+	@override String get full => 'Monday';
+}
+
+// Path: daysOfWeek.tuesday
+class TranslationsDaysOfWeekTuesdayEn implements TranslationsDaysOfWeekTuesdayEsCo {
+	TranslationsDaysOfWeekTuesdayEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get short => 'Tue';
+	@override String get full => 'Tuesday';
+}
+
+// Path: daysOfWeek.wednesday
+class TranslationsDaysOfWeekWednesdayEn implements TranslationsDaysOfWeekWednesdayEsCo {
+	TranslationsDaysOfWeekWednesdayEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get short => 'Wed';
+	@override String get full => 'Wednesday';
+}
+
+// Path: daysOfWeek.thursday
+class TranslationsDaysOfWeekThursdayEn implements TranslationsDaysOfWeekThursdayEsCo {
+	TranslationsDaysOfWeekThursdayEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get short => 'Thu';
+	@override String get full => 'Thursday';
+}
+
+// Path: daysOfWeek.friday
+class TranslationsDaysOfWeekFridayEn implements TranslationsDaysOfWeekFridayEsCo {
+	TranslationsDaysOfWeekFridayEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get short => 'Fri';
+	@override String get full => 'Friday';
+}
+
+// Path: daysOfWeek.saturday
+class TranslationsDaysOfWeekSaturdayEn implements TranslationsDaysOfWeekSaturdayEsCo {
+	TranslationsDaysOfWeekSaturdayEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get short => 'Sat';
+	@override String get full => 'Saturday';
+}
+
+// Path: daysOfWeek.sunday
+class TranslationsDaysOfWeekSundayEn implements TranslationsDaysOfWeekSundayEsCo {
+	TranslationsDaysOfWeekSundayEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get short => 'Sun';
+	@override String get full => 'Sunday';
 }
 
 // Path: forgotPassword.form.email
@@ -808,6 +992,80 @@ extension on TranslationsEn {
 			case 'parentDashboard.welcome': return '¡Bienvenido al Tablero de Padres!';
 			case 'parentRewards.title': return 'Recompensas para Padres';
 			case 'parentRewards.body': return 'Lista de recompensas para padres';
+			case 'kids.title': return 'Kids';
+			case 'kids.addKid': return 'Add Kid';
+			case 'kids.addFirstKid': return 'Add First Kid';
+			case 'kids.noKidsYet': return 'No kids added yet.';
+			case 'kids.tryAgain': return 'Try Again';
+			case 'kids.name': return 'Name';
+			case 'kids.nameHint': return 'Enter kid\'s name';
+			case 'kids.color': return 'Color';
+			case 'kids.tapToSelectColor': return 'Tap to select a color';
+			case 'kids.selectColorDescription': return 'Select a color for this kid';
+			case 'kids.pickColor': return 'Pick a color';
+			case 'kids.save': return 'Save';
+			case 'kids.cancel': return 'Cancel';
+			case 'kids.select': return 'Select';
+			case 'kids.deleteKid': return 'Delete Kid';
+			case 'kids.deleteKidConfirm': return ({required Object name}) => 'Are you sure you want to delete ${name}?';
+			case 'kids.pleaseEnterName': return 'Please enter a name';
+			case 'kids.addKidTitle': return 'Add Kid';
+			case 'kids.editKidTitle': return 'Edit Kid';
+			case 'kids.somethingWentWrong': return 'Something went wrong';
+			case 'tasks.title': return 'Listado de tareas';
+			case 'tasks.createTask': return 'Crear tarea';
+			case 'tasks.createTaskTitle': return 'Crear tarea';
+			case 'tasks.updateTaskTitle': return 'Actualizar tarea';
+			case 'tasks.titleLabel': return 'Título';
+			case 'tasks.titleHint': return 'Ingresa el título de la tarea';
+			case 'tasks.titleRequired': return 'El título es requerido';
+			case 'tasks.assignedTo': return 'A quién se le asigna?';
+			case 'tasks.assignedToHint': return 'Selecciona un niño';
+			case 'tasks.selectAKid': return 'Selecciona un niño';
+			case 'tasks.assignedToLabel': return 'Asignado a:';
+			case 'tasks.points': return 'Puntos (Opcional)';
+			case 'tasks.pointsDescription': return 'Cantidad de puntos que vale la tarea';
+			case 'tasks.pointsLabel': return 'Puntos:';
+			case 'tasks.pointsHint': return '0';
+			case 'tasks.specificDateTask': return 'Tarea para fecha específica';
+			case 'tasks.specificDateDescription': return 'Marcar si es para un día específico';
+			case 'tasks.specificDate': return 'Fecha específica';
+			case 'tasks.specificDateHint': return 'Seleccionar fecha';
+			case 'tasks.selectDateDescription': return 'Selecciona la fecha para esta tarea';
+			case 'tasks.selectDateError': return 'Debes seleccionar una fecha';
+			case 'tasks.weeklySchedule': return 'Programación semanal';
+			case 'tasks.weeklyScheduleDescription': return 'Selecciona los días y partes del día para la tarea';
+			case 'tasks.scheduleError': return 'Selecciona al menos un día y parte del día';
+			case 'tasks.createButton': return 'Crear Tarea';
+			case 'tasks.updateButton': return 'Actualizar';
+			case 'tasks.noTasksAvailable': return 'No hay tareas disponibles.';
+			case 'tasks.createFirstTask': return 'Crea tu primer tarea';
+			case 'tasks.noSchedule': return 'Sin programación';
+			case 'tasks.dateLabel': return 'Fecha:';
+			case 'tasks.errorLoadingTask': return 'Error al cargar la tarea';
+			case 'tasks.errorCreatingTask': return 'Error al crear la tarea';
+			case 'tasks.errorUpdatingTask': return 'Error al actualizar la tarea';
+			case 'tasks.deleteTask': return 'Eliminar tarea';
+			case 'tasks.deleteTaskConfirm': return '¿Estás seguro que deseas eliminar esta tarea?';
+			case 'tasks.delete': return 'Eliminar';
+			case 'tasks.tryAgainButton': return 'Intentar de nuevo';
+			case 'daysOfWeek.monday.short': return 'Mon';
+			case 'daysOfWeek.monday.full': return 'Monday';
+			case 'daysOfWeek.tuesday.short': return 'Tue';
+			case 'daysOfWeek.tuesday.full': return 'Tuesday';
+			case 'daysOfWeek.wednesday.short': return 'Wed';
+			case 'daysOfWeek.wednesday.full': return 'Wednesday';
+			case 'daysOfWeek.thursday.short': return 'Thu';
+			case 'daysOfWeek.thursday.full': return 'Thursday';
+			case 'daysOfWeek.friday.short': return 'Fri';
+			case 'daysOfWeek.friday.full': return 'Friday';
+			case 'daysOfWeek.saturday.short': return 'Sat';
+			case 'daysOfWeek.saturday.full': return 'Saturday';
+			case 'daysOfWeek.sunday.short': return 'Sun';
+			case 'daysOfWeek.sunday.full': return 'Sunday';
+			case 'partOfDay.morning': return 'Morning';
+			case 'partOfDay.afternoon': return 'Afternoon';
+			case 'partOfDay.night': return 'Night';
 			default: return null;
 		}
 	}

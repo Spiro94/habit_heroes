@@ -19,7 +19,6 @@ Kid _$KidFromJson(Map<String, dynamic> json) => Kid(
 );
 
 Map<String, dynamic> _$KidToJson(Kid instance) => <String, dynamic>{
-  'id': instance.id,
   'parent_id': instance.parentId,
   'name': instance.name,
   'avatar_url': instance.avatarUrl,

@@ -93,8 +93,7 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
           path: 'home/kids',
           children: [
             AutoRoute(path: '', page: KidList_Route.page),
-            AutoRoute(path: 'add', page: AddEditKid_Route.page),
-            // AutoRoute(path: ':kidId/edit', page: AddEditKid_Route.page),
+            AutoRoute(path: 'edit', page: AddEditKid_Route.page),
             RedirectRoute(path: '*', redirectTo: ''),
           ],
         ),

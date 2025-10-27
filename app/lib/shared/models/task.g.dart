@@ -41,5 +41,5 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
 const _$PartOfDayEnumMap = {
   PartOfDay.morning: 'morning',
   PartOfDay.afternoon: 'afternoon',
-  PartOfDay.evening: 'evening',
+  PartOfDay.night: 'night',
 };

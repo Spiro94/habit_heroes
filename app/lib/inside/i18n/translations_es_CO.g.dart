@@ -52,6 +52,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsProfileEsCo profile = TranslationsProfileEsCo._(_root);
 	late final TranslationsParentDashboardEsCo parentDashboard = TranslationsParentDashboardEsCo._(_root);
 	late final TranslationsParentRewardsEsCo parentRewards = TranslationsParentRewardsEsCo._(_root);
+	late final TranslationsKidsEsCo kids = TranslationsKidsEsCo._(_root);
+	late final TranslationsTasksEsCo tasks = TranslationsTasksEsCo._(_root);
+	late final TranslationsDaysOfWeekEsCo daysOfWeek = TranslationsDaysOfWeekEsCo._(_root);
+	late final TranslationsPartOfDayEsCo partOfDay = TranslationsPartOfDayEsCo._(_root);
 }
 
 // Path: emailVerificationLinkSent
@@ -256,6 +260,229 @@ class TranslationsParentRewardsEsCo {
 	String get body => 'Lista de recompensas para padres';
 }
 
+// Path: kids
+class TranslationsKidsEsCo {
+	TranslationsKidsEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Niños'
+	String get title => 'Niños';
+
+	/// es-CO: 'Agregar Niño'
+	String get addKid => 'Agregar Niño';
+
+	/// es-CO: 'Agregar Primer Niño'
+	String get addFirstKid => 'Agregar Primer Niño';
+
+	/// es-CO: 'No hay niños agregados aún.'
+	String get noKidsYet => 'No hay niños agregados aún.';
+
+	/// es-CO: 'Intentar de Nuevo'
+	String get tryAgain => 'Intentar de Nuevo';
+
+	/// es-CO: 'Nombre'
+	String get name => 'Nombre';
+
+	/// es-CO: 'Ingresa el nombre del niño'
+	String get nameHint => 'Ingresa el nombre del niño';
+
+	/// es-CO: 'Color'
+	String get color => 'Color';
+
+	/// es-CO: 'Toca para seleccionar un color'
+	String get tapToSelectColor => 'Toca para seleccionar un color';
+
+	/// es-CO: 'Selecciona un color para este niño'
+	String get selectColorDescription => 'Selecciona un color para este niño';
+
+	/// es-CO: 'Elige un color'
+	String get pickColor => 'Elige un color';
+
+	/// es-CO: 'Guardar'
+	String get save => 'Guardar';
+
+	/// es-CO: 'Cancelar'
+	String get cancel => 'Cancelar';
+
+	/// es-CO: 'Seleccionar'
+	String get select => 'Seleccionar';
+
+	/// es-CO: 'Eliminar Niño'
+	String get deleteKid => 'Eliminar Niño';
+
+	/// es-CO: '¿Estás seguro que deseas eliminar a $name?'
+	String deleteKidConfirm({required Object name}) => '¿Estás seguro que deseas eliminar a ${name}?';
+
+	/// es-CO: 'Por favor ingresa un nombre'
+	String get pleaseEnterName => 'Por favor ingresa un nombre';
+
+	/// es-CO: 'Agregar Niño'
+	String get addKidTitle => 'Agregar Niño';
+
+	/// es-CO: 'Editar Niño'
+	String get editKidTitle => 'Editar Niño';
+
+	/// es-CO: 'Algo salió mal'
+	String get somethingWentWrong => 'Algo salió mal';
+}
+
+// Path: tasks
+class TranslationsTasksEsCo {
+	TranslationsTasksEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Listado de tareas'
+	String get title => 'Listado de tareas';
+
+	/// es-CO: 'Crear tarea'
+	String get createTask => 'Crear tarea';
+
+	/// es-CO: 'Crear tarea'
+	String get createTaskTitle => 'Crear tarea';
+
+	/// es-CO: 'Actualizar tarea'
+	String get updateTaskTitle => 'Actualizar tarea';
+
+	/// es-CO: 'Título'
+	String get titleLabel => 'Título';
+
+	/// es-CO: 'Ingresa el título de la tarea'
+	String get titleHint => 'Ingresa el título de la tarea';
+
+	/// es-CO: 'El título es requerido'
+	String get titleRequired => 'El título es requerido';
+
+	/// es-CO: '¿A quién se le asigna?'
+	String get assignedTo => '¿A quién se le asigna?';
+
+	/// es-CO: 'Selecciona un niño'
+	String get assignedToHint => 'Selecciona un niño';
+
+	/// es-CO: 'Selecciona un niño'
+	String get selectAKid => 'Selecciona un niño';
+
+	/// es-CO: 'Asignado a:'
+	String get assignedToLabel => 'Asignado a:';
+
+	/// es-CO: 'Puntos (Opcional)'
+	String get points => 'Puntos (Opcional)';
+
+	/// es-CO: 'Cantidad de puntos que vale la tarea'
+	String get pointsDescription => 'Cantidad de puntos que vale la tarea';
+
+	/// es-CO: 'Puntos:'
+	String get pointsLabel => 'Puntos:';
+
+	/// es-CO: '0'
+	String get pointsHint => '0';
+
+	/// es-CO: 'Tarea para fecha específica'
+	String get specificDateTask => 'Tarea para fecha específica';
+
+	/// es-CO: 'Marcar si es para un día específico'
+	String get specificDateDescription => 'Marcar si es para un día específico';
+
+	/// es-CO: 'Fecha específica'
+	String get specificDate => 'Fecha específica';
+
+	/// es-CO: 'Seleccionar fecha'
+	String get specificDateHint => 'Seleccionar fecha';
+
+	/// es-CO: 'Selecciona la fecha para esta tarea'
+	String get selectDateDescription => 'Selecciona la fecha para esta tarea';
+
+	/// es-CO: 'Debes seleccionar una fecha'
+	String get selectDateError => 'Debes seleccionar una fecha';
+
+	/// es-CO: 'Programación semanal'
+	String get weeklySchedule => 'Programación semanal';
+
+	/// es-CO: 'Selecciona los días y partes del día para la tarea'
+	String get weeklyScheduleDescription => 'Selecciona los días y partes del día para la tarea';
+
+	/// es-CO: 'Selecciona al menos un día y parte del día'
+	String get scheduleError => 'Selecciona al menos un día y parte del día';
+
+	/// es-CO: 'Crear Tarea'
+	String get createButton => 'Crear Tarea';
+
+	/// es-CO: 'Actualizar'
+	String get updateButton => 'Actualizar';
+
+	/// es-CO: 'No hay tareas disponibles.'
+	String get noTasksAvailable => 'No hay tareas disponibles.';
+
+	/// es-CO: 'Crea tu primera tarea'
+	String get createFirstTask => 'Crea tu primera tarea';
+
+	/// es-CO: 'Sin programación'
+	String get noSchedule => 'Sin programación';
+
+	/// es-CO: 'Fecha:'
+	String get dateLabel => 'Fecha:';
+
+	/// es-CO: 'Error al cargar la tarea'
+	String get errorLoadingTask => 'Error al cargar la tarea';
+
+	/// es-CO: 'Error al crear la tarea'
+	String get errorCreatingTask => 'Error al crear la tarea';
+
+	/// es-CO: 'Error al actualizar la tarea'
+	String get errorUpdatingTask => 'Error al actualizar la tarea';
+
+	/// es-CO: 'Eliminar tarea'
+	String get deleteTask => 'Eliminar tarea';
+
+	/// es-CO: '¿Estás seguro que deseas eliminar esta tarea?'
+	String get deleteTaskConfirm => '¿Estás seguro que deseas eliminar esta tarea?';
+
+	/// es-CO: 'Eliminar'
+	String get delete => 'Eliminar';
+
+	/// es-CO: 'Intentar de nuevo'
+	String get tryAgainButton => 'Intentar de nuevo';
+}
+
+// Path: daysOfWeek
+class TranslationsDaysOfWeekEsCo {
+	TranslationsDaysOfWeekEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsDaysOfWeekMondayEsCo monday = TranslationsDaysOfWeekMondayEsCo._(_root);
+	late final TranslationsDaysOfWeekTuesdayEsCo tuesday = TranslationsDaysOfWeekTuesdayEsCo._(_root);
+	late final TranslationsDaysOfWeekWednesdayEsCo wednesday = TranslationsDaysOfWeekWednesdayEsCo._(_root);
+	late final TranslationsDaysOfWeekThursdayEsCo thursday = TranslationsDaysOfWeekThursdayEsCo._(_root);
+	late final TranslationsDaysOfWeekFridayEsCo friday = TranslationsDaysOfWeekFridayEsCo._(_root);
+	late final TranslationsDaysOfWeekSaturdayEsCo saturday = TranslationsDaysOfWeekSaturdayEsCo._(_root);
+	late final TranslationsDaysOfWeekSundayEsCo sunday = TranslationsDaysOfWeekSundayEsCo._(_root);
+}
+
+// Path: partOfDay
+class TranslationsPartOfDayEsCo {
+	TranslationsPartOfDayEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Mañana'
+	String get morning => 'Mañana';
+
+	/// es-CO: 'Tarde'
+	String get afternoon => 'Tarde';
+
+	/// es-CO: 'Noche'
+	String get night => 'Noche';
+}
+
 // Path: forgotPassword.form
 class TranslationsForgotPasswordFormEsCo {
 	TranslationsForgotPasswordFormEsCo._(this._root);
@@ -435,6 +662,111 @@ class TranslationsProfileFormEsCo {
 	// Translations
 	late final TranslationsProfileFormNameEsCo name = TranslationsProfileFormNameEsCo._(_root);
 	late final TranslationsProfileFormAvatarUrlEsCo avatarUrl = TranslationsProfileFormAvatarUrlEsCo._(_root);
+}
+
+// Path: daysOfWeek.monday
+class TranslationsDaysOfWeekMondayEsCo {
+	TranslationsDaysOfWeekMondayEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Lun'
+	String get short => 'Lun';
+
+	/// es-CO: 'Lunes'
+	String get full => 'Lunes';
+}
+
+// Path: daysOfWeek.tuesday
+class TranslationsDaysOfWeekTuesdayEsCo {
+	TranslationsDaysOfWeekTuesdayEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Mar'
+	String get short => 'Mar';
+
+	/// es-CO: 'Martes'
+	String get full => 'Martes';
+}
+
+// Path: daysOfWeek.wednesday
+class TranslationsDaysOfWeekWednesdayEsCo {
+	TranslationsDaysOfWeekWednesdayEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Mié'
+	String get short => 'Mié';
+
+	/// es-CO: 'Miércoles'
+	String get full => 'Miércoles';
+}
+
+// Path: daysOfWeek.thursday
+class TranslationsDaysOfWeekThursdayEsCo {
+	TranslationsDaysOfWeekThursdayEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Jue'
+	String get short => 'Jue';
+
+	/// es-CO: 'Jueves'
+	String get full => 'Jueves';
+}
+
+// Path: daysOfWeek.friday
+class TranslationsDaysOfWeekFridayEsCo {
+	TranslationsDaysOfWeekFridayEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Vie'
+	String get short => 'Vie';
+
+	/// es-CO: 'Viernes'
+	String get full => 'Viernes';
+}
+
+// Path: daysOfWeek.saturday
+class TranslationsDaysOfWeekSaturdayEsCo {
+	TranslationsDaysOfWeekSaturdayEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Sáb'
+	String get short => 'Sáb';
+
+	/// es-CO: 'Sábado'
+	String get full => 'Sábado';
+}
+
+// Path: daysOfWeek.sunday
+class TranslationsDaysOfWeekSundayEsCo {
+	TranslationsDaysOfWeekSundayEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Dom'
+	String get short => 'Dom';
+
+	/// es-CO: 'Domingo'
+	String get full => 'Domingo';
 }
 
 // Path: forgotPassword.form.email
@@ -1012,6 +1344,80 @@ extension on Translations {
 			case 'parentDashboard.welcome': return '¡Bienvenido al Tablero de Padres!';
 			case 'parentRewards.title': return 'Recompensas para Padres';
 			case 'parentRewards.body': return 'Lista de recompensas para padres';
+			case 'kids.title': return 'Niños';
+			case 'kids.addKid': return 'Agregar Niño';
+			case 'kids.addFirstKid': return 'Agregar Primer Niño';
+			case 'kids.noKidsYet': return 'No hay niños agregados aún.';
+			case 'kids.tryAgain': return 'Intentar de Nuevo';
+			case 'kids.name': return 'Nombre';
+			case 'kids.nameHint': return 'Ingresa el nombre del niño';
+			case 'kids.color': return 'Color';
+			case 'kids.tapToSelectColor': return 'Toca para seleccionar un color';
+			case 'kids.selectColorDescription': return 'Selecciona un color para este niño';
+			case 'kids.pickColor': return 'Elige un color';
+			case 'kids.save': return 'Guardar';
+			case 'kids.cancel': return 'Cancelar';
+			case 'kids.select': return 'Seleccionar';
+			case 'kids.deleteKid': return 'Eliminar Niño';
+			case 'kids.deleteKidConfirm': return ({required Object name}) => '¿Estás seguro que deseas eliminar a ${name}?';
+			case 'kids.pleaseEnterName': return 'Por favor ingresa un nombre';
+			case 'kids.addKidTitle': return 'Agregar Niño';
+			case 'kids.editKidTitle': return 'Editar Niño';
+			case 'kids.somethingWentWrong': return 'Algo salió mal';
+			case 'tasks.title': return 'Listado de tareas';
+			case 'tasks.createTask': return 'Crear tarea';
+			case 'tasks.createTaskTitle': return 'Crear tarea';
+			case 'tasks.updateTaskTitle': return 'Actualizar tarea';
+			case 'tasks.titleLabel': return 'Título';
+			case 'tasks.titleHint': return 'Ingresa el título de la tarea';
+			case 'tasks.titleRequired': return 'El título es requerido';
+			case 'tasks.assignedTo': return '¿A quién se le asigna?';
+			case 'tasks.assignedToHint': return 'Selecciona un niño';
+			case 'tasks.selectAKid': return 'Selecciona un niño';
+			case 'tasks.assignedToLabel': return 'Asignado a:';
+			case 'tasks.points': return 'Puntos (Opcional)';
+			case 'tasks.pointsDescription': return 'Cantidad de puntos que vale la tarea';
+			case 'tasks.pointsLabel': return 'Puntos:';
+			case 'tasks.pointsHint': return '0';
+			case 'tasks.specificDateTask': return 'Tarea para fecha específica';
+			case 'tasks.specificDateDescription': return 'Marcar si es para un día específico';
+			case 'tasks.specificDate': return 'Fecha específica';
+			case 'tasks.specificDateHint': return 'Seleccionar fecha';
+			case 'tasks.selectDateDescription': return 'Selecciona la fecha para esta tarea';
+			case 'tasks.selectDateError': return 'Debes seleccionar una fecha';
+			case 'tasks.weeklySchedule': return 'Programación semanal';
+			case 'tasks.weeklyScheduleDescription': return 'Selecciona los días y partes del día para la tarea';
+			case 'tasks.scheduleError': return 'Selecciona al menos un día y parte del día';
+			case 'tasks.createButton': return 'Crear Tarea';
+			case 'tasks.updateButton': return 'Actualizar';
+			case 'tasks.noTasksAvailable': return 'No hay tareas disponibles.';
+			case 'tasks.createFirstTask': return 'Crea tu primera tarea';
+			case 'tasks.noSchedule': return 'Sin programación';
+			case 'tasks.dateLabel': return 'Fecha:';
+			case 'tasks.errorLoadingTask': return 'Error al cargar la tarea';
+			case 'tasks.errorCreatingTask': return 'Error al crear la tarea';
+			case 'tasks.errorUpdatingTask': return 'Error al actualizar la tarea';
+			case 'tasks.deleteTask': return 'Eliminar tarea';
+			case 'tasks.deleteTaskConfirm': return '¿Estás seguro que deseas eliminar esta tarea?';
+			case 'tasks.delete': return 'Eliminar';
+			case 'tasks.tryAgainButton': return 'Intentar de nuevo';
+			case 'daysOfWeek.monday.short': return 'Lun';
+			case 'daysOfWeek.monday.full': return 'Lunes';
+			case 'daysOfWeek.tuesday.short': return 'Mar';
+			case 'daysOfWeek.tuesday.full': return 'Martes';
+			case 'daysOfWeek.wednesday.short': return 'Mié';
+			case 'daysOfWeek.wednesday.full': return 'Miércoles';
+			case 'daysOfWeek.thursday.short': return 'Jue';
+			case 'daysOfWeek.thursday.full': return 'Jueves';
+			case 'daysOfWeek.friday.short': return 'Vie';
+			case 'daysOfWeek.friday.full': return 'Viernes';
+			case 'daysOfWeek.saturday.short': return 'Sáb';
+			case 'daysOfWeek.saturday.full': return 'Sábado';
+			case 'daysOfWeek.sunday.short': return 'Dom';
+			case 'daysOfWeek.sunday.full': return 'Domingo';
+			case 'partOfDay.morning': return 'Mañana';
+			case 'partOfDay.afternoon': return 'Tarde';
+			case 'partOfDay.night': return 'Noche';
 			default: return null;
 		}
 	}

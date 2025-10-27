@@ -1,18 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'task_schedule.g.dart';
+import 'enums/part_of_day.dart';
 
-enum TimeOfDay {
-  @JsonValue('morning')
-  morning,
-  @JsonValue('afternoon')
-  afternoon,
-  @JsonValue('evening')
-  evening,
-  @JsonValue('night')
-  night,
-}
+part 'task_schedule.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class TaskSchedule extends Equatable {
@@ -28,14 +19,18 @@ class TaskSchedule extends Equatable {
     this.updatedAt,
   });
 
+  @JsonKey(includeToJson: false)
   final String id;
   final String taskTemplateId;
   final String kidId;
-  final List<int>? daysOfWeek; // [0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat]
-  final TimeOfDay? timeOfDay;
+  final List<int>?
+  daysOfWeek; // [0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat]
+  final PartOfDay? timeOfDay;
   final DateTime? specificDate;
   final bool isActive;
+  @JsonKey(includeToJson: false)
   final DateTime? createdAt;
+  @JsonKey(includeToJson: false)
   final DateTime? updatedAt;
 
   factory TaskSchedule.fromJson(Map<String, dynamic> json) =>
@@ -45,14 +40,14 @@ class TaskSchedule extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        taskTemplateId,
-        kidId,
-        daysOfWeek,
-        timeOfDay,
-        specificDate,
-        isActive,
-        createdAt,
-        updatedAt,
-      ];
+    id,
+    taskTemplateId,
+    kidId,
+    daysOfWeek,
+    timeOfDay,
+    specificDate,
+    isActive,
+    createdAt,
+    updatedAt,
+  ];
 }

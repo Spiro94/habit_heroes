@@ -22,7 +22,6 @@ TaskTemplate _$TaskTemplateFromJson(Map<String, dynamic> json) => TaskTemplate(
 
 Map<String, dynamic> _$TaskTemplateToJson(TaskTemplate instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'parent_id': instance.parentId,
       'title': instance.title,
       'description': instance.description,

@@ -74,18 +74,54 @@ class Authenticated_Routes extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CreateTask_Page]
-class CreateTask_Route extends PageRouteInfo<void> {
-  const CreateTask_Route({List<PageRouteInfo>? children})
-    : super(CreateTask_Route.name, initialChildren: children);
+class CreateTask_Route extends PageRouteInfo<CreateTask_RouteArgs> {
+  CreateTask_Route({
+    Key? key,
+    String? taskScheduleId,
+    List<PageRouteInfo>? children,
+  }) : super(
+         CreateTask_Route.name,
+         args: CreateTask_RouteArgs(key: key, taskScheduleId: taskScheduleId),
+         initialChildren: children,
+       );
 
   static const String name = 'CreateTask_Route';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const CreateTask_Page();
+      final args = data.argsAs<CreateTask_RouteArgs>(
+        orElse: () => const CreateTask_RouteArgs(),
+      );
+      return CreateTask_Page(
+        key: args.key,
+        taskScheduleId: args.taskScheduleId,
+      );
     },
   );
+}
+
+class CreateTask_RouteArgs {
+  const CreateTask_RouteArgs({this.key, this.taskScheduleId});
+
+  final Key? key;
+
+  final String? taskScheduleId;
+
+  @override
+  String toString() {
+    return 'CreateTask_RouteArgs{key: $key, taskScheduleId: $taskScheduleId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CreateTask_RouteArgs) return false;
+    return key == other.key && taskScheduleId == other.taskScheduleId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ taskScheduleId.hashCode;
 }
 
 /// generated route for

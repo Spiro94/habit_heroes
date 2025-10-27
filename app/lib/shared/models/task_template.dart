@@ -15,6 +15,7 @@ class TaskTemplate extends Equatable {
     this.updatedAt,
   });
 
+  @JsonKey(includeToJson: false)
   final String id;
   final String parentId;
   final String title;

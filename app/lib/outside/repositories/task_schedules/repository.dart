@@ -31,6 +31,7 @@ class SupabaseTaskSchedule_Repository extends TaskSchedule_Repository {
     required TaskSchedule schedule,
   }) async {
     log.info('createTaskSchedule');
+    log.info('### schedule.toJson(): ${schedule.toJson()}');
     final response = await _supabaseClient
         .from('task_schedules')
         .insert(schedule.toJson())

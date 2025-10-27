@@ -1,154 +1,154 @@
 emailVerificationLinkSent:
-  title: 'Enlace de verificación de correo electrónico enviado'
-  subtitle: 'Revisa tu correo electrónico para ver el enlace de verificación.'
+  title: "Enlace de verificación de correo electrónico enviado"
+  subtitle: "Revisa tu correo electrónico para ver el enlace de verificación."
 
 forgotPassword:
-  title: '¿Olvidaste tu contraseña?'
+  title: "¿Olvidaste tu contraseña?"
   form:
     email:
-      label: 'Correo electrónico'
-      hint: 'john.doe@example.com'
+      label: "Correo electrónico"
+      hint: "john.doe@example.com"
       error:
-        empty: 'Por favor ingresa tu correo electrónico.'
-        invalid: 'Por favor ingresa un correo electrónico válido.'
+        empty: "Por favor ingresa tu correo electrónico."
+        invalid: "Por favor ingresa un correo electrónico válido."
     submit:
-      label: 'Restablecer contraseña'
+      label: "Restablecer contraseña"
 
 home:
-  title: 'Inicio'
+  title: "Inicio"
 
 resetPasswordLinkSent:
-  title: 'Enlace para restablecer la contraseña'
-  subtitle: 'Revisa tu correo electrónico para ver el enlace para restablecer la contraseña.'
+  title: "Enlace para restablecer la contraseña"
+  subtitle: "Revisa tu correo electrónico para ver el enlace para restablecer la contraseña."
   resend:
     question: "¿No recibiste un enlace?"
-    action: 'Reenviar'
-    success: 'Se reenvió el enlace para restablecer la contraseña.'
+    action: "Reenviar"
+    success: "Se reenvió el enlace para restablecer la contraseña."
 
 resetPassword:
-  title: 'Restablecer contraseña'
+  title: "Restablecer contraseña"
   form:
     password:
-      label: 'Contraseña'
+      label: "Contraseña"
       error:
-        empty: 'Por favor ingresa una contraseña.'
-        invalid: 'Mínimo 8 caracteres, mayúsculas y minúsculas, con al menos un caracter especial.'
+        empty: "Por favor ingresa una contraseña."
+        invalid: "Mínimo 8 caracteres, mayúsculas y minúsculas, con al menos un caracter especial."
     submit:
-      label: 'Restablecer contraseña'
-      success: 'Tu contraseña fue restablecida.'
+      label: "Restablecer contraseña"
+      success: "Tu contraseña fue restablecida."
 
 signIn:
-  title: 'Iniciar sesión'
+  title: "Iniciar sesión"
   signUp:
-    question: '¿Necesitas una cuenta?'
-    action: 'Regístrate'
+    question: "¿Necesitas una cuenta?"
+    action: "Regístrate"
   forgotPassword:
-    question: '¿Olvidaste tu contraseña?'
+    question: "¿Olvidaste tu contraseña?"
   form:
     email:
-      label: 'Correo electrónico'
-      hint: 'john.doe@example.com'
+      label: "Correo electrónico"
+      hint: "john.doe@example.com"
       error:
-        empty: 'Por favor ingresa tu correo electrónico.'
-        invalid: 'Por favor ingresa un correo electrónico válido.'
+        empty: "Por favor ingresa tu correo electrónico."
+        invalid: "Por favor ingresa un correo electrónico válido."
     password:
-      label: 'Contraseña'
+      label: "Contraseña"
       error:
-        empty: 'Por favor ingresa una contraseña.'
+        empty: "Por favor ingresa una contraseña."
     submit:
-      label: 'Iniciar sesión'
+      label: "Iniciar sesión"
 
 signUp:
-  title: 'Regístrate'
+  title: "Regístrate"
   form:
     email:
-      label: 'Correo electrónico'
-      hint: 'john.doe@example.com'
+      label: "Correo electrónico"
+      hint: "john.doe@example.com"
       error:
-        empty: 'Por favor ingresa tu correo electrónico.'
-        invalid: 'Por favor ingresa un correo electrónico válido.'
+        empty: "Por favor ingresa tu correo electrónico."
+        invalid: "Por favor ingresa un correo electrónico válido."
     password:
-      label: 'Contraseña'
+      label: "Contraseña"
       error:
-        empty: 'Por favor ingresa una contraseña.'
-        invalid: 'Mínimo 8 caracteres, mayúsculas y minúsculas, con al menos un caracter especial.'
+        empty: "Por favor ingresa una contraseña."
+        invalid: "Mínimo 8 caracteres, mayúsculas y minúsculas, con al menos un caracter especial."
     repeatPassword:
-      label: 'Repetir contraseña'
+      label: "Repetir contraseña"
       error:
-        empty: 'Por favor repite tu contraseña.'
-        mismatch: 'Las contraseñas no coinciden.'
+        empty: "Por favor repite tu contraseña."
+        mismatch: "Las contraseñas no coinciden."
     submit:
-      label: 'Regístrate'
+      label: "Regístrate"
   resendEmailVerification:
-    question: '¿Aún necesitas verificar tu correo electrónico?'
-    action: 'Reenviar'
+    question: "¿Aún necesitas verificar tu correo electrónico?"
+    action: "Reenviar"
     dialog:
-      title: 'Enlace de verificación de correo electrónico'
-      cancel: 'Cancelar'
+      title: "Enlace de verificación de correo electrónico"
+      cancel: "Cancelar"
       submit:
-        label: 'Reenviar'
-        success: 'Se reenvió el enlace de verificación de correo electrónico.'
+        label: "Reenviar"
+        success: "Se reenvió el enlace de verificación de correo electrónico."
 
 family:
-  title: 'Familia'
-  addMember: 'Agregar Miembro'
-  noMembers: 'No hay miembros en tu familia.'
+  title: "Familia"
+  addMember: "Agregar Miembro"
+  noMembers: "No hay miembros en tu familia."
   invite:
-    title: 'Invitar a la Familia'
+    title: "Invitar a la Familia"
     email:
-      label: 'Correo electrónico del miembro'
-      hint: 'jane.doe@example.com'
+      label: "Correo electrónico del miembro"
+      hint: "jane.doe@example.com"
       error:
-        empty: 'Por favor ingresa un correo electrónico.'
-        invalid: 'Por favor ingresa un correo electrónico válido.'
-    submit: 'Enviar Invitación'
+        empty: "Por favor ingresa un correo electrónico."
+        invalid: "Por favor ingresa un correo electrónico válido."
+    submit: "Enviar Invitación"
   invitations:
-    title: 'Invitaciones'
-    noInvitations: 'No tienes invitaciones pendientes.'
-    accept: 'Aceptar'
-    decline: 'Rechazar'
+    title: "Invitaciones"
+    noInvitations: "No tienes invitaciones pendientes."
+    accept: "Aceptar"
+    decline: "Rechazar"
 
 newFamilyMember:
-  title: 'Nuevo Miembro de la Familia'
+  title: "Nuevo Miembro de la Familia"
   form:
     name:
-      label: 'Nombre'
-      hint: 'Jane Doe'
+      label: "Nombre"
+      hint: "Jane Doe"
       error:
-        empty: 'Por favor ingresa un nombre.'
+        empty: "Por favor ingresa un nombre."
     email:
-      label: 'Correo electrónico'
-      hint: 'jane.doe@example.com'
+      label: "Correo electrónico"
+      hint: "jane.doe@example.com"
       error:
-        empty: 'Por favor ingresa un correo electrónico.'
-        invalid: 'Por favor ingresa un correo electrónico válido.'
+        empty: "Por favor ingresa un correo electrónico."
+        invalid: "Por favor ingresa un correo electrónico válido."
     submit:
-      label: 'Agregar Miembro'
-      success: 'Miembro de la familia agregado.'
+      label: "Agregar Miembro"
+      success: "Miembro de la familia agregado."
 
 newFamily:
-  title: 'Nueva Familia'
+  title: "Nueva Familia"
   form:
     name:
-      label: 'Nombre de la Familia'
-      hint: 'Los Doe'
+      label: "Nombre de la Familia"
+      hint: "Los Doe"
       error:
-        empty: 'Por favor ingresa un nombre para la familia.'
+        empty: "Por favor ingresa un nombre para la familia."
     submit:
-      label: 'Crear Familia'
-      success: 'Familia creada.'
+      label: "Crear Familia"
+      success: "Familia creada."
 
 profile:
-  title: 'Perfil'
-  update: 'Actualizar Perfil'
-  signOut: 'Cerrar Sesión'
+  title: "Perfil"
+  update: "Actualizar Perfil"
+  signOut: "Cerrar Sesión"
   form:
     name:
-      label: 'Nombre'
-      hint: 'John Doe'
+      label: "Nombre"
+      hint: "John Doe"
     avatarUrl:
-      label: 'URL del Avatar'
-      hint: 'https://example.com/avatar.png'
+      label: "URL del Avatar"
+      hint: "https://example.com/avatar.png"
 
 parentDashboard:
   title: "Tablero de Padres"
@@ -157,3 +157,92 @@ parentDashboard:
 parentRewards:
   title: "Recompensas para Padres"
   body: "Lista de recompensas para padres"
+
+kids:
+  title: "Niños"
+  addKid: "Agregar Niño"
+  addFirstKid: "Agregar Primer Niño"
+  noKidsYet: "No hay niños agregados aún."
+  tryAgain: "Intentar de Nuevo"
+  name: "Nombre"
+  nameHint: "Ingresa el nombre del niño"
+  color: "Color"
+  tapToSelectColor: "Toca para seleccionar un color"
+  selectColorDescription: "Selecciona un color para este niño"
+  pickColor: "Elige un color"
+  save: "Guardar"
+  cancel: "Cancelar"
+  select: "Seleccionar"
+  deleteKid: "Eliminar Niño"
+  deleteKidConfirm(name): "¿Estás seguro que deseas eliminar a $name?"
+  pleaseEnterName: "Por favor ingresa un nombre"
+  addKidTitle: "Agregar Niño"
+  editKidTitle: "Editar Niño"
+  somethingWentWrong: "Algo salió mal"
+
+tasks:
+  title: "Listado de tareas"
+  createTask: "Crear tarea"
+  createTaskTitle: "Crear tarea"
+  updateTaskTitle: "Actualizar tarea"
+  titleLabel: "Título"
+  titleHint: "Ingresa el título de la tarea"
+  titleRequired: "El título es requerido"
+  assignedTo: "¿A quién se le asigna?"
+  assignedToHint: "Selecciona un niño"
+  selectAKid: "Selecciona un niño"
+  assignedToLabel: "Asignado a:"
+  points: "Puntos (Opcional)"
+  pointsDescription: "Cantidad de puntos que vale la tarea"
+  pointsLabel: "Puntos:"
+  pointsHint: "0"
+  specificDateTask: "Tarea para fecha específica"
+  specificDateDescription: "Marcar si es para un día específico"
+  specificDate: "Fecha específica"
+  specificDateHint: "Seleccionar fecha"
+  selectDateDescription: "Selecciona la fecha para esta tarea"
+  selectDateError: "Debes seleccionar una fecha"
+  weeklySchedule: "Programación semanal"
+  weeklyScheduleDescription: "Selecciona los días y partes del día para la tarea"
+  scheduleError: "Selecciona al menos un día y parte del día"
+  createButton: "Crear Tarea"
+  updateButton: "Actualizar"
+  noTasksAvailable: "No hay tareas disponibles."
+  createFirstTask: "Crea tu primera tarea"
+  noSchedule: "Sin programación"
+  dateLabel: "Fecha:"
+  errorLoadingTask: "Error al cargar la tarea"
+  errorCreatingTask: "Error al crear la tarea"
+  errorUpdatingTask: "Error al actualizar la tarea"
+  deleteTask: "Eliminar tarea"
+  deleteTaskConfirm: "¿Estás seguro que deseas eliminar esta tarea?"
+  delete: "Eliminar"
+  tryAgainButton: "Intentar de nuevo"
+
+daysOfWeek:
+  monday:
+    short: "Lun"
+    full: "Lunes"
+  tuesday:
+    short: "Mar"
+    full: "Martes"
+  wednesday:
+    short: "Mié"
+    full: "Miércoles"
+  thursday:
+    short: "Jue"
+    full: "Jueves"
+  friday:
+    short: "Vie"
+    full: "Viernes"
+  saturday:
+    short: "Sáb"
+    full: "Sábado"
+  sunday:
+    short: "Dom"
+    full: "Domingo"
+
+partOfDay:
+  morning: "Mañana"
+  afternoon: "Tarde"
+  night: "Noche"

@@ -43,18 +43,48 @@ class ParentTasks_Event_AddTask extends ParentTasks_Event {
   final List<TaskScheduleInput> schedules;
 
   @override
-  List<Object?> get props => [
-        title,
-        points,
-        description,
-        schedules,
-      ];
+  List<Object?> get props => [title, points, description, schedules];
 }
 
 class ParentTasks_Event_UpdateTask extends ParentTasks_Event {
-  const ParentTasks_Event_UpdateTask();
+  const ParentTasks_Event_UpdateTask({
+    required this.templateId,
+    required this.title,
+    required this.points,
+    this.description,
+    required this.schedules,
+  });
+
+  final String templateId;
+  final String title;
+  final int points;
+  final String? description;
+  final List<TaskScheduleInput> schedules;
+
+  @override
+  List<Object?> get props => [
+    templateId,
+    title,
+    points,
+    description,
+    schedules,
+  ];
 }
 
 class ParentTasks_Event_DeleteTask extends ParentTasks_Event {
-  const ParentTasks_Event_DeleteTask();
+  const ParentTasks_Event_DeleteTask({required this.id});
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+class ParentTasks_Event_LoadTaskForEditing extends ParentTasks_Event {
+  const ParentTasks_Event_LoadTaskForEditing({required this.scheduleId});
+
+  final String scheduleId;
+
+  @override
+  List<Object?> get props => [scheduleId];
 }

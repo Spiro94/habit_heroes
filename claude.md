@@ -43,6 +43,69 @@ If this project was created from the `habit_heroes` template, perform these manu
 -   **Cubits**: Instantiated in widget tree, hold entity state, methods can be called directly in widget tree.
 -   **Blocs**: Instantiated in widget tree, driven by events, hold application state.
 
+### Bloc State Management Patterns
+-   **Multiple Action Statuses**: Blocs that perform multiple actions should have separate status fields for each action.
+-   **Status Enum Naming**: Use descriptive names like `loadStatus`, `createTaskStatus`, `deleteTaskStatus`, etc.
+-   **Status Values**: Each status should have values like `initial`, `loading`, `success`, `error`.
+-   **Avoid Widget State**: Do NOT track action states (like `_isSubmitting`) in widget state. Use bloc statuses instead.
+
+**Example Bloc State:**
+```dart
+enum LoadStatus { initial, loading, loaded, error }
+enum CreateTaskStatus { initial, creating, success, error }
+
+class ParentTasks_State {
+  final LoadStatus loadStatus;
+  final CreateTaskStatus createTaskStatus;
+  final List<Task> tasks;
+  final String? loadErrorMessage;
+  final String? createTaskErrorMessage;
+
+  // Separate error messages for different actions
+}
+```
+
+**Benefits:**
+- Clear separation of different action states
+- Better error handling for specific actions
+- Easier to show loading indicators for specific operations
+- UI can react to specific action completions
+
+### Widget Organization
+-   **Avoid Helper Methods**: Do NOT create helper methods that return widgets (e.g., `Widget _buildSomething()`).
+-   **Use Widget Classes**: Instead of helper methods, create separate widget classes following the naming convention `PageName_Widget_WidgetDescription`.
+-   **Widgets Folder**: For complex pages, create a `widgets/` folder next to the page file to organize reusable widgets.
+-   **File Organization**: Each non-trivial widget should be in its own file within the `widgets/` folder.
+-   **Benefits**: This approach keeps page files clean, improves testability, and makes widgets more reusable.
+
+**Example Structure:**
+```
+authenticated/parents/tasks/create_task/
+├── page.dart
+└── widgets/
+    ├── specific_date_picker.dart
+    └── weekday_schedule.dart
+```
+
+**Example Widget:**
+```dart
+// Instead of: Widget _buildDatePicker() { ... }
+// Do this:
+class CreateTask_Widget_SpecificDatePicker extends StatelessWidget {
+  final FDateFieldController controller;
+
+  const CreateTask_Widget_SpecificDatePicker({
+    required this.controller,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FDateField.calendar(...);
+  }
+}
+```
+
 ## 3. Development Workflows
 
 ### VSCode Tasks (Access via `CMD+SHIFT+B`)
