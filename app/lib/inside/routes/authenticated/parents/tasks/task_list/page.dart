@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../../outside/theme/theme.dart';
+import '../../../../../../shared/widgets/all.dart';
 import '../../../../../blocs/parent_tasks/bloc.dart';
 import '../../../../../blocs/parent_tasks/events.dart';
 import '../../../../../blocs/parent_tasks/state.dart';
 import '../../../../../i18n/translations.g.dart';
 import '../../../../router.dart';
+import '../../../../widgets/colorful_card.dart';
 
 @RoutePage()
 class TaskList_Page extends StatelessWidget {
@@ -44,7 +46,7 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: ElevatedButton.icon(
               icon: const Icon(Icons.add),
               label: Text(t.tasks.createTask),
@@ -66,20 +68,58 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
 
           if (state.loadStatus == LoadStatus.error) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Error: ${state.loadErrorMessage}'),
-                  const Gap(16),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<ParentTasks_Bloc>().add(
-                        const ParentTasks_Event_LoadTasks(),
-                      );
-                    },
-                    child: Text(t.tasks.tryAgainButton),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        gradient: context.colors.tasksBlue.toLinearGradient(),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.error_outline,
+                        size: 64,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Gap(24),
+                    Text(
+                      state.loadErrorMessage ?? 'Error loading tasks',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: context.solidColors.onSurface,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Gap(24),
+                    SizedBox(
+                      height: 48,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.refresh),
+                        label: Text(t.tasks.tryAgainButton),
+                        onPressed: () {
+                          context.read<ParentTasks_Bloc>().add(
+                            const ParentTasks_Event_LoadTasks(),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: context.colors.tasksBlue.start,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }
@@ -87,16 +127,56 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
           // Show templates (all created tasks)
           if (state.taskTemplates.isEmpty) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(t.tasks.noTasksAvailable),
-                  const Gap(16),
-                  ElevatedButton(
-                    onPressed: () => context.router.push(CreateTask_Route()),
-                    child: Text(t.tasks.createFirstTask),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        gradient: context.colors.tasksBlue.toLinearGradient(),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.assignment_outlined,
+                        size: 64,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Gap(24),
+                    Text(
+                      t.tasks.noTasksAvailable,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: context.solidColors.onSurface,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Gap(24),
+                    SizedBox(
+                      height: 48,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.add),
+                        label: Text(t.tasks.createFirstTask),
+                        onPressed: () =>
+                            context.router.push(CreateTask_Route()),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: context.colors.tasksBlue.start,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }
@@ -176,122 +256,171 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
               }
 
               return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        context.colors.tasksBlue.start.withValues(alpha: 0.05),
-                        context.colors.datePickerCyan.start.withValues(
-                          alpha: 0.05,
-                        ),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: context.colors.tasksBlue.start.withValues(
-                        alpha: 0.2,
-                      ),
-                      width: 1,
-                    ),
-                  ),
+                padding: const EdgeInsets.only(bottom: 16),
+                child: ColorfulCard(
+                  gradient: context.colors.tasksBlue,
+                  borderRadius: 16,
+                  shadowBlur: 12,
+                  shadowOffset: const Offset(0, 4),
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
                     child: Row(
                       children: [
+                        // Icon badge
                         Container(
-                          width: 4,
-                          height: 80,
+                          padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: context.colors.tasksBlue.start,
-                            borderRadius: BorderRadius.circular(2),
+                            color: Colors.white.withValues(alpha: 0.25),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.assignment_outlined,
+                            color: Colors.white,
+                            size: 32,
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const Gap(16),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 template.title,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  color: context.solidColors.onSurface,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
                                 ),
                               ),
-                              const Gap(6),
-                              Text(
-                                '${t.tasks.assignedToLabel} '
-                                '${kidNames.join(', ')}',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: context.solidColors.onSurfaceVariant,
+                              const Gap(8),
+                              // Assigned kids
+                              if (kidNames.isNotEmpty) ...[
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withValues(alpha: 0.25),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.person,
+                                        size: 16,
+                                        color: Colors.white,
+                                      ),
+                                      const Gap(6),
+                                      Flexible(
+                                        child: Text(
+                                          kidNames.join(', '),
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const Gap(4),
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 2,
+                                const Gap(8),
+                              ],
+                              // Points badge
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.25),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      size: 16,
+                                      color: Colors.white,
                                     ),
-                                    decoration: BoxDecoration(
-                                      color: context.colors.pointsGold.start
-                                          .withValues(alpha: 0.4),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Text(
-                                      '⭐ ${template.points} pts',
-                                      style: TextStyle(
+                                    const Gap(6),
+                                    Text(
+                                      '${template.points} puntos',
+                                      style: const TextStyle(
                                         fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                        color: context.colors.pointsGold.end,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                              const Gap(6),
+                              const Gap(8),
+                              // Schedule info
                               Text(
                                 scheduleText(),
                                 style: TextStyle(
-                                  fontSize: 12,
-                                  color: context.solidColors.onSurfaceVariant,
+                                  fontSize: 13,
+                                  color: Colors.white.withValues(alpha: 0.9),
                                   fontStyle: FontStyle.italic,
                                 ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ],
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const Gap(12),
+                        // Action buttons
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            IconButton(
-                              icon: const Icon(Icons.edit),
-                              color: context.colors.tasksBlue.start,
-                              onPressed: () {
-                                // navigate to edit: pass first schedule id if
-                                // present
-                                final firstScheduleId = schedules.isNotEmpty
-                                    ? schedules.first.id
-                                    : null;
-                                context.router.push(
-                                  CreateTask_Route(
-                                    taskScheduleId: firstScheduleId,
+                            Material(
+                              color: Colors.white.withValues(alpha: 0.2),
+                              shape: const CircleBorder(),
+                              child: InkWell(
+                                onTap: () {
+                                  final firstScheduleId = schedules.isNotEmpty
+                                      ? schedules.first.id
+                                      : null;
+                                  context.router.push(
+                                    CreateTask_Route(
+                                      taskScheduleId: firstScheduleId,
+                                    ),
+                                  );
+                                },
+                                customBorder: const CircleBorder(),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(12),
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                    size: 20,
                                   ),
-                                );
-                              },
+                                ),
+                              ),
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              color: context.solidColors.error,
-                              onPressed: () =>
-                                  _showDeleteDialog(context, template.id),
+                            const Gap(8),
+                            Material(
+                              color: Colors.white.withValues(alpha: 0.2),
+                              shape: const CircleBorder(),
+                              child: InkWell(
+                                onTap: () =>
+                                    _showDeleteDialog(context, template.id),
+                                customBorder: const CircleBorder(),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(12),
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -331,26 +460,26 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
 
 void _showDeleteDialog(BuildContext context, String taskScheduleId) {
   final bloc = context.read<ParentTasks_Bloc>();
-  showAdaptiveDialog<void>(
+  showDialog<void>(
     context: context,
     barrierDismissible: true,
-    builder: (context) => AlertDialog(
-      title: Text(t.tasks.deleteTask),
-      content: Text(t.tasks.deleteTaskConfirm),
+    builder: (context) => HabitHeroes_Dialog(
+      title: t.tasks.deleteTask,
+      dialogType: HabitHeroesDialogType.error,
+      icon: Icons.delete_outline,
+      body: Text(t.tasks.deleteTaskConfirm),
       actions: [
-        TextButton(
+        HabitHeroesDialogAction(
+          label: t.kids.cancel,
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(t.kids.cancel),
         ),
-        TextButton(
+        HabitHeroesDialogAction(
+          label: t.tasks.delete,
+          isPrimary: true,
           onPressed: () {
             bloc.add(ParentTasks_Event_DeleteTask(id: taskScheduleId));
             Navigator.of(context).pop();
           },
-          style: TextButton.styleFrom(
-            foregroundColor: context.solidColors.error,
-          ),
-          child: Text(t.tasks.delete),
         ),
       ],
     ),

@@ -5,10 +5,12 @@ import 'package:gap/gap.dart';
 
 import '../../../../../../outside/theme/theme.dart';
 import '../../../../../../shared/models/reward.dart' show Reward;
+import '../../../../../../shared/widgets/all.dart';
 import '../../../../../blocs/parent_rewards/bloc.dart';
 import '../../../../../blocs/parent_rewards/events.dart';
 import '../../../../../blocs/parent_rewards/state.dart';
 import '../../../../router.dart';
+import '../../../../widgets/colorful_card.dart';
 
 @RoutePage()
 class ParentRewardsListPage extends StatelessWidget {
@@ -50,8 +52,7 @@ class _ParentRewardsList_ScaffoldState
             child: ElevatedButton.icon(
               icon: const Icon(Icons.add),
               label: const Text('Nueva Recompensa'),
-              onPressed: () =>
-                  context.router.push(ParentCreateRewardRoute()),
+              onPressed: () => context.router.push(ParentCreateRewardRoute()),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: context.colors.pointsGold.start,
@@ -77,8 +78,8 @@ class _ParentRewardsList_ScaffoldState
                   ElevatedButton(
                     onPressed: () {
                       context.read<ParentRewards_Bloc>().add(
-                            const ParentRewards_Event_LoadRewards(),
-                          );
+                        const ParentRewards_Event_LoadRewards(),
+                      );
                     },
                     child: const Text('Intentar de nuevo'),
                   ),
@@ -92,15 +93,30 @@ class _ParentRewardsList_ScaffoldState
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.card_giftcard,
-                    size: 64,
-                    color: Colors.grey[400],
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      gradient: context.colors.pointsGold.toLinearGradient(),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.card_giftcard,
+                      size: 64,
+                      color: Colors.white,
+                    ),
                   ),
-                  const Gap(16),
-                  const Text('No hay recompensas'),
+                  const Gap(24),
+                  const Text(
+                    'No hay recompensas',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                   const Gap(8),
-                  const Text('Crea tu primera recompensa'),
+                  Text(
+                    'Crea tu primera recompensa',
+                    style: TextStyle(
+                      color: context.solidColors.onSurfaceVariant,
+                    ),
+                  ),
                 ],
               ),
             );
@@ -114,9 +130,7 @@ class _ParentRewardsList_ScaffoldState
               return ParentRewardsList_Widget_RewardCard(
                 reward: reward,
                 onEdit: () {
-                  context.router.push(
-                    ParentCreateRewardRoute(reward: reward),
-                  );
+                  context.router.push(ParentCreateRewardRoute(reward: reward));
                 },
                 onDelete: () {
                   _showDeleteConfirmation(context, reward.id);
@@ -126,33 +140,46 @@ class _ParentRewardsList_ScaffoldState
           );
         },
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () =>
+            context.router.push(const ParentRedemptionsHistoryRoute()),
+        icon: const Icon(Icons.history),
+        label: const Text('Historial'),
+        backgroundColor: context.colors.pointsGold.start,
+        foregroundColor: Colors.white,
+      ),
     );
   }
 
   void _showDeleteConfirmation(BuildContext context, String rewardId) {
     showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Eliminar Recompensa'),
-        content: const Text(
-          '¿Está seguro de que desea eliminar esta recompensa?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+      builder: (context) {
+        return HabitHeroes_Dialog(
+          title: 'Eliminar Recompensa',
+          dialogType: HabitHeroesDialogType.error,
+          icon: Icons.delete_outline,
+          body: const Text(
+            '¿Está seguro de que desea eliminar esta recompensa?',
           ),
-          TextButton(
-            onPressed: () {
-              context.read<ParentRewards_Bloc>().add(
-                    ParentRewards_Event_DeleteReward(rewardId: rewardId),
-                  );
-              Navigator.pop(context);
-            },
-            child: const Text('Eliminar'),
-          ),
-        ],
-      ),
+          actions: [
+            HabitHeroesDialogAction(
+              label: 'Cancelar',
+              onPressed: () => Navigator.pop(context),
+            ),
+            HabitHeroesDialogAction(
+              label: 'Eliminar',
+              isPrimary: true,
+              onPressed: () {
+                context.read<ParentRewards_Bloc>().add(
+                  ParentRewards_Event_DeleteReward(rewardId: rewardId),
+                );
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -171,87 +198,122 @@ class ParentRewardsList_Widget_RewardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        reward.name,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      if (reward.description != null) ...[
-                        const Gap(8),
-                        Text(
-                          reward.description!,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: ColorfulCard(
+        gradient: context.colors.pointsGold,
+        borderRadius: 16,
+        shadowBlur: 12,
+        shadowOffset: const Offset(0, 4),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            children: [
+              // Icon badge
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.25),
+                  shape: BoxShape.circle,
                 ),
-              ],
-            ),
-            const Gap(16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: context.colors.pointsGold.start.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        size: 16,
-                        color: context.colors.pointsGold.start,
+                child: const Icon(
+                  Icons.card_giftcard,
+                  color: Colors.white,
+                  size: 32,
+                ),
+              ),
+              const Gap(16),
+              // Content
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      reward.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
+                    ),
+                    if (reward.description != null) ...[
                       const Gap(4),
                       Text(
-                        '${reward.points} puntos',
+                        reward.description!,
                         style: TextStyle(
-                          color: context.colors.pointsGold.start,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.white.withValues(alpha: 0.9),
                         ),
                       ),
                     ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: onEdit,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: onDelete,
+                    const Gap(8),
+                    // Points badge
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.25),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.star, size: 16, color: Colors.white),
+                          const Gap(4),
+                          Text(
+                            '${reward.points} puntos',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ],
-            ),
-          ],
+              ),
+              const Gap(8),
+              // Action buttons
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Material(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      onTap: onEdit,
+                      customBorder: const CircleBorder(),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Icon(Icons.edit, color: Colors.white, size: 20),
+                      ),
+                    ),
+                  ),
+                  const Gap(8),
+                  Material(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      onTap: onDelete,
+                      customBorder: const CircleBorder(),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

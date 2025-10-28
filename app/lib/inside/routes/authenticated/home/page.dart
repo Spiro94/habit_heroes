@@ -34,34 +34,52 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
     return Routes_Scaffold(
       breakpointType: InsideUtil_BreakpointType.constrained,
       scaffold: FScaffold(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  '¡Bienvenido a Habit Heroes!',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 48),
-                ColorfulButton(
-                  gradient: context.colors.parentsPrimary,
-                  label: 'Padres',
-                  subtitle: 'Gestiona tareas y recompensas',
-                  icon: Icons.admin_panel_settings,
-                  onPressed: () => _handleParentAccess(context),
-                ),
-                const SizedBox(height: 32),
-                ColorfulButton(
-                  gradient: context.colors.kidsPrimary,
-                  label: 'Niños',
-                  subtitle: '¡Completa tus tareas y gana recompensas!',
-                  icon: Icons.child_care,
-                  onPressed: () =>
-                      context.router.push(const KidsDashboard_Route()),
-                ),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                context.solidColors.background,
+                context.solidColors.surfaceVariant.withValues(alpha: 0.3),
               ],
+            ),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/icon/icon.png', width: 200, height: 200),
+                  Text(
+                    '¡Bienvenido a Habit Heroes!',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: context.solidColors.onBackground,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 32),
+                  ColorfulButton(
+                    gradient: context.colors.parentsPrimary,
+                    label: 'Padres',
+                    subtitle: 'Gestiona tareas y recompensas',
+                    icon: Icons.admin_panel_settings,
+                    onPressed: () => _handleParentAccess(context),
+                  ),
+                  const SizedBox(height: 24),
+                  ColorfulButton(
+                    gradient: context.colors.kidsPrimary,
+                    label: 'Niños',
+                    subtitle: '¡Completa tus tareas y gana recompensas!',
+                    icon: Icons.child_care,
+                    onPressed: () =>
+                        context.router.push(const KidsDashboard_Route()),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

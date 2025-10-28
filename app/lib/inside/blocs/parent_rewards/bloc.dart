@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../outside/repositories/reward_redemptions/repository.dart';
 import '../../../outside/repositories/rewards/repository.dart';
+import '../../../shared/models/reward.dart';
 import '../base.dart';
 import 'events.dart';
 import 'state.dart';
@@ -108,7 +109,20 @@ class ParentRewards_Bloc
   ) async {
     emit(state.copyWith(createStatus: ParentRewards_CreateStatus.creating));
     try {
-      await _rewardRepository.createReward(reward: event.reward);
+      // Ensure parentId is set to the current user's ID
+      final rewardToCreate = event.reward.parentId.isEmpty
+          ? Reward(
+              id: event.reward.id,
+              parentId: _userId,
+              name: event.reward.name,
+              description: event.reward.description,
+              points: event.reward.points,
+              createdAt: event.reward.createdAt,
+              updatedAt: event.reward.updatedAt,
+            )
+          : event.reward;
+
+      await _rewardRepository.createReward(reward: rewardToCreate);
       emit(state.copyWith(createStatus: ParentRewards_CreateStatus.success));
       add(const ParentRewards_Event_LoadRewards());
     } catch (e, stackTrace) {

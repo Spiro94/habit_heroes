@@ -119,73 +119,130 @@ class _ParentCreateReward_ScaffoldState
             },
           ),
         ],
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Detalles de la Recompensa',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const Gap(24),
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: 'Nombre de la Recompensa',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Detalles de la Recompensa',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const Gap(24),
+                TextField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: 'Nombre de la Recompensa',
+                    filled: true,
+                    fillColor: context.solidColors.surfaceVariant,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: context.colors.pointsGold.start,
+                        width: 2,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
                   ),
                 ),
-              ),
-              const Gap(16),
-              TextField(
-                controller: _descriptionController,
-                decoration: InputDecoration(
-                  labelText: 'Descripción (Opcional)',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                const Gap(24),
+                TextField(
+                  controller: _descriptionController,
+                  decoration: InputDecoration(
+                    labelText: 'Descripción (Opcional)',
+                    filled: true,
+                    fillColor: context.solidColors.surfaceVariant,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: context.colors.pointsGold.start,
+                        width: 2,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
+                  ),
+                  maxLines: 3,
+                ),
+                const Gap(24),
+                TextField(
+                  controller: _pointsController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Puntos Requeridos',
+                    filled: true,
+                    fillColor: context.solidColors.surfaceVariant,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: context.colors.pointsGold.start,
+                        width: 2,
+                      ),
+                    ),
+                    prefixIcon: const Icon(Icons.star),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
                   ),
                 ),
-                maxLines: 3,
-              ),
-              const Gap(16),
-              TextField(
-                controller: _pointsController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Puntos Requeridos',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  prefixIcon: const Icon(Icons.star),
-                ),
-              ),
-              const Gap(32),
-              BlocBuilder<ParentRewards_Bloc, ParentRewards_State>(
-                builder: (context, state) {
-                  final isLoading = isEditing
-                      ? state.updateStatus == ParentRewards_UpdateStatus.updating
-                      : state.createStatus == ParentRewards_CreateStatus.creating;
+                const Gap(32),
+                BlocBuilder<ParentRewards_Bloc, ParentRewards_State>(
+                  builder: (context, state) {
+                    final isLoading = isEditing
+                        ? state.updateStatus ==
+                            ParentRewards_UpdateStatus.updating
+                        : state.createStatus ==
+                            ParentRewards_CreateStatus.creating;
 
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: context.colors.pointsGold.start,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    onPressed: isLoading ? null : _submitForm,
-                    child: Text(
-                      isLoading
-                          ? 'Guardando...'
-                          : isEditing
-                              ? 'Actualizar Recompensa'
-                              : 'Crear Recompensa',
-                    ),
-                  );
-                },
-              ),
-            ],
+                    return SizedBox(
+                      height: 56,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: context.colors.pointsGold.start,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: isLoading ? null : _submitForm,
+                        child: Text(
+                          isLoading
+                              ? 'Guardando...'
+                              : isEditing
+                                  ? 'Actualizar Recompensa'
+                                  : 'Crear Recompensa',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -230,22 +287,23 @@ class _ParentCreateReward_ScaffoldState
             ParentRewards_Event_UpdateReward(reward: updatedReward),
           );
     } else {
-      final parentId =
-          context.read<ParentRewards_Bloc>().state.rewards.isEmpty
-              ? ''
-              : context.read<ParentRewards_Bloc>().state.rewards.first.parentId;
+      // Get parentId from existing rewards, or from state if available
+      final rewardsBloc = context.read<ParentRewards_Bloc>();
+      final parentId = rewardsBloc.state.rewards.isNotEmpty
+          ? rewardsBloc.state.rewards.first.parentId
+          : ''; // Will be set by the bloc/repository with actual userId
 
       final newReward = Reward(
-        id: '',
+        id: '', // Will be generated by database
         parentId: parentId,
         name: name,
         description: description.isEmpty ? null : description,
         points: points,
         createdAt: DateTime.now(),
       );
-      context.read<ParentRewards_Bloc>().add(
-            ParentRewards_Event_AddReward(reward: newReward),
-          );
+      rewardsBloc.add(
+        ParentRewards_Event_AddReward(reward: newReward),
+      );
     }
   }
 }

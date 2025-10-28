@@ -15,16 +15,18 @@ class Reward extends Equatable {
     this.updatedAt,
   });
 
-  factory Reward.fromJson(Map<String, dynamic> json) => _$RewardFromJson(json);
-
+  @JsonKey(includeToJson: false)
   final String id;
   final String parentId;
   final String name;
   final String? description;
   final int points;
+  @JsonKey(includeToJson: false)
   final DateTime createdAt;
+  @JsonKey(includeToJson: false)
   final DateTime? updatedAt;
 
+  factory Reward.fromJson(Map<String, dynamic> json) => _$RewardFromJson(json);
   Map<String, dynamic> toJson() => _$RewardToJson(this);
 
   @override

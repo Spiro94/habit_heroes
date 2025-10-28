@@ -4,13 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../shared/models/enums/days_of_week.dart';
-import '../../../../../../shared/models/enums/part_of_day.dart';
-import '../../../../../../shared/models/kid.dart';
 import '../../../../../blocs/parent_tasks/bloc.dart';
 import '../../../../../blocs/parent_tasks/events.dart';
 import '../../../../../blocs/parent_tasks/state.dart';
 import '../../../../../i18n/translations.g.dart';
+import '../../../../../../outside/theme/theme.dart';
+import '../../../../../../shared/models/enums/days_of_week.dart';
+import '../../../../../../shared/models/enums/part_of_day.dart';
+import '../../../../../../shared/models/kid.dart';
+import '../../../../../../shared/widgets/all.dart';
 import '../../../../router.dart';
 import 'widgets/specific_date_picker.dart';
 import 'widgets/weekday_schedule.dart';
@@ -159,14 +161,23 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
               previous.createTaskStatus != current.createTaskStatus,
           listener: (context, state) {
             if (state.createTaskStatus == CreateTaskStatus.error) {
-              // Show error snackbar
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
+              // Show error dialog
+              showDialog<void>(
+                context: context,
+                builder: (context) => HabitHeroes_Dialog(
+                  title: t.tasks.errorCreatingTask,
+                  dialogType: HabitHeroesDialogType.error,
+                  icon: Icons.error_outline,
+                  body: Text(
                     state.createTaskErrorMessage ?? t.tasks.errorCreatingTask,
                   ),
-                  backgroundColor: Colors.red,
-                  duration: const Duration(seconds: 4),
+                  actions: [
+                    HabitHeroesDialogAction(
+                      label: t.kids.cancel,
+                      isPrimary: true,
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
                 ),
               );
             } else if (state.createTaskStatus == CreateTaskStatus.success) {
@@ -180,14 +191,23 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
               previous.updateTaskStatus != current.updateTaskStatus,
           listener: (context, state) {
             if (state.updateTaskStatus == UpdateTaskStatus.error) {
-              // Show error snackbar
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
+              // Show error dialog
+              showDialog<void>(
+                context: context,
+                builder: (context) => HabitHeroes_Dialog(
+                  title: t.tasks.errorUpdatingTask,
+                  dialogType: HabitHeroesDialogType.error,
+                  icon: Icons.error_outline,
+                  body: Text(
                     state.updateTaskErrorMessage ?? t.tasks.errorUpdatingTask,
                   ),
-                  backgroundColor: Colors.red,
-                  duration: const Duration(seconds: 4),
+                  actions: [
+                    HabitHeroesDialogAction(
+                      label: t.kids.cancel,
+                      isPrimary: true,
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
                 ),
               );
             } else if (state.updateTaskStatus == UpdateTaskStatus.success) {
@@ -205,15 +225,24 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
               _prefillFormWithEditingData(state);
             } else if (state.loadEditingDataStatus ==
                 LoadEditingDataStatus.error) {
-              // Show error snackbar
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
+              // Show error dialog
+              showDialog<void>(
+                context: context,
+                builder: (context) => HabitHeroes_Dialog(
+                  title: t.tasks.errorLoadingTask,
+                  dialogType: HabitHeroesDialogType.error,
+                  icon: Icons.error_outline,
+                  body: Text(
                     state.loadEditingDataErrorMessage ??
                         t.tasks.errorLoadingTask,
                   ),
-                  backgroundColor: Colors.red,
-                  duration: const Duration(seconds: 4),
+                  actions: [
+                    HabitHeroesDialogAction(
+                      label: t.kids.cancel,
+                      isPrimary: true,
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
                 ),
               );
             }
@@ -226,7 +255,7 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
             _isEditing ? t.tasks.updateTaskTitle : t.tasks.createTaskTitle,
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          backgroundColor: const Color(0xFF3B82F6),
+          backgroundColor: context.colors.tasksBlue.start,
           foregroundColor: Colors.white,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -240,25 +269,20 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                 return const Center(child: CircularProgressIndicator());
               }
               return SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // Title Field
-                      TextFormField(
+                      ColorfulTextField(
+                        label: t.tasks.titleLabel,
+                        hint: t.tasks.titleHint,
                         controller: _titleController,
-                        decoration: InputDecoration(
-                          labelText: t.tasks.titleLabel,
-                          hintText: t.tasks.titleHint,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          prefixIcon: const Icon(Icons.task),
-                          prefixIconColor: const Color(0xFF3B82F6),
-                        ),
+                        gradient: context.colors.tasksBlue,
                         textCapitalization: TextCapitalization.words,
+                        prefixIcon: const Icon(Icons.task),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return t.tasks.titleRequired;
@@ -266,92 +290,136 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                           return null;
                         },
                       ),
-                      const Gap(16),
+                      const Gap(24),
                       // Kid Dropdown
-                      DropdownButtonFormField<Kid>(
-                        initialValue: _selectedKid,
-                        decoration: InputDecoration(
-                          labelText: t.tasks.assignedTo,
-                          hintText: t.tasks.assignedToHint,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            t.tasks.assignedTo,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                          prefixIcon: const Icon(Icons.person),
-                          prefixIconColor: const Color(0xFF3B82F6),
-                        ),
-                        items: state.kids
-                            .map(
-                              (kid) => DropdownMenuItem(
-                                value: kid,
-                                child: Text(kid.name),
+                          const SizedBox(height: 8),
+                          DropdownButtonFormField<Kid>(
+                            initialValue: _selectedKid,
+                            decoration: InputDecoration(
+                              hintText: t.tasks.assignedToHint,
+                              filled: true,
+                              fillColor: context.solidColors.surfaceVariant,
+                              prefixIcon: const Icon(Icons.person),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide.none,
                               ),
-                            )
-                            .toList(),
-                        onChanged: (kid) {
-                          setState(() {
-                            _selectedKid = kid;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null) {
-                            return t.tasks.selectAKid;
-                          }
-                          return null;
-                        },
-                      ),
-                      const Gap(16),
-                      // Points Field
-                      TextFormField(
-                        controller: _pointsController,
-                        decoration: InputDecoration(
-                          labelText: t.tasks.points,
-                          hintText: t.tasks.pointsHint,
-                          helperText: t.tasks.pointsDescription,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: context.colors.tasksBlue.start,
+                                  width: 2,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: context.solidColors.error,
+                                  width: 2,
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 16,
+                              ),
+                            ),
+                            items: state.kids
+                                .map(
+                                  (kid) => DropdownMenuItem(
+                                    value: kid,
+                                    child: Text(kid.name),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (kid) {
+                              setState(() {
+                                _selectedKid = kid;
+                              });
+                            },
+                            validator: (value) {
+                              if (value == null) {
+                                return t.tasks.selectAKid;
+                              }
+                              return null;
+                            },
                           ),
-                          prefixIcon: const Icon(Icons.star),
-                          prefixIconColor: const Color(0xFFFCD34D),
-                        ),
+                        ],
+                      ),
+                      const Gap(24),
+                      // Points Field
+                      ColorfulTextField(
+                        label: t.tasks.points,
+                        hint: t.tasks.pointsHint,
+                        controller: _pointsController,
+                        gradient: context.colors.pointsGold,
                         keyboardType: TextInputType.number,
+                        prefixIcon: const Icon(Icons.star),
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                       ),
+                      if (t.tasks.pointsDescription.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          t.tasks.pointsDescription,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: context.solidColors.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
                       const Gap(24),
                       // Divider
-                      Container(height: 1, color: Colors.grey[300]),
+                      Divider(
+                        height: 1,
+                        color: context.solidColors.divider,
+                        thickness: 1,
+                      ),
                       const Gap(24),
                       // Specific Date Checkbox
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey[300]!),
-                          borderRadius: BorderRadius.circular(8),
+                          color: context.solidColors.surfaceVariant,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: context.solidColors.border),
                         ),
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CheckboxListTile(
-                              value: _isSpecificDate,
-                              onChanged: (value) {
-                                setState(() {
-                                  _isSpecificDate = value ?? false;
-                                  if (!_isSpecificDate) {
-                                    _selectedDate = null;
-                                  }
-                                });
-                              },
-                              title: Text(
-                                t.tasks.specificDateTask,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              subtitle: Text(t.tasks.specificDateDescription),
-                              controlAffinity: ListTileControlAffinity.leading,
+                        child: CheckboxListTile(
+                          value: _isSpecificDate,
+                          onChanged: (value) {
+                            setState(() {
+                              _isSpecificDate = value ?? false;
+                              if (!_isSpecificDate) {
+                                _selectedDate = null;
+                              }
+                            });
+                          },
+                          title: Text(
+                            t.tasks.specificDateTask,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
                             ),
-                          ],
+                          ),
+                          subtitle: Text(
+                            t.tasks.specificDateDescription,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: context.solidColors.onSurfaceVariant,
+                            ),
+                          ),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          activeColor: context.colors.tasksBlue.start,
                         ),
                       ),
                       const Gap(16),
@@ -373,23 +441,26 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                         ),
                       const Gap(32),
                       // Submit Button
-                      ElevatedButton(
-                        onPressed: () => _handleSubmit(context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF3B82F6),
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      SizedBox(
+                        height: 56,
+                        child: ElevatedButton(
+                          onPressed: () => _handleSubmit(context),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: context.colors.tasksBlue.start,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 2,
                           ),
-                        ),
-                        child: Text(
-                          _isEditing
-                              ? t.tasks.updateButton
-                              : t.tasks.createButton,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                          child: Text(
+                            _isEditing
+                                ? t.tasks.updateButton
+                                : t.tasks.createButton,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

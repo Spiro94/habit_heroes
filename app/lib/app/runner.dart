@@ -19,6 +19,7 @@ import '../outside/repositories/auth/repository.dart';
 import '../outside/repositories/completions/repository.dart';
 import '../outside/repositories/kids/repository.dart';
 import '../outside/repositories/kids_dashboard/repository.dart';
+import '../outside/repositories/reward_redemptions/repository.dart';
 import '../outside/repositories/rewards/repository.dart';
 import '../outside/repositories/task_instances/repository.dart';
 import '../outside/repositories/task_schedules/repository.dart';
@@ -100,6 +101,9 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
     taskInstanceRepository: SupabaseTaskInstance_Repository(
+      supabaseClient: clientProviders.supabaseClientProvider.client,
+    ),
+    rewardRedemptionRepository: SupabaseRewardRedemption_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
   );

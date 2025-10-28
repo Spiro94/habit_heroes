@@ -9,14 +9,14 @@ import 'authenticated/guard.dart';
 import 'authenticated/home/page.dart';
 import 'authenticated/kids_dashboard/router.dart';
 import 'authenticated/parent_dashboard/page.dart';
+import 'authenticated/parent_rewards/page.dart';
 import 'authenticated/parents/kids/edit_kid/page.dart';
 import 'authenticated/parents/kids/kids_list/page.dart';
 import 'authenticated/parents/kids/router.dart';
 import 'authenticated/parents/rewards/create_reward/page.dart';
 import 'authenticated/parents/rewards/redemptions_history/page.dart';
 import 'authenticated/parents/rewards/rewards_list/page.dart';
-import 'authenticated/parents/rewards/router.dart'
-    show ParentRewards_Router;
+import 'authenticated/parents/rewards/router.dart' show ParentRewards_Router;
 import 'authenticated/parents/tasks/create_task/page.dart';
 import 'authenticated/parents/tasks/router.dart';
 import 'authenticated/parents/tasks/task_list/page.dart';
@@ -87,19 +87,13 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
             RedirectRoute(path: '*', redirectTo: ''),
           ],
         ),
-        AutoRoute(
-          path: 'parent-dashboard',
-          page: ParentDashboard_Route.page,
-        ),
+        AutoRoute(path: 'parent-dashboard', page: ParentDashboard_Route.page),
         AutoRoute(
           page: ParentRewards_Routes.page,
           path: 'parent-dashboard/rewards',
           children: [
             AutoRoute(path: '', page: ParentRewardsListRoute.page),
-            AutoRoute(
-              path: 'create',
-              page: ParentCreateRewardRoute.page,
-            ),
+            AutoRoute(path: 'create', page: ParentCreateRewardRoute.page),
             AutoRoute(
               path: 'redemptions',
               page: ParentRedemptionsHistoryRoute.page,
@@ -116,10 +110,7 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
             RedirectRoute(path: '*', redirectTo: ''),
           ],
         ),
-        AutoRoute(
-          page: KidsDashboard_Route.page,
-          path: 'kids-dashboard',
-        ),
+        AutoRoute(page: KidsDashboard_Route.page, path: 'kids-dashboard'),
 
         RedirectRoute(path: '*', redirectTo: 'home'),
       ],

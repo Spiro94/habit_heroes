@@ -328,8 +328,8 @@ const _colorTokens_light = ThemeColorTokens(
     end: Color(0xFF047857),
   ),
   pointsGold: AppColorGradient(
-    start: Color(0xFFFCD34D),
-    end: Color(0xFF78350F),
+    start: Color(0xFFF59E0B),
+    end: Color(0xFFD97706),
   ),
   datePickerCyan: AppColorGradient(
     start: Color(0xFF06B6D4),
@@ -361,8 +361,8 @@ const _colorTokens_dark = ThemeColorTokens(
     end: Color(0xFF047857),
   ),
   pointsGold: AppColorGradient(
-    start: Color(0xFFFCD34D),
-    end: Color(0xFF78350F),
+    start: Color(0xFFF59E0B),
+    end: Color(0xFFD97706),
   ),
   datePickerCyan: AppColorGradient(
     start: Color(0xFF06B6D4),

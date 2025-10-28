@@ -2,17 +2,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:forui/forui.dart';
 import 'package:gap/gap.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../../../outside/theme/theme.dart';
 import '../../../../../../shared/models/kid.dart';
+import '../../../../../../shared/widgets/all.dart';
 import '../../../../../blocs/auth/bloc.dart';
 import '../../../../../blocs/kids/bloc.dart';
 import '../../../../../blocs/kids/events.dart';
 import '../../../../../i18n/translations.g.dart';
-import '../../../../../util/breakpoints.dart';
-import '../../../../widgets/scaffold.dart';
 
 @RoutePage()
 class AddEditKid_Page extends StatefulWidget {
@@ -58,171 +57,132 @@ class _AddEditKid_PageState extends State<AddEditKid_Page> {
 
   @override
   Widget build(BuildContext context) {
-    return Routes_Scaffold(
-      breakpointType: InsideUtil_BreakpointType.constrained,
-      scaffold: FScaffold(
-        header: FHeader.nested(
-          prefixes: [
-            FButton.icon(
-              child: const Icon(Icons.arrow_back),
-              onPress: () {
-                context.router.maybePop();
-              },
-            ),
-          ],
-          title: Text(
-            widget.kid == null ? t.kids.addKidTitle : t.kids.editKidTitle,
-          ),
-          titleAlignment: Alignment.centerLeft,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.kid == null ? t.kids.addKidTitle : t.kids.editKidTitle,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        child: MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
-          child: ListView(
-            children: [
-              Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FTextField(
-                        controller: _nameController,
-                        label: Text(t.kids.name),
-                        hint: t.kids.nameHint,
-                        keyboardType: TextInputType.name,
-                        textCapitalization: TextCapitalization.words,
-                      ),
-                      const Gap(16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            t.kids.color,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const Gap(8),
-                          InkWell(
-                            onTap: _showColorPickerDialog,
-                            borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.shade300),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: _selectedColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: Colors.grey.shade400,
-                                        width: 1,
-                                      ),
-                                    ),
-                                  ),
-                                  const Gap(16),
-                                  Expanded(
-                                    child: Text(
-                                      _colorController.text.isEmpty
-                                          ? t.kids.tapToSelectColor
-                                          : _colorController.text.toUpperCase(),
-                                      style: TextStyle(
-                                        color: _colorController.text.isEmpty
-                                            ? Colors.grey.shade600
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.color_lens,
-                                    color: Colors.grey.shade600,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Gap(4),
-                          Text(
-                            t.kids.selectColorDescription,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Gap(32),
-                      FButton(onPress: _handleSubmit, child: Text(t.kids.save)),
-                    ],
+        backgroundColor: context.colors.kidsManagementGreen.start,
+        foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.router.maybePop(),
+        ),
+      ),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            // Name field
+            ColorfulTextField(
+              label: t.kids.name,
+              hint: t.kids.nameHint,
+              controller: _nameController,
+              gradient: context.colors.kidsManagementGreen,
+              keyboardType: TextInputType.name,
+              textCapitalization: TextCapitalization.words,
+            ),
+            const Gap(24),
+            // Color picker section
+            ColorfulSelector(
+              label: t.kids.color,
+              description: t.kids.selectColorDescription,
+              selectedText: _colorController.text.isEmpty
+                  ? null
+                  : _colorController.text.toUpperCase(),
+              previewColor: _colorController.text.isEmpty
+                  ? null
+                  : _selectedColor,
+              placeholderText: t.kids.tapToSelectColor,
+              icon: Icons.color_lens,
+              gradient: context.colors.kidsManagementGreen,
+              onTap: _showColorPickerDialog,
+            ),
+            const Gap(32),
+            // Save button
+            SizedBox(
+              height: 56,
+              child: ElevatedButton(
+                onPressed: _handleSubmit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: context.colors.kidsManagementGreen.start,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 2,
+                ),
+                child: Text(
+                  t.kids.save,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   void _showColorPickerDialog() {
-    showFDialog<void>(
+    var tempColor = _selectedColor;
+    showDialog<void>(
       context: context,
-      builder: (context, style, animation) {
-        var tempColor = _selectedColor;
-        return FDialog(
-          style: style.call,
-          animation: animation,
-          direction: Axis.horizontal,
-          title: Text(t.kids.pickColor),
-          body: BlockPicker(
-            pickerColor: _selectedColor,
-            layoutBuilder: (context, colors, child) {
-              return SizedBox(
-                width: 300,
-                height: 400,
-                child: MediaQuery.removePadding(
-                  context: context,
-                  removeTop: true,
-                  child: GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 4,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
-                    children: [for (final Color color in colors) child(color)],
-                  ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return HabitHeroes_Dialog(
+              title: t.kids.pickColor,
+              dialogType: HabitHeroesDialogType.info,
+              icon: Icons.palette,
+              body: BlockPicker(
+                pickerColor: tempColor,
+                layoutBuilder: (context, colors, child) {
+                  return SizedBox(
+                    width: 300,
+                    height: 360,
+                    child: GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                      padding: const EdgeInsets.all(8),
+                      children: [
+                        for (final Color color in colors) child(color),
+                      ],
+                    ),
+                  );
+                },
+                onColorChanged: (Color color) {
+                  setDialogState(() {
+                    tempColor = color;
+                  });
+                },
+              ),
+              actions: [
+                HabitHeroesDialogAction(
+                  label: t.kids.cancel,
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-              );
-            },
-            onColorChanged: (Color color) {
-              tempColor = color;
-            },
-          ),
-          actions: [
-            FButton(
-              style: FButtonStyle.outline(),
-              child: Text(t.kids.cancel),
-              onPress: () => Navigator.of(context).pop(),
-            ),
-            FButton(
-              child: Text(t.kids.select),
-              onPress: () {
-                setState(() {
-                  _selectedColor = tempColor;
-                  _colorController.text = _colorToHex(tempColor);
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+                HabitHeroesDialogAction(
+                  label: t.kids.select,
+                  isPrimary: true,
+                  onPressed: () {
+                    setState(() {
+                      _selectedColor = tempColor;
+                      _colorController.text = _colorToHex(tempColor);
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -256,8 +216,21 @@ class _AddEditKid_PageState extends State<AddEditKid_Page> {
   }
 
   void _showError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: Colors.red),
+    showDialog<void>(
+      context: context,
+      builder: (context) => HabitHeroes_Dialog(
+        title: t.kids.somethingWentWrong,
+        dialogType: HabitHeroesDialogType.error,
+        icon: Icons.error_outline,
+        body: Text(message),
+        actions: [
+          HabitHeroesDialogAction(
+            label: t.kids.cancel,
+            isPrimary: true,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../outside/theme/theme.dart';
 import '../../../../../shared/models/kid_points.dart';
 import '../../../../../shared/models/reward.dart';
+import '../../../../../shared/widgets/all.dart';
 
 class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
   const KidsDashboard_Widget_KidSelectionDialog({
@@ -17,9 +19,11 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Selecciona quién redime'),
-      content: SizedBox(
+    return HabitHeroes_Dialog(
+      title: 'Selecciona quién redime',
+      dialogType: HabitHeroesDialogType.info,
+      icon: Icons.card_giftcard,
+      body: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
           shrinkWrap: true,
@@ -33,7 +37,7 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
               leading: CircleAvatar(
                 backgroundColor: kid.kidColor != null
                     ? Color(int.parse(kid.kidColor!.replaceFirst('#', '0xff')))
-                    : Colors.blue,
+                    : context.colors.kidsPrimary.start,
                 child: Text(
                   kid.kidName.isNotEmpty
                       ? kid.kidName[0].toUpperCase()
@@ -45,13 +49,16 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
               subtitle: Text(
                 '${kid.totalPoints} puntos',
                 style: TextStyle(
-                  color: canRedeem ? Colors.green : Colors.red,
+                  color: canRedeem
+                      ? context.solidColors.success
+                      : context.solidColors.error,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               trailing: canRedeem
-                  ? const Icon(Icons.check_circle, color: Colors.green)
-                  : const Icon(Icons.block, color: Colors.red),
+                  ? Icon(Icons.check_circle,
+                      color: context.solidColors.success)
+                  : Icon(Icons.block, color: context.solidColors.error),
               onTap: canRedeem
                   ? () {
                       Navigator.of(context).pop();
@@ -63,9 +70,9 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        TextButton(
+        HabitHeroesDialogAction(
+          label: 'Cancelar',
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancelar'),
         ),
       ],
     );

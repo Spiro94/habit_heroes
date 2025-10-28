@@ -11,79 +11,81 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<KidsDashboard_Bloc, KidsDashboard_State>(
-      builder: (context, state) {
-        if (state.loadStatus == LoadStatus.loading) {
-          return const Center(child: CircularProgressIndicator());
-        }
+    return SafeArea(
+      child: BlocBuilder<KidsDashboard_Bloc, KidsDashboard_State>(
+        builder: (context, state) {
+          if (state.loadStatus == LoadStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-        if (state.loadStatus == LoadStatus.error) {
-          return Center(
+          if (state.loadStatus == LoadStatus.error) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error, size: 48, color: Colors.red),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Error: ${state.loadErrorMessage ?? "Unknown error"}',
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<KidsDashboard_Bloc>().add(
+                        const KidsDashboard_Event_LoadData(),
+                      );
+                    },
+                    child: const Text('Reintentar'),
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.error, size: 48, color: Colors.red),
-                const SizedBox(height: 16),
-                Text(
-                  'Error: ${state.loadErrorMessage ?? "Unknown error"}',
-                  textAlign: TextAlign.center,
+                // Kids Points Overview
+                _buildKidsPointsSection(state),
+                const SizedBox(height: 24),
+
+                // Available Rewards
+                const Text(
+                  'Recompensas Disponibles',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<KidsDashboard_Bloc>().add(
-                      const KidsDashboard_Event_LoadData(),
-                    );
-                  },
-                  child: const Text('Reintentar'),
-                ),
+
+                if (state.rewards.isEmpty)
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 32),
+                      child: Text(
+                        'No hay recompensas disponibles',
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                    ),
+                  )
+                else
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: state.rewards.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 12),
+                    itemBuilder: (context, index) {
+                      final reward = state.rewards[index];
+                      return _buildRewardCard(context, state, reward);
+                    },
+                  ),
               ],
             ),
           );
-        }
-
-        return SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Kids Points Overview
-              _buildKidsPointsSection(state),
-              const SizedBox(height: 24),
-
-              // Available Rewards
-              const Text(
-                'Recompensas Disponibles',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-
-              if (state.rewards.isEmpty)
-                const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 32),
-                    child: Text(
-                      'No hay recompensas disponibles',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                  ),
-                )
-              else
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.rewards.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 12),
-                  itemBuilder: (context, index) {
-                    final reward = state.rewards[index];
-                    return _buildRewardCard(context, state, reward);
-                  },
-                ),
-            ],
-          ),
-        );
-      },
+        },
+      ),
     );
   }
 
@@ -261,7 +263,7 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
   ) {
     showDialog(
       context: context,
-      builder: (context) => KidsDashboard_Widget_KidSelectionDialog(
+      builder: (dContext) => KidsDashboard_Widget_KidSelectionDialog(
         kids: state.kidsPoints,
         reward: reward,
         onKidSelected: (kidId) {
@@ -271,10 +273,10 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
 
           // Show success/error snackbar
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('¡Recompensa canjeada!'),
+            const SnackBar(
+              content: Text('¡Recompensa canjeada!'),
               backgroundColor: Colors.green,
-              duration: const Duration(seconds: 2),
+              duration: Duration(seconds: 2),
             ),
           );
         },

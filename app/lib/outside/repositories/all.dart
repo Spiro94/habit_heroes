@@ -6,6 +6,7 @@ import 'base.dart';
 import 'completions/repository.dart';
 import 'kids/repository.dart';
 import 'kids_dashboard/repository.dart';
+import 'reward_redemptions/repository.dart';
 import 'rewards/repository.dart';
 import 'task_instances/repository.dart';
 import 'task_schedules/repository.dart';
@@ -27,6 +28,7 @@ class Repositories_All {
     required this.taskTemplateRepository,
     required this.taskScheduleRepository,
     required this.taskInstanceRepository,
+    required this.rewardRedemptionRepository,
   });
 
   final AppUser_Repository appUserRepository;
@@ -38,6 +40,7 @@ class Repositories_All {
   final TaskTemplate_Repository taskTemplateRepository;
   final TaskSchedule_Repository taskScheduleRepository;
   final TaskInstance_Repository taskInstanceRepository;
+  final RewardRedemption_Repository rewardRedemptionRepository;
 
   List<Repository_Base> getList() => [
     appUserRepository,
@@ -49,6 +52,7 @@ class Repositories_All {
     taskTemplateRepository,
     taskScheduleRepository,
     taskInstanceRepository,
+    rewardRedemptionRepository,
   ];
 
   List<RepositoryProvider<Repository_Base>> createProviders() {
@@ -71,6 +75,9 @@ class Repositories_All {
       ),
       RepositoryProvider<TaskInstance_Repository>.value(
         value: taskInstanceRepository,
+      ),
+      RepositoryProvider<RewardRedemption_Repository>.value(
+        value: rewardRedemptionRepository,
       ),
     ];
   }

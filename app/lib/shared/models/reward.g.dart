@@ -19,11 +19,8 @@ Reward _$RewardFromJson(Map<String, dynamic> json) => Reward(
 );
 
 Map<String, dynamic> _$RewardToJson(Reward instance) => <String, dynamic>{
-  'id': instance.id,
   'parent_id': instance.parentId,
   'name': instance.name,
   'description': instance.description,
   'points': instance.points,
-  'created_at': instance.createdAt.toIso8601String(),
-  'updated_at': instance.updatedAt?.toIso8601String(),
 };
