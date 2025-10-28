@@ -24,10 +24,7 @@ class Kids_Bloc extends Bloc<Kids_Event, Kids_State> {
       emit(state.copyWith(status: Kids_Status.loaded, kids: kids));
     } catch (e) {
       emit(
-        state.copyWith(
-          status: Kids_Status.error,
-          setErrorMessage: () => e.toString(),
-        ),
+        state.copyWith(status: Kids_Status.error, setErrorMessage: e.toString),
       );
     }
   }
@@ -44,10 +41,7 @@ class Kids_Bloc extends Bloc<Kids_Event, Kids_State> {
       emit(state.copyWith(status: Kids_Status.loaded, kids: kids));
     } catch (e) {
       emit(
-        state.copyWith(
-          status: Kids_Status.error,
-          setErrorMessage: () => e.toString(),
-        ),
+        state.copyWith(status: Kids_Status.error, setErrorMessage: e.toString),
       );
     }
   }
@@ -63,10 +57,7 @@ class Kids_Bloc extends Bloc<Kids_Event, Kids_State> {
       emit(state.copyWith(status: Kids_Status.loaded, kids: kids));
     } catch (e) {
       emit(
-        state.copyWith(
-          status: Kids_Status.error,
-          setErrorMessage: () => e.toString(),
-        ),
+        state.copyWith(status: Kids_Status.error, setErrorMessage: e.toString),
       );
     }
   }
@@ -82,10 +73,7 @@ class Kids_Bloc extends Bloc<Kids_Event, Kids_State> {
       emit(state.copyWith(status: Kids_Status.loaded, kids: kids));
     } catch (e) {
       emit(
-        state.copyWith(
-          status: Kids_Status.error,
-          setErrorMessage: () => e.toString(),
-        ),
+        state.copyWith(status: Kids_Status.error, setErrorMessage: e.toString),
       );
     }
   }

@@ -7,22 +7,34 @@ part 'reward.g.dart';
 class Reward extends Equatable {
   const Reward({
     required this.id,
-    required this.familyId,
+    required this.parentId,
     required this.name,
     required this.points,
     required this.createdAt,
+    this.description,
+    this.updatedAt,
   });
 
   factory Reward.fromJson(Map<String, dynamic> json) => _$RewardFromJson(json);
 
   final String id;
-  final String familyId;
+  final String parentId;
   final String name;
+  final String? description;
   final int points;
   final DateTime createdAt;
+  final DateTime? updatedAt;
 
   Map<String, dynamic> toJson() => _$RewardToJson(this);
 
   @override
-  List<Object?> get props => [id, familyId, name, points, createdAt];
+  List<Object?> get props => [
+    id,
+    parentId,
+    name,
+    description,
+    points,
+    createdAt,
+    updatedAt,
+  ];
 }

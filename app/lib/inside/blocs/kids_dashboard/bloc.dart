@@ -12,12 +12,13 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
     with SharedMixin_Logging {
   KidsDashboard_Bloc({
     required KidsDashboard_Repository kidsDashboardRepository,
-  })  : _kidsDashboardRepository = kidsDashboardRepository,
-        super(KidsDashboard_State.initial()) {
+  }) : _kidsDashboardRepository = kidsDashboardRepository,
+       super(KidsDashboard_State.initial()) {
     on<KidsDashboard_Event_LoadData>(_onLoadData);
     on<KidsDashboard_Event_CompleteTask>(_onCompleteTask);
     on<KidsDashboard_Event_SkipTask>(_onSkipTask);
     on<KidsDashboard_Event_RefreshData>(_onRefreshData);
+    on<KidsDashboard_Event_RedeemReward>(_onRedeemReward);
   }
 
   final KidsDashboard_Repository _kidsDashboardRepository;
@@ -31,15 +32,17 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
     try {
       emit(state.copyWith(loadStatus: LoadStatus.loading));
 
-      // Load both today's tasks and kids points in parallel
+      // Load today's tasks, kids points, and rewards in parallel
       final todayTasks = await _kidsDashboardRepository.getTodayTasks();
       final kidsPoints = await _kidsDashboardRepository.getKidsPoints();
+      final rewards = await _kidsDashboardRepository.getRewards();
 
       emit(
         state.copyWith(
           loadStatus: LoadStatus.loaded,
           todayTasks: todayTasks,
           kidsPoints: kidsPoints,
+          rewards: rewards,
           setLoadErrorMessage: () => null,
         ),
       );
@@ -48,7 +51,7 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
       emit(
         state.copyWith(
           loadStatus: LoadStatus.error,
-          setLoadErrorMessage: () => e.toString(),
+          setLoadErrorMessage: e.toString,
         ),
       );
     }
@@ -63,13 +66,14 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
     try {
       emit(state.copyWith(completeTaskStatus: CompleteTaskStatus.completing));
 
-      await _kidsDashboardRepository.completeTask(
-        instanceId: event.instanceId,
-      );
+      await _kidsDashboardRepository.completeTask(instanceId: event.instanceId);
+
+      final kidsPoints = await _kidsDashboardRepository.getKidsPoints();
 
       emit(
         state.copyWith(
           completeTaskStatus: CompleteTaskStatus.success,
+          kidsPoints: kidsPoints,
           setCompleteTaskErrorMessage: () => null,
         ),
       );
@@ -81,7 +85,7 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
       emit(
         state.copyWith(
           completeTaskStatus: CompleteTaskStatus.error,
-          setCompleteTaskErrorMessage: () => e.toString(),
+          setCompleteTaskErrorMessage: e.toString,
         ),
       );
     }
@@ -112,7 +116,7 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
       emit(
         state.copyWith(
           skipTaskStatus: SkipTaskStatus.error,
-          setSkipTaskErrorMessage: () => e.toString(),
+          setSkipTaskErrorMessage: e.toString,
         ),
       );
     }
@@ -129,15 +133,44 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
       final todayTasks = await _kidsDashboardRepository.getTodayTasks();
       final kidsPoints = await _kidsDashboardRepository.getKidsPoints();
 
-      emit(
-        state.copyWith(
-          todayTasks: todayTasks,
-          kidsPoints: kidsPoints,
-        ),
-      );
+      emit(state.copyWith(todayTasks: todayTasks, kidsPoints: kidsPoints));
     } catch (e, stackTrace) {
       log.severe('Error refreshing kids dashboard data', e, stackTrace);
       // Don't update error state on silent refresh failures
+    }
+  }
+
+  Future<void> _onRedeemReward(
+    KidsDashboard_Event_RedeemReward event,
+    Emitter<KidsDashboard_State> emit,
+  ) async {
+    log.info('_onRedeemReward: ${event.rewardId} for kid ${event.kidId}');
+
+    try {
+      emit(state.copyWith(redeemRewardStatus: RedeemRewardStatus.redeeming));
+
+      await _kidsDashboardRepository.redeemReward(
+        rewardId: event.rewardId,
+        kidId: event.kidId,
+      );
+
+      emit(
+        state.copyWith(
+          redeemRewardStatus: RedeemRewardStatus.success,
+          setRedeemRewardErrorMessage: () => null,
+        ),
+      );
+
+      // Refresh data to update points
+      add(const KidsDashboard_Event_RefreshData());
+    } catch (e, stackTrace) {
+      log.severe('Error redeeming reward', e, stackTrace);
+      emit(
+        state.copyWith(
+          redeemRewardStatus: RedeemRewardStatus.error,
+          setRedeemRewardErrorMessage: e.toString,
+        ),
+      );
     }
   }
 }

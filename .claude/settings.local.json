@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(fvm flutter pub run build_runner build:*)",
-      "Bash(fvm flutter pub run slang:*)"
+      "Bash(fvm flutter pub run slang:*)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []

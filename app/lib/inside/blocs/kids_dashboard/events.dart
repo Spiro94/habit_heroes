@@ -32,3 +32,16 @@ class KidsDashboard_Event_SkipTask extends KidsDashboard_Event {
 class KidsDashboard_Event_RefreshData extends KidsDashboard_Event {
   const KidsDashboard_Event_RefreshData();
 }
+
+class KidsDashboard_Event_RedeemReward extends KidsDashboard_Event {
+  const KidsDashboard_Event_RedeemReward({
+    required this.rewardId,
+    required this.kidId,
+  });
+
+  final String rewardId;
+  final String kidId;
+
+  @override
+  List<Object?> get props => [rewardId, kidId];
+}

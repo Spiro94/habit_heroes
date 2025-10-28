@@ -15,7 +15,7 @@ class KidsDashboard_Router extends StatelessWidget {
     return BlocProvider(
       create: (context) => KidsDashboard_Bloc(
         kidsDashboardRepository: context.read<KidsDashboard_Repository>(),
-      ),
+      )..add(const KidsDashboard_Event_LoadData()),
       child: const KidsDashboard_Page(),
     );
   }

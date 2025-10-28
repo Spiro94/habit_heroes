@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
-import '../../../i18n/translations.g.dart';
 import '../../../util/breakpoints.dart';
 import '../../router.dart';
 import '../../widgets/scaffold.dart';
@@ -17,7 +16,7 @@ class ParentDashboard_Page extends StatelessWidget {
       breakpointType: InsideUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: FHeader.nested(
-          title: Text(context.t.parentDashboard.title),
+          title: const Text('Gestión de Tareas y Niños'),
           prefixes: [FHeaderAction.back(onPress: () => context.router.pop())],
         ),
         child: SingleChildScrollView(
@@ -25,13 +24,6 @@ class ParentDashboard_Page extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Gestión de Tareas y Niños',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 48),
-
               // Tasks Management Button
               GestureDetector(
                 onTap: () => context.router.push(const ParentTasks_Routes()),
