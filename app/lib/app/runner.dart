@@ -18,6 +18,7 @@ import '../outside/repositories/app_user/repository.dart';
 import '../outside/repositories/auth/repository.dart';
 import '../outside/repositories/completions/repository.dart';
 import '../outside/repositories/kids/repository.dart';
+import '../outside/repositories/kids_dashboard/repository.dart';
 import '../outside/repositories/rewards/repository.dart';
 import '../outside/repositories/task_instances/repository.dart';
 import '../outside/repositories/task_schedules/repository.dart';
@@ -81,6 +82,9 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
     kidRepository: SupabaseKids_Repository(
+      supabaseClient: clientProviders.supabaseClientProvider.client,
+    ),
+    kidsDashboardRepository: SupabaseKidsDashboard_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
     rewardRepository: SupabaseReward_Repository(

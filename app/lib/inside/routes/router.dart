@@ -6,6 +6,7 @@ import '../../shared/models/kid.dart';
 import '../blocs/auth/bloc.dart';
 import 'authenticated/guard.dart';
 import 'authenticated/home/page.dart';
+import 'authenticated/kids_dashboard/router.dart';
 import 'authenticated/parent_dashboard/page.dart';
 import 'authenticated/parent_rewards/page.dart';
 import 'authenticated/parents/kids/edit_kid/page.dart';
@@ -96,6 +97,10 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
             AutoRoute(path: 'edit', page: AddEditKid_Route.page),
             RedirectRoute(path: '*', redirectTo: ''),
           ],
+        ),
+        AutoRoute(
+          page: KidsDashboard_Route.page,
+          path: 'kids-dashboard',
         ),
 
         RedirectRoute(path: '*', redirectTo: 'home'),

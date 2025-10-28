@@ -205,6 +205,22 @@ class KidList_Route extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [KidsDashboard_Router]
+class KidsDashboard_Route extends PageRouteInfo<void> {
+  const KidsDashboard_Route({List<PageRouteInfo>? children})
+    : super(KidsDashboard_Route.name, initialChildren: children);
+
+  static const String name = 'KidsDashboard_Route';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const KidsDashboard_Router();
+    },
+  );
+}
+
+/// generated route for
 /// [ParentDashboard_Page]
 class ParentDashboard_Route extends PageRouteInfo<void> {
   const ParentDashboard_Route({List<PageRouteInfo>? children})
