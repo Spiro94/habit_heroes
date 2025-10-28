@@ -71,6 +71,20 @@ class ParentTasks_State {
 - Easier to show loading indicators for specific operations
 - UI can react to specific action completions
 
+### Theming and Colors
+-   **NEVER hardcode colors**: Always use the theme token system instead of hardcoded `Color(0xFF...)` values.
+-   **Solid Colors**: Use `context.solidColors.*` for general UI colors (backgrounds, text, borders, etc.)
+      - Examples: `context.solidColors.surface`, `context.solidColors.onSurface`, `context.solidColors.error`
+-   **Gradient Colors**: Use `context.colors.*Gradient` for feature-specific accent colors
+      - Examples: `context.colors.parentsPrimary`, `context.colors.kidsPrimary`, `context.colors.tasksBlue`
+-   **Reusable Components**: Use `ColorfulButton` and `ColorfulCard` widgets for gradient-based UI elements
+-   **Creating New Colors**: If a color is not in the theme tokens:
+      1. Determine if it's a **semantic color** (UI purpose-based) → Add to `AppSolidColors` in `colors.dart`
+      2. Determine if it's a **feature-specific gradient** → Add as a new gradient to `ThemeColorTokens`
+      3. Document the color in the `THEME_GUIDE.md` file
+-   **Migration Status**: See `COLOR_MIGRATION_STATUS.md` for progress on converting hardcoded colors throughout the codebase
+-   **Reference**: See `THEME_GUIDE.md` and `SOLID_COLORS_ADDITION.md` for complete color documentation
+
 ### Widget Organization
 -   **Avoid Helper Methods**: Do NOT create helper methods that return widgets (e.g., `Widget _buildSomething()`).
 -   **Use Widget Classes**: Instead of helper methods, create separate widget classes following the naming convention `PageName_Widget_WidgetDescription`.

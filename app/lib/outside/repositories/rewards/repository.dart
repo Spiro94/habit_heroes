@@ -70,7 +70,7 @@ class SupabaseReward_Repository extends Reward_Repository {
     final response = await _supabaseClient
         .from('rewards')
         .select()
-        .eq('family_id', familyId);
+        .eq('parent_id', familyId);
     return response.map(Reward.fromJson).toList();
   }
 }

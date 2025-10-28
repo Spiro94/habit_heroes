@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
+import '../../../../outside/theme/theme.dart';
 import '../../../util/breakpoints.dart';
 import '../../router.dart';
+import '../../widgets/colorful_button.dart';
 import '../../widgets/scaffold.dart';
 
 @RoutePage()
@@ -24,101 +26,43 @@ class ParentDashboard_Page extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Tasks Management Button
-              GestureDetector(
-                onTap: () => context.router.push(const ParentTasks_Routes()),
-                child: Container(
-                  height: 180,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF3B82F6), Color(0xFF1E40AF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.assignment,
-                        size: 64,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Tareas',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Crea y gestiona tareas',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white.withValues(alpha: 0.9),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              ColorfulButton(
+                gradient: context.colors.tasksBlue,
+                label: 'Tareas',
+                subtitle: 'Crea y gestiona tareas',
+                icon: Icons.assignment,
+                height: 180,
+                labelFontSize: 24,
+                subtitleFontSize: 14,
+                iconSize: 64,
+                onPressed: () =>
+                    context.router.push(const ParentTasks_Routes()),
               ),
               const SizedBox(height: 24),
-
-              // Kids Management Button
-              GestureDetector(
-                onTap: () => context.router.push(const ParentKids_Routes()),
-                child: Container(
-                  height: 180,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF10B981), Color(0xFF047857)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF10B981).withValues(alpha: 0.3),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.group, size: 64, color: Colors.white),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Niños',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Gestiona perfiles de tus hijos',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white.withValues(alpha: 0.9),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              ColorfulButton(
+                gradient: context.colors.kidsManagementGreen,
+                label: 'Niños',
+                subtitle: 'Gestiona perfiles de tus hijos',
+                icon: Icons.group,
+                height: 180,
+                labelFontSize: 24,
+                subtitleFontSize: 14,
+                iconSize: 64,
+                onPressed: () =>
+                    context.router.push(const ParentKids_Routes()),
+              ),
+              const SizedBox(height: 24),
+              ColorfulButton(
+                gradient: context.colors.pointsGold,
+                label: 'Recompensas',
+                subtitle: 'Gestiona recompensas y canjes',
+                icon: Icons.card_giftcard,
+                height: 180,
+                labelFontSize: 24,
+                subtitleFontSize: 14,
+                iconSize: 64,
+                onPressed: () =>
+                    context.router.push(const ParentRewards_Routes()),
               ),
             ],
           ),

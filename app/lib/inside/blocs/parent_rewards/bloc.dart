@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../outside/repositories/app_user/repository.dart';
+import '../../../outside/repositories/reward_redemptions/repository.dart';
 import '../../../outside/repositories/rewards/repository.dart';
 import '../base.dart';
 import 'events.dart';
@@ -12,14 +12,20 @@ import 'state.dart';
 class ParentRewards_Bloc
     extends Bloc_Base<ParentRewards_Event, ParentRewards_State> {
   ParentRewards_Bloc({
-    required AppUser_Repository appUserRepository,
+    required String userId,
     required Reward_Repository rewardRepository,
+    required RewardRedemption_Repository redemptionRepository,
     required ParentRewards_State initialState,
-  }) : _appUserRepository = appUserRepository,
+  }) : _userId = userId,
        _rewardRepository = rewardRepository,
+       _redemptionRepository = redemptionRepository,
        super(initialState) {
     on<ParentRewards_Event_LoadRewards>(
       _onLoadRewards,
+      transformer: sequential(),
+    );
+    on<ParentRewards_Event_LoadRedemptions>(
+      _onLoadRedemptions,
       transformer: sequential(),
     );
     on<ParentRewards_Event_AddReward>(_onAddReward, transformer: sequential());
@@ -33,29 +39,64 @@ class ParentRewards_Bloc
     );
   }
 
-  // TODO: implement
-  // ignore: unused_field
-  final AppUser_Repository _appUserRepository;
-  // TODO: implement
-  // ignore: unused_field
+  final String _userId;
   final Reward_Repository _rewardRepository;
+  final RewardRedemption_Repository _redemptionRepository;
 
   Future<void> _onLoadRewards(
     ParentRewards_Event_LoadRewards event,
     Emitter<ParentRewards_State> emit,
   ) async {
-    emit(state.copyWith(status: ParentRewards_Status.loading));
+    emit(state.copyWith(loadStatus: ParentRewards_LoadStatus.loading));
     try {
-      // TODO: Implement fetching rewards logic using _rewardRepository
-      // For now, just simulate a delay
-      await Future<void>.delayed(const Duration(seconds: 1));
-      emit(state.copyWith(status: ParentRewards_Status.loaded, rewards: []));
+      final rewards =
+          await _rewardRepository.getRewardsByFamilyId(familyId: _userId);
+      emit(
+        state.copyWith(
+          loadStatus: ParentRewards_LoadStatus.loaded,
+          rewards: rewards,
+        ),
+      );
     } catch (e, stackTrace) {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          status: ParentRewards_Status.error,
-          setErrorMessage: e.toString,
+          loadStatus: ParentRewards_LoadStatus.error,
+          setLoadErrorMessage: e.toString,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLoadRedemptions(
+    ParentRewards_Event_LoadRedemptions event,
+    Emitter<ParentRewards_State> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        redemptionLoadStatus:
+            ParentRewards_RedemptionLoadStatus.loading,
+      ),
+    );
+    try {
+      final redemptions =
+          await _redemptionRepository.getRedemptionHistory(
+        parentId: _userId,
+      );
+      emit(
+        state.copyWith(
+          redemptionLoadStatus:
+              ParentRewards_RedemptionLoadStatus.loaded,
+          redemptions: redemptions,
+        ),
+      );
+    } catch (e, stackTrace) {
+      log.warning('${event.runtimeType}: error', e, stackTrace);
+      emit(
+        state.copyWith(
+          redemptionLoadStatus:
+              ParentRewards_RedemptionLoadStatus.error,
+          setRedemptionLoadErrorMessage: e.toString,
         ),
       );
     }
@@ -65,20 +106,59 @@ class ParentRewards_Bloc
     ParentRewards_Event_AddReward event,
     Emitter<ParentRewards_State> emit,
   ) async {
-    // TODO: Implement add reward logic
+    emit(state.copyWith(createStatus: ParentRewards_CreateStatus.creating));
+    try {
+      await _rewardRepository.createReward(reward: event.reward);
+      emit(state.copyWith(createStatus: ParentRewards_CreateStatus.success));
+      add(const ParentRewards_Event_LoadRewards());
+    } catch (e, stackTrace) {
+      log.warning('${event.runtimeType}: error', e, stackTrace);
+      emit(
+        state.copyWith(
+          createStatus: ParentRewards_CreateStatus.error,
+          setCreateErrorMessage: e.toString,
+        ),
+      );
+    }
   }
 
   Future<void> _onUpdateReward(
     ParentRewards_Event_UpdateReward event,
     Emitter<ParentRewards_State> emit,
   ) async {
-    // TODO: Implement update reward logic
+    emit(state.copyWith(updateStatus: ParentRewards_UpdateStatus.updating));
+    try {
+      await _rewardRepository.updateReward(reward: event.reward);
+      emit(state.copyWith(updateStatus: ParentRewards_UpdateStatus.success));
+      add(const ParentRewards_Event_LoadRewards());
+    } catch (e, stackTrace) {
+      log.warning('${event.runtimeType}: error', e, stackTrace);
+      emit(
+        state.copyWith(
+          updateStatus: ParentRewards_UpdateStatus.error,
+          setUpdateErrorMessage: e.toString,
+        ),
+      );
+    }
   }
 
   Future<void> _onDeleteReward(
     ParentRewards_Event_DeleteReward event,
     Emitter<ParentRewards_State> emit,
   ) async {
-    // TODO: Implement delete reward logic
+    emit(state.copyWith(deleteStatus: ParentRewards_DeleteStatus.deleting));
+    try {
+      await _rewardRepository.deleteReward(id: event.rewardId);
+      emit(state.copyWith(deleteStatus: ParentRewards_DeleteStatus.success));
+      add(const ParentRewards_Event_LoadRewards());
+    } catch (e, stackTrace) {
+      log.warning('${event.runtimeType}: error', e, stackTrace);
+      emit(
+        state.copyWith(
+          deleteStatus: ParentRewards_DeleteStatus.error,
+          setDeleteErrorMessage: e.toString,
+        ),
+      );
+    }
   }
 }

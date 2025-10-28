@@ -221,6 +221,56 @@ class KidsDashboard_Route extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ParentCreateRewardPage]
+class ParentCreateRewardRoute
+    extends PageRouteInfo<ParentCreateRewardRouteArgs> {
+  ParentCreateRewardRoute({
+    Reward? reward,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ParentCreateRewardRoute.name,
+         args: ParentCreateRewardRouteArgs(reward: reward, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'ParentCreateRewardRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ParentCreateRewardRouteArgs>(
+        orElse: () => const ParentCreateRewardRouteArgs(),
+      );
+      return ParentCreateRewardPage(reward: args.reward, key: args.key);
+    },
+  );
+}
+
+class ParentCreateRewardRouteArgs {
+  const ParentCreateRewardRouteArgs({this.reward, this.key});
+
+  final Reward? reward;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ParentCreateRewardRouteArgs{reward: $reward, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ParentCreateRewardRouteArgs) return false;
+    return reward == other.reward && key == other.key;
+  }
+
+  @override
+  int get hashCode => reward.hashCode ^ key.hashCode;
+}
+
+/// generated route for
 /// [ParentDashboard_Page]
 class ParentDashboard_Route extends PageRouteInfo<void> {
   const ParentDashboard_Route({List<PageRouteInfo>? children})
@@ -253,6 +303,38 @@ class ParentKids_Routes extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ParentRedemptionsHistoryPage]
+class ParentRedemptionsHistoryRoute extends PageRouteInfo<void> {
+  const ParentRedemptionsHistoryRoute({List<PageRouteInfo>? children})
+    : super(ParentRedemptionsHistoryRoute.name, initialChildren: children);
+
+  static const String name = 'ParentRedemptionsHistoryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ParentRedemptionsHistoryPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ParentRewardsListPage]
+class ParentRewardsListRoute extends PageRouteInfo<void> {
+  const ParentRewardsListRoute({List<PageRouteInfo>? children})
+    : super(ParentRewardsListRoute.name, initialChildren: children);
+
+  static const String name = 'ParentRewardsListRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ParentRewardsListPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ParentRewards_Page]
 class ParentRewards_Route extends PageRouteInfo<void> {
   const ParentRewards_Route({List<PageRouteInfo>? children})
@@ -264,6 +346,22 @@ class ParentRewards_Route extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ParentRewards_Page();
+    },
+  );
+}
+
+/// generated route for
+/// [ParentRewards_Router]
+class ParentRewards_Routes extends PageRouteInfo<void> {
+  const ParentRewards_Routes({List<PageRouteInfo>? children})
+    : super(ParentRewards_Routes.name, initialChildren: children);
+
+  static const String name = 'ParentRewards_Routes';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ParentRewards_Router();
     },
   );
 }

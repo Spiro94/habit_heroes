@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 
 import '../../shared/mixins/logging.dart';
 import '../../shared/models/kid.dart';
+import '../../shared/models/reward.dart';
 import '../blocs/auth/bloc.dart';
 import 'authenticated/guard.dart';
 import 'authenticated/home/page.dart';
 import 'authenticated/kids_dashboard/router.dart';
 import 'authenticated/parent_dashboard/page.dart';
-import 'authenticated/parent_rewards/page.dart';
 import 'authenticated/parents/kids/edit_kid/page.dart';
 import 'authenticated/parents/kids/kids_list/page.dart';
 import 'authenticated/parents/kids/router.dart';
+import 'authenticated/parents/rewards/create_reward/page.dart';
+import 'authenticated/parents/rewards/redemptions_history/page.dart';
+import 'authenticated/parents/rewards/rewards_list/page.dart';
+import 'authenticated/parents/rewards/router.dart'
+    show ParentRewards_Router;
 import 'authenticated/parents/tasks/create_task/page.dart';
 import 'authenticated/parents/tasks/router.dart';
 import 'authenticated/parents/tasks/task_list/page.dart';
@@ -85,8 +90,21 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
         AutoRoute(
           path: 'parent-dashboard',
           page: ParentDashboard_Route.page,
+        ),
+        AutoRoute(
+          page: ParentRewards_Routes.page,
+          path: 'parent-dashboard/rewards',
           children: [
-            AutoRoute(path: 'rewards', page: ParentRewards_Route.page),
+            AutoRoute(path: '', page: ParentRewardsListRoute.page),
+            AutoRoute(
+              path: 'create',
+              page: ParentCreateRewardRoute.page,
+            ),
+            AutoRoute(
+              path: 'redemptions',
+              page: ParentRedemptionsHistoryRoute.page,
+            ),
+            RedirectRoute(path: '*', redirectTo: ''),
           ],
         ),
         AutoRoute(

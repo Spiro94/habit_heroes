@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
+part 'tokens/colors.dart';
 part 'tokens/icon_size.dart';
 part 'tokens/extensions.dart';
 part 'tokens/radius.dart';
@@ -32,7 +33,15 @@ final _materialThemeData_light = ThemeData(
   scaffoldBackgroundColor: _foruiThemeData_light.scaffoldStyle.backgroundColor,
 );
 
+const _tokenExtensions_dark = ThemeTokenExtensions(
+  colors: _colorTokens_dark,
+  iconSize: _iconSizeTokens,
+  radius: _radiusTokens,
+  spacing: _spacingTokens,
+);
+
 final _materialThemeData_dark = _materialThemeData_light.copyWith(
+  extensions: const [_tokenExtensions_dark],
   scaffoldBackgroundColor: _foruiThemeData_dark.scaffoldStyle.backgroundColor,
 );
 

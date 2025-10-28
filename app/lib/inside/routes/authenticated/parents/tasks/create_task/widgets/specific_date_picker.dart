@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
-import 'package:gap/gap.dart';
 
 import '../../../../../../i18n/translations.g.dart';
 
 class CreateTask_Widget_SpecificDatePicker extends StatefulWidget {
-  final FDateFieldController controller;
+  final DateTime? selectedDate;
+  final void Function(DateTime) onDateChanged;
   final ValueNotifier<String?> errorNotifier;
 
   const CreateTask_Widget_SpecificDatePicker({
-    required this.controller,
+    required this.selectedDate,
+    required this.onDateChanged,
     required this.errorNotifier,
     super.key,
   });
@@ -22,50 +22,58 @@ class CreateTask_Widget_SpecificDatePicker extends StatefulWidget {
 class _CreateTask_Widget_SpecificDatePickerState
     extends State<CreateTask_Widget_SpecificDatePicker> {
   @override
-  void initState() {
-    super.initState();
-    widget.controller.addListener(_onDateChanged);
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(_onDateChanged);
-    super.dispose();
-  }
-
-  void _onDateChanged() {
-    // Clear error when user selects a date
-    if (widget.controller.value != null) {
-      widget.errorNotifier.value = null;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FDateField.calendar(
-          controller: widget.controller,
-          label: Text(t.tasks.specificDate),
-          description: Text(t.tasks.selectDateDescription),
-          hint: t.tasks.specificDateHint,
+        // Date Picker Button
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey[300]!),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ListTile(
+            leading: const Icon(
+              Icons.calendar_today,
+              color: Color(0xFF3B82F6),
+            ),
+            title: Text(
+              t.tasks.specificDate,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text(
+              widget.selectedDate != null
+                  ? widget.selectedDate.toString().split(' ')[0]
+                  : t.tasks.selectDateDescription,
+            ),
+            onTap: () async {
+              final picked = await showDatePicker(
+                context: context,
+                initialDate: widget.selectedDate ?? DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2100),
+              );
+              if (picked != null) {
+                widget.onDateChanged(picked);
+                widget.errorNotifier.value = null;
+              }
+            },
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+          ),
         ),
         ValueListenableBuilder<String?>(
           valueListenable: widget.errorNotifier,
           builder: (context, error, child) {
             if (error == null) return const SizedBox.shrink();
-            return Column(
-              children: [
-                const Gap(4),
-                Text(
-                  error,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.error,
-                    fontSize: 12,
-                  ),
+            return Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                error,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                  fontSize: 12,
                 ),
-              ],
+              ),
             );
           },
         ),
