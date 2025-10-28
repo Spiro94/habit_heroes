@@ -401,7 +401,7 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
             onChanged: isCompleted
                 ? null
                 : (value) {
-                    if (value == true) {
+                    if (value ?? false) {
                       context.read<KidsDashboard_Bloc>().add(
                         KidsDashboard_Event_CompleteTask(
                           instanceId: task.instanceId,

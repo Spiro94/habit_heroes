@@ -46,17 +46,29 @@ class _ParentRewardsList_ScaffoldState
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.router.maybePop(),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.add),
-              label: const Text('Nueva Recompensa'),
-              onPressed: () => context.router.push(ParentCreateRewardRoute()),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: context.colors.pointsGold.start,
-              ),
+      ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          FloatingActionButton.extended(
+            onPressed:
+                () =>
+                    context.router.push(const ParentRedemptionsHistoryRoute()),
+            icon: const Icon(Icons.history),
+            label: const Text('Historial'),
+            backgroundColor: context.colors.pointsGold.start,
+            foregroundColor: Colors.white,
+          ),
+          const SizedBox(height: 12),
+          FloatingActionButton.extended(
+            onPressed: () => context.router.push(ParentCreateRewardRoute()),
+            backgroundColor: context.colors.pointsGold.start,
+            foregroundColor: Colors.white,
+            icon: const Icon(Icons.add),
+            label: const Text(
+              'Nueva Recompensa',
+              style: TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
         ],
@@ -139,14 +151,6 @@ class _ParentRewardsList_ScaffoldState
             },
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () =>
-            context.router.push(const ParentRedemptionsHistoryRoute()),
-        icon: const Icon(Icons.history),
-        label: const Text('Historial'),
-        backgroundColor: context.colors.pointsGold.start,
-        foregroundColor: Colors.white,
       ),
     );
   }

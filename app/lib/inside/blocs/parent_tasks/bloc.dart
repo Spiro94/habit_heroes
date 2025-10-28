@@ -191,7 +191,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       emit(
         state.copyWith(
           updateTaskStatus: UpdateTaskStatus.error,
-          setUpdateTaskErrorMessage: () => e.toString(),
+          setUpdateTaskErrorMessage: e.toString,
         ),
       );
     }
@@ -265,7 +265,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       emit(
         state.copyWith(
           loadEditingDataStatus: LoadEditingDataStatus.error,
-          setLoadEditingDataErrorMessage: () => e.toString(),
+          setLoadEditingDataErrorMessage: e.toString,
         ),
       );
     }

@@ -13,12 +13,10 @@ class Routes_DeepLinkHandler with SharedMixin_Logging {
   const Routes_DeepLinkHandler({
     required this.appNavigatorKey,
     required this.authBloc,
-    required this.foruiThemeData,
   });
 
   final GlobalKey<NavigatorState> appNavigatorKey;
   final Auth_Bloc authBloc;
-  final FThemeData foruiThemeData;
 
   Future<DeepLink> handleDeepLink({
     required PlatformDeepLink deepLink,
@@ -179,10 +177,12 @@ class Routes_DeepLinkHandler with SharedMixin_Logging {
   void _displayErrorMessageInSnackBar({required String errorMessage}) {
     log.warning(errorMessage);
     try {
-      final scaffoldBackgroundColor =
-          foruiThemeData.scaffoldStyle.backgroundColor;
+      final context = appNavigatorKey.currentContext;
+      if (context == null) return;
+      final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
       Future.delayed(const Duration(milliseconds: 500), () {
-        ScaffoldMessenger.of(appNavigatorKey.currentContext!).showSnackBar(
+        if (context.mounted == false) return;
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: scaffoldBackgroundColor,
             content: FAlert(

@@ -77,7 +77,6 @@ Future<Widget> appBuilder({
   final deepLinkHandler = Routes_DeepLinkHandler(
     appNavigatorKey: appNavigatorKey,
     authBloc: authBloc,
-    foruiThemeData: theme.foruiThemeData,
   );
 
   return TranslationProvider(
@@ -127,10 +126,7 @@ class App extends StatelessWidget {
         child: MaterialApp.router(
           theme: theme.materialThemeData,
           builder: (context, child) {
-            return FTheme(
-              data: theme.foruiThemeData,
-              child: child ?? const FScaffold(child: SizedBox()),
-            );
+            return child ?? const FScaffold(child: SizedBox());
           },
           debugShowCheckedModeBanner: false,
           scrollBehavior: const MaterialScrollBehavior().copyWith(
@@ -150,18 +146,20 @@ class App extends StatelessWidget {
           routerDelegate: AutoRouterDelegate(
             router,
             rebuildStackOnDeepLink: true,
-            deepLinkBuilder: (deepLink) => deepLinkHandler.handleDeepLink(
-              deepLink: deepLink,
-              deepLinkFragmentOverride: deepLinkFragmentOverride,
-            ),
-            navigatorObservers: () => [
-              AutoRouteObserver(),
-              Mixpanel_Effect_RouteObserver(
-                mixpanelEffect: effectProviders.mixpanelEffectProvider
-                    .getEffect(),
-              ),
-              SentryNavigatorObserver(),
-            ],
+            deepLinkBuilder:
+                (deepLink) => deepLinkHandler.handleDeepLink(
+                  deepLink: deepLink,
+                  deepLinkFragmentOverride: deepLinkFragmentOverride,
+                ),
+            navigatorObservers:
+                () => [
+                  AutoRouteObserver(),
+                  Mixpanel_Effect_RouteObserver(
+                    mixpanelEffect:
+                        effectProviders.mixpanelEffectProvider.getEffect(),
+                  ),
+                  SentryNavigatorObserver(),
+                ],
           ),
         ),
       ),

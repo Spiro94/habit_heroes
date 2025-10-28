@@ -72,7 +72,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
                   const SizedBox(height: 24),
                   ColorfulButton(
                     gradient: context.colors.kidsPrimary,
-                    label: 'Niños',
+                    label: 'Héroes',
                     subtitle: '¡Completa tus tareas y gana recompensas!',
                     icon: Icons.child_care,
                     onPressed: () =>

@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 part 'tokens/colors.dart';
@@ -9,92 +8,164 @@ part 'tokens/icon_size.dart';
 part 'tokens/extensions.dart';
 part 'tokens/radius.dart';
 part 'tokens/spacing.dart';
+part 'tokens/typography.dart';
 
 class OutsideTheme {
-  OutsideTheme({required this.materialThemeData, required this.foruiThemeData});
+  OutsideTheme._({required ThemeData Function() materialThemeBuilder})
+    : _materialThemeBuilder = materialThemeBuilder;
 
-  final ThemeData materialThemeData;
-  final FThemeData foruiThemeData;
+  final ThemeData Function() _materialThemeBuilder;
+  ThemeData? _cachedMaterialThemeData;
+
+  ThemeData get materialThemeData =>
+      _cachedMaterialThemeData ??= _materialThemeBuilder();
 }
 
 class OutsideThemes {
-  static OutsideTheme get lightTheme => OutsideTheme(
-    materialThemeData: _buildMaterialThemeDataLight(),
-    foruiThemeData: _foruiThemeData_light,
-  );
+  static OutsideTheme get lightTheme =>
+      _buildOutsideTheme(brightness: Brightness.light);
 
-  static OutsideTheme get darkTheme => OutsideTheme(
-    materialThemeData: _buildMaterialThemeDataDark(),
-    foruiThemeData: _foruiThemeData_dark,
+  static OutsideTheme get darkTheme =>
+      _buildOutsideTheme(brightness: Brightness.dark);
+}
+
+OutsideTheme _buildOutsideTheme({required Brightness brightness}) {
+  return OutsideTheme._(
+    materialThemeBuilder: () {
+      final colorTokens =
+          brightness == Brightness.dark
+              ? _colorTokens_dark
+              : _colorTokens_light;
+
+      final tokenExtensions = _buildThemeTokenExtensions(
+        brightness: brightness,
+        colorTokens: colorTokens,
+      );
+
+      final colorScheme = _buildColorScheme(
+        brightness: brightness,
+        colorTokens: colorTokens,
+      );
+
+      return _buildMaterialThemeData(
+        brightness: brightness,
+        colorScheme: colorScheme,
+        tokens: tokenExtensions,
+      );
+    },
   );
 }
 
-// Build ThemeData lazily to avoid calling GoogleFonts at import time
-ThemeData _buildMaterialThemeDataLight() {
-  return ThemeData(
-    useMaterial3: true,
-    extensions: const [_tokenExtensions],
-    scaffoldBackgroundColor:
-        _foruiThemeData_light.scaffoldStyle.backgroundColor,
-    // Primary typography: Poppins for headings (hero/page/section),
-    // Inter for body/captions, and Poppins for button labels.
-    textTheme: TextTheme(
-      // Hero Title
-      displayLarge: GoogleFonts.poppins(
-        fontSize: 36,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0,
-      ),
-      // Page Title
-      headlineSmall: GoogleFonts.poppins(
-        fontSize: 24,
-        fontWeight: FontWeight.w700,
-      ),
-      // Section Header
-      titleLarge: GoogleFonts.poppins(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-      ),
-      // Large Body
-      bodyLarge: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w400),
-      // Standard Body
-      bodyMedium: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w400),
-      // Small Body
-      bodySmall: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
-      // Caption / small label
-      labelSmall: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
-      // Buttons (use Poppins for emphasis)
-      labelLarge: GoogleFonts.poppins(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-      ),
-      // fallback sensible mappings for other slots
-      headlineMedium: GoogleFonts.poppins(fontWeight: FontWeight.w600),
-      titleMedium: GoogleFonts.poppins(fontWeight: FontWeight.w500),
-      titleSmall: GoogleFonts.poppins(fontWeight: FontWeight.w500),
-      labelMedium: GoogleFonts.inter(fontWeight: FontWeight.w500),
+ThemeTokenExtensions _buildThemeTokenExtensions({
+  required Brightness brightness,
+  required ThemeColorTokens colorTokens,
+}) {
+  return ThemeTokenExtensions(
+    colors: colorTokens,
+    iconSize: _iconSizeTokens,
+    radius: _radiusTokens,
+    spacing: _spacingTokens,
+    typography: _buildTypographyTokens(
+      brightness: brightness,
+      colorTokens: colorTokens,
     ),
   );
 }
 
-ThemeData _buildMaterialThemeDataDark() {
-  return _buildMaterialThemeDataLight().copyWith(
-    extensions: const [_tokenExtensions_dark],
-    scaffoldBackgroundColor: _foruiThemeData_dark.scaffoldStyle.backgroundColor,
+ColorScheme _buildColorScheme({
+  required Brightness brightness,
+  required ThemeColorTokens colorTokens,
+}) {
+  final solid = colorTokens.solidColors;
+
+  final base = ColorScheme.fromSeed(
+    seedColor: solid.primary,
+    brightness: brightness,
+    background: solid.background,
+    primary: solid.primary,
+  );
+
+  return base.copyWith(
+    primary: solid.primary,
+    onPrimary: solid.onPrimary,
+    secondary: solid.secondary,
+    onSecondary: solid.onSecondary,
+    error: solid.error,
+    onError: solid.onError,
+    background: solid.background,
+    onBackground: solid.onBackground,
+    surface: solid.surface,
+    onSurface: solid.onSurface,
+    surfaceVariant: solid.surfaceVariant,
+    onSurfaceVariant: solid.onSurfaceVariant,
+    outline: solid.border,
+    outlineVariant: solid.divider,
+    surfaceTint: solid.primary,
   );
 }
 
-const _tokenExtensions_dark = ThemeTokenExtensions(
-  colors: _colorTokens_dark,
-  iconSize: _iconSizeTokens,
-  radius: _radiusTokens,
-  spacing: _spacingTokens,
-);
+ThemeData _buildMaterialThemeData({
+  required Brightness brightness,
+  required ColorScheme colorScheme,
+  required ThemeTokenExtensions tokens,
+}) {
+  final solid = tokens.colors.solidColors;
+  final typography = tokens.typography;
+  final base = ThemeData(
+    useMaterial3: true,
+    brightness: brightness,
+    colorScheme: colorScheme,
+    textTheme: typography.textTheme,
+    primaryTextTheme: typography.primaryTextTheme,
+    scaffoldBackgroundColor: solid.background,
+    canvasColor: solid.surface,
+    dividerColor: solid.divider,
+    extensions: <ThemeExtension<dynamic>>[tokens],
+  );
 
-final _foruiThemeData_light = FThemes.zinc.light.copyWith(
-  textFieldStyle: FThemes.zinc.light.textFieldStyle.copyWith().call,
-);
+  final buttonTextStyle =
+      typography.textTheme.labelLarge ?? typography.textTheme.bodyMedium;
 
-final _foruiThemeData_dark = FThemes.zinc.dark.copyWith(
-  textFieldStyle: FThemes.zinc.dark.textFieldStyle.copyWith().call,
-);
+  return base.copyWith(
+    appBarTheme: base.appBarTheme.copyWith(
+      backgroundColor: colorScheme.surface,
+      foregroundColor: Colors.white,
+      titleTextStyle: typography.textTheme.titleLarge?.copyWith(
+        color: Colors.white,
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: buttonTextStyle,
+        foregroundColor: colorScheme.onPrimary,
+        backgroundColor: colorScheme.primary,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(textStyle: buttonTextStyle),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        textStyle: buttonTextStyle,
+        side: BorderSide(color: solid.border),
+      ),
+    ),
+    chipTheme: base.chipTheme.copyWith(
+      backgroundColor: solid.surfaceVariant,
+      selectedColor: colorScheme.primary.withOpacity(0.12),
+      secondarySelectedColor: colorScheme.primary.withOpacity(0.12),
+      disabledColor: solid.disabled,
+      labelStyle: typography.textTheme.labelSmall?.copyWith(
+        color: colorScheme.onSurface,
+      ),
+      secondaryLabelStyle: typography.textTheme.labelSmall?.copyWith(
+        color: colorScheme.primary,
+      ),
+    ),
+    inputDecorationTheme: base.inputDecorationTheme.copyWith(
+      labelStyle: typography.textTheme.labelMedium,
+      hintStyle: typography.textTheme.bodySmall,
+      helperStyle: typography.textTheme.bodySmall,
+    ),
+  );
+}

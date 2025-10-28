@@ -80,14 +80,38 @@ extension ThemeTokensBuildContext on BuildContext {
       Theme.of(this).extension<ThemeTokenExtensions>()!;
 
   ThemeColorTokens get colors => tokens.colors;
+  ThemeTypographyTokens get typography => tokens.typography;
 }
 ```
 
-This allows accessing colors anywhere with access to `BuildContext`:
+This allows accessing colors and typography anywhere with access to `BuildContext`:
 
 ```dart
 final gradient = context.colors.parentsPrimary;
 final solidColors = context.solidColors;
+final heroStyle = context.typography.hero;
+```
+
+### Typography Token System
+
+**Location:** `app/lib/outside/theme/tokens/typography.dart`
+
+Typography is centralized through `ThemeTypographyTokens`, which defines the Material text theme used across the app. Headings use **Poppins** for bold, expressive titles, while body and caption styles use **Inter** for readability, matching the design guidelines.
+
+`ThemeTypographyTokens` exposes convenience getters for common use cases:
+
+- `context.typography.hero` -> large hero headlines (36pt, Poppins Bold)
+- `context.typography.pageTitle` -> screen titles (24pt, Poppins Bold)
+- `context.typography.sectionHeader` -> section headers (20pt, Poppins SemiBold)
+- `context.typography.body`, `.bodyLarge`, `.bodySmall` -> body copy in Inter
+- `context.typography.button` -> button/CTA text (16pt, Poppins SemiBold)
+- `context.typography.caption` -> captions and helper text (12pt, Inter)
+
+The underlying `textTheme` and `primaryTextTheme` are also exposed for advanced customization:
+
+```dart
+final textTheme = context.typography.textTheme;
+final formFieldLabel = context.typography.textTheme.labelMedium;
 ```
 
 ## Usage Examples

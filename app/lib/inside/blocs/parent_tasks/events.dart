@@ -51,8 +51,8 @@ class ParentTasks_Event_UpdateTask extends ParentTasks_Event {
     required this.templateId,
     required this.title,
     required this.points,
-    this.description,
     required this.schedules,
+    this.description,
   });
 
   final String templateId;

@@ -20,7 +20,7 @@ class _KidsDashboard_PageState extends State<KidsDashboard_Page> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          '¡Hola, Héroe!',
+          '¡Hola, Héroes!',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFFEC4899),

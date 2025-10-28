@@ -30,25 +30,16 @@ class KidList_Page extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.router.maybePop(),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.add),
-              label: Text(t.kids.addKid),
-              onPressed: () => context.router.push(AddEditKid_Route()),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: context.colors.kidsManagementGreen.start,
-              ),
-            ),
-          ),
-        ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.router.push(AddEditKid_Route()),
         backgroundColor: context.colors.kidsManagementGreen.start,
-        child: const Icon(Icons.add, color: Colors.white),
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.add),
+        label: Text(
+          t.kids.addKid,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
       ),
       body: BlocBuilder<Kids_Bloc, Kids_State>(
         builder: (context, state) {
@@ -114,8 +105,9 @@ class KidList_Page extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
-                        gradient: context.colors.kidsManagementGreen
-                            .toLinearGradient(),
+                        gradient:
+                            context.colors.kidsManagementGreen
+                                .toLinearGradient(),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
@@ -165,12 +157,13 @@ class KidList_Page extends StatelessWidget {
                 }
 
                 // Use kid's color or fallback to kids management green
-                final cardGradient = kidColor != null
-                    ? AppColorGradient(
-                        start: kidColor,
-                        end: kidColor.withValues(alpha: 0.8),
-                      )
-                    : context.colors.kidsManagementGreen;
+                final cardGradient =
+                    kidColor != null
+                        ? AppColorGradient(
+                          start: kidColor,
+                          end: kidColor.withValues(alpha: 0.8),
+                        )
+                        : context.colors.kidsManagementGreen;
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16),
@@ -193,17 +186,17 @@ class KidList_Page extends StatelessWidget {
                             ),
                             child:
                                 kid.avatarUrl != null &&
-                                    kid.avatarUrl!.isNotEmpty
-                                ? ClipOval(
-                                    child: Image.network(
-                                      kid.avatarUrl!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) =>
-                                              _buildInitialAvatar(kid.name),
-                                    ),
-                                  )
-                                : _buildInitialAvatar(kid.name),
+                                        kid.avatarUrl!.isNotEmpty
+                                    ? ClipOval(
+                                      child: Image.network(
+                                        kid.avatarUrl!,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                _buildInitialAvatar(kid.name),
+                                      ),
+                                    )
+                                    : _buildInitialAvatar(kid.name),
                           ),
                           const Gap(16),
                           // Name
@@ -289,26 +282,27 @@ class KidList_Page extends StatelessWidget {
     showDialog<void>(
       context: context,
       barrierDismissible: true,
-      builder: (context) => HabitHeroes_Dialog(
-        title: t.kids.deleteKid,
-        dialogType: HabitHeroesDialogType.error,
-        icon: Icons.delete_outline,
-        body: Text(t.kids.deleteKidConfirm(name: kidName)),
-        actions: [
-          HabitHeroesDialogAction(
-            label: t.kids.cancel,
-            onPressed: () => Navigator.of(context).pop(),
+      builder:
+          (context) => HabitHeroes_Dialog(
+            title: t.kids.deleteKid,
+            dialogType: HabitHeroesDialogType.error,
+            icon: Icons.delete_outline,
+            body: Text(t.kids.deleteKidConfirm(name: kidName)),
+            actions: [
+              HabitHeroesDialogAction(
+                label: t.kids.cancel,
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              HabitHeroesDialogAction(
+                label: t.tasks.delete,
+                isPrimary: true,
+                onPressed: () {
+                  kidsBloc.add(Kids_Event_DeleteKid(id: kidId));
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
           ),
-          HabitHeroesDialogAction(
-            label: t.tasks.delete,
-            isPrimary: true,
-            onPressed: () {
-              kidsBloc.add(Kids_Event_DeleteKid(id: kidId));
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      ),
     );
   }
 }

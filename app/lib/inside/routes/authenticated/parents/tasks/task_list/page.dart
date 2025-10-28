@@ -44,20 +44,16 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.router.maybePop(),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.add),
-              label: Text(t.tasks.createTask),
-              onPressed: () => context.router.push(CreateTask_Route()),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: context.colors.tasksBlue.start,
-              ),
-            ),
-          ),
-        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => context.router.push(CreateTask_Route()),
+        backgroundColor: context.colors.tasksBlue.start,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.add),
+        label: Text(
+          t.tasks.createTask,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
       ),
       body: BlocBuilder<ParentTasks_Bloc, ParentTasks_State>(
         builder: (context, state) {
@@ -160,8 +156,8 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
                       child: ElevatedButton.icon(
                         icon: const Icon(Icons.add),
                         label: Text(t.tasks.createFirstTask),
-                        onPressed: () =>
-                            context.router.push(CreateTask_Route()),
+                        onPressed:
+                            () => context.router.push(CreateTask_Route()),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: context.colors.tasksBlue.start,
                           foregroundColor: Colors.white,
@@ -188,17 +184,21 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
               final template = state.taskTemplates[index];
 
               // find schedules and kid names for this template
-              final schedules = state.taskSchedules
-                  .where((s) => s.taskTemplateId == template.id)
-                  .toList();
+              final schedules =
+                  state.taskSchedules
+                      .where((s) => s.taskTemplateId == template.id)
+                      .toList();
 
-              final kidNames = schedules
-                  .map((s) {
-                    final idx = state.kids.indexWhere((k) => k.id == s.kidId);
-                    return idx >= 0 ? state.kids[idx].name : s.kidId;
-                  })
-                  .toSet()
-                  .toList();
+              final kidNames =
+                  schedules
+                      .map((s) {
+                        final idx = state.kids.indexWhere(
+                          (k) => k.id == s.kidId,
+                        );
+                        return idx >= 0 ? state.kids[idx].name : s.kidId;
+                      })
+                      .toSet()
+                      .toList();
 
               String scheduleText() {
                 if (schedules.isEmpty) return t.tasks.noSchedule;
@@ -208,11 +208,12 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
                 // Handle specific dates first
                 final specific = schedules.where((s) => s.specificDate != null);
                 for (final s in specific) {
-                  final dateStr = s.specificDate!
-                      .toLocal()
-                      .toIso8601String()
-                      .split('T')
-                      .first;
+                  final dateStr =
+                      s.specificDate!
+                          .toLocal()
+                          .toIso8601String()
+                          .split('T')
+                          .first;
                   parts.add('${t.tasks.dateLabel} $dateStr');
                 }
 
@@ -384,9 +385,10 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
                               shape: const CircleBorder(),
                               child: InkWell(
                                 onTap: () {
-                                  final firstScheduleId = schedules.isNotEmpty
-                                      ? schedules.first.id
-                                      : null;
+                                  final firstScheduleId =
+                                      schedules.isNotEmpty
+                                          ? schedules.first.id
+                                          : null;
                                   context.router.push(
                                     CreateTask_Route(
                                       taskScheduleId: firstScheduleId,
@@ -409,8 +411,9 @@ class _TaskList_ScaffoldState extends State<TaskList_Scaffold> {
                               color: Colors.white.withValues(alpha: 0.2),
                               shape: const CircleBorder(),
                               child: InkWell(
-                                onTap: () =>
-                                    _showDeleteDialog(context, template.id),
+                                onTap:
+                                    () =>
+                                        _showDeleteDialog(context, template.id),
                                 customBorder: const CircleBorder(),
                                 child: const Padding(
                                   padding: EdgeInsets.all(12),
@@ -463,25 +466,26 @@ void _showDeleteDialog(BuildContext context, String taskScheduleId) {
   showDialog<void>(
     context: context,
     barrierDismissible: true,
-    builder: (context) => HabitHeroes_Dialog(
-      title: t.tasks.deleteTask,
-      dialogType: HabitHeroesDialogType.error,
-      icon: Icons.delete_outline,
-      body: Text(t.tasks.deleteTaskConfirm),
-      actions: [
-        HabitHeroesDialogAction(
-          label: t.kids.cancel,
-          onPressed: () => Navigator.of(context).pop(),
+    builder:
+        (context) => HabitHeroes_Dialog(
+          title: t.tasks.deleteTask,
+          dialogType: HabitHeroesDialogType.error,
+          icon: Icons.delete_outline,
+          body: Text(t.tasks.deleteTaskConfirm),
+          actions: [
+            HabitHeroesDialogAction(
+              label: t.kids.cancel,
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            HabitHeroesDialogAction(
+              label: t.tasks.delete,
+              isPrimary: true,
+              onPressed: () {
+                bloc.add(ParentTasks_Event_DeleteTask(id: taskScheduleId));
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         ),
-        HabitHeroesDialogAction(
-          label: t.tasks.delete,
-          isPrimary: true,
-          onPressed: () {
-            bloc.add(ParentTasks_Event_DeleteTask(id: taskScheduleId));
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
-    ),
   );
 }
