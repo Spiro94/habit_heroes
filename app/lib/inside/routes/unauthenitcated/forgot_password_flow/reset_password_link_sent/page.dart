@@ -1,10 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 
 import '../../../../../outside/theme/theme.dart';
-import '../../../../util/breakpoints.dart';
-import '../../../widgets/scaffold.dart';
 import 'widgets/header.dart';
 import 'widgets/link_resend.dart';
 import 'widgets/listener_status_change.dart';
@@ -24,21 +21,41 @@ class ResetPasswordLinkSent_Page extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Routes_Scaffold(
-      breakpointType: InsideUtil_BreakpointType.constrained,
-      scaffold: FScaffold(
-        header: const ResetPasswordLinkSent_Header(),
-        child: ResetPasswordLinkSent_Listener_StatusChange(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(height: context.tokens.spacing.medium),
-                const ResetPasswordLinkSent_Text_Subtitle(),
-                const FDivider(),
-                const ResetPasswordLinkSent_Link_Resend(),
-                SizedBox(height: context.tokens.spacing.medium),
-              ],
+    final spacing = context.tokens.spacing;
+    final backgroundGradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        context.solidColors.background,
+        context.colors.parentsPrimary.start.withValues(alpha: 0.05),
+        context.colors.parentsPrimary.end.withValues(alpha: 0.15),
+      ],
+    );
+
+    return Scaffold(
+      backgroundColor: context.solidColors.background,
+      body: ResetPasswordLinkSent_Listener_StatusChange(
+        child: Container(
+          decoration: BoxDecoration(gradient: backgroundGradient),
+          alignment: Alignment.center,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(spacing.large),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 420),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const ResetPasswordLinkSent_Header(),
+                    SizedBox(height: spacing.large),
+                    const ResetPasswordLinkSent_Text_Subtitle(),
+                    SizedBox(height: spacing.large),
+                    const Divider(),
+                    SizedBox(height: spacing.medium),
+                    const ResetPasswordLinkSent_Link_Resend(),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

@@ -1,13 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forui/forui.dart';
 
 import '../../../../outside/repositories/auth/repository.dart';
 import '../../../../outside/theme/theme.dart';
 import '../../../blocs/sign_up/bloc.dart';
-import '../../../util/breakpoints.dart';
-import '../../widgets/scaffold.dart';
 import 'widgets/form_sign_up.dart';
 import 'widgets/header.dart';
 import 'widgets/link_resend_email_verification.dart';
@@ -29,20 +26,41 @@ class SignUp_Page extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return Routes_Scaffold(
-      breakpointType: InsideUtil_BreakpointType.constrained,
-      scaffold: FScaffold(
-        header: const SignUp_Header(),
-        child: SignUp_Listener_StatusChange(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SignUp_Form_SignUp(),
-                const FDivider(),
-                const SignUp_Link_ResendEmailVerification(),
-                SizedBox(height: context.tokens.spacing.medium),
-              ],
+    final spacing = context.tokens.spacing;
+    final backgroundGradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        context.solidColors.background,
+        context.colors.parentsPrimary.start.withValues(alpha: 0.05),
+        context.colors.parentsPrimary.end.withValues(alpha: 0.15),
+      ],
+    );
+
+    return Scaffold(
+      backgroundColor: context.solidColors.background,
+      body: SignUp_Listener_StatusChange(
+        child: Container(
+          decoration: BoxDecoration(gradient: backgroundGradient),
+          alignment: Alignment.center,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(spacing.large),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 420),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SignUp_Header(),
+                    SizedBox(height: spacing.large),
+                    const SignUp_Form_SignUp(),
+                    SizedBox(height: spacing.large),
+                    const Divider(),
+                    SizedBox(height: spacing.medium),
+                    const SignUp_Link_ResendEmailVerification(),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

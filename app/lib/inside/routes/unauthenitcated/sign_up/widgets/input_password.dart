@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 
+import '../../../../../outside/theme/theme.dart';
+import '../../../../../shared/widgets/colorful_text_field.dart';
 import '../../../../i18n/translations.g.dart';
 import '../../../../util/validators.dart';
 
@@ -15,9 +16,11 @@ class SignUp_Input_Password extends StatelessWidget {
     final emptyError = context.t.signUp.form.password.error.empty;
     final invalidError = context.t.signUp.form.password.error.invalid;
 
-    return FTextFormField.password(
+    return ColorfulTextField(
       controller: controller,
-      label: Text(label),
+      label: label,
+      obscureText: true,
+      gradient: context.colors.parentsPrimary,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return emptyError;

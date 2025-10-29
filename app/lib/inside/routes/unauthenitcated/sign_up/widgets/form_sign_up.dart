@@ -56,6 +56,7 @@ class _SignUp_Form_SignUpState extends State<SignUp_Form_SignUp> {
   }
 
   void _onSubmit() {
+    FocusScope.of(context).unfocus();
     widget.log.info('submitting form');
 
     setState(() {
@@ -80,30 +81,48 @@ class _SignUp_Form_SignUpState extends State<SignUp_Form_SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      autovalidateMode: _hasSubmittedBefore
-          ? AutovalidateMode.onUserInteraction
-          : AutovalidateMode.disabled,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(height: context.tokens.spacing.medium),
-          SignUp_Input_Name(controller: nameController),
-          SizedBox(height: context.tokens.spacing.medium),
-          SignUp_Input_Email(controller: emailController),
-          SizedBox(height: context.tokens.spacing.medium),
-          SignUp_Input_Password(controller: passwordController),
-          SizedBox(height: context.tokens.spacing.medium),
-          SignUp_Input_RepeatPassword(
-            controller: repeatPasswordController,
-            passwordController: passwordController,
+    final spacing = context.tokens.spacing;
+    final cardGradient = context.colors.parentsPrimary;
+
+    return Container(
+      padding: EdgeInsets.all(spacing.large),
+      decoration: BoxDecoration(
+        color: context.solidColors.surface,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: context.solidColors.border.withValues(alpha: 0.15),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: cardGradient.toShadowColor(0.2),
+            blurRadius: 30,
+            offset: const Offset(0, 16),
           ),
-          SizedBox(height: context.tokens.spacing.medium),
-          SignUp_Button_Submit(onSubmit: _onSubmit),
-          SizedBox(height: context.tokens.spacing.medium),
         ],
+      ),
+      child: Form(
+        key: _formKey,
+        autovalidateMode: _hasSubmittedBefore
+            ? AutovalidateMode.onUserInteraction
+            : AutovalidateMode.disabled,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SignUp_Input_Name(controller: nameController),
+            SizedBox(height: spacing.medium),
+            SignUp_Input_Email(controller: emailController),
+            SizedBox(height: spacing.medium),
+            SignUp_Input_Password(controller: passwordController),
+            SizedBox(height: spacing.medium),
+            SignUp_Input_RepeatPassword(
+              controller: repeatPasswordController,
+              passwordController: passwordController,
+            ),
+            SizedBox(height: spacing.large),
+            SignUp_Button_Submit(onSubmit: _onSubmit),
+          ],
+        ),
       ),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forui/forui.dart';
 
 import '../../../../../outside/theme/theme.dart';
+import '../../../../../shared/widgets/habit_heroes_dialog.dart';
 import '../../../../blocs/sign_up/bloc.dart';
 import '../../../../blocs/sign_up/events.dart';
 import '../../../../i18n/translations.g.dart';
@@ -15,60 +15,72 @@ class SignUp_Link_ResendEmailVerification extends StatelessWidget {
   Widget build(BuildContext context) {
     final question = context.t.signUp.resendEmailVerification.question;
     final action = context.t.signUp.resendEmailVerification.action;
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      runSpacing: context.tokens.spacing.xSmall,
-      spacing: context.tokens.spacing.xSmall,
-      children: [
-        Text(question),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FTappable(
-              onPress: () {
-                final signUpBloc = context.read<SignUp_Bloc>();
-                showAdaptiveDialog<void>(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (context) => BlocProvider.value(
-                    value: signUpBloc,
-                    child: const _Dialog(),
-                  ),
-                );
-              },
-              child: Text(
-                action,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+    final spacing = context.tokens.spacing;
+    final accent = context.colors.parentsPrimary;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: spacing.small),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: spacing.xSmall,
+        runSpacing: spacing.xxSmall,
+        children: [
+          Text(
+            question,
+            style: context.typography.bodySmall?.copyWith(
+              color: context.solidColors.onSurfaceVariant,
+            ),
+          ),
+          TextButton(
+            onPressed: () => _showDialog(context),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(
+                horizontal: spacing.small,
+                vertical: spacing.xxSmall,
+              ),
+              foregroundColor: accent.end,
+              textStyle: context.typography.button?.copyWith(
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ],
-        ),
-      ],
+            child: Text(action),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    final signUpBloc = context.read<SignUp_Bloc>();
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (dialogContext) => BlocProvider.value(
+        value: signUpBloc,
+        child: const _ResendDialog(),
+      ),
     );
   }
 }
 
-class _Dialog extends StatefulWidget {
-  const _Dialog();
+class _ResendDialog extends StatefulWidget {
+  const _ResendDialog();
 
   @override
-  State<_Dialog> createState() => __DialogState();
+  State<_ResendDialog> createState() => _ResendDialogState();
 }
 
-class __DialogState extends State<_Dialog> {
+class _ResendDialogState extends State<_ResendDialog> {
+  final _formKey = GlobalKey<FormState>();
   late final TextEditingController controller;
-
-  void _refresh() {
-    setState(() {});
-  }
+  bool _hasSubmitted = false;
 
   @override
   void initState() {
     super.initState();
     controller = TextEditingController();
-
-    controller.addListener(_refresh);
   }
 
   @override
@@ -77,30 +89,46 @@ class __DialogState extends State<_Dialog> {
     super.dispose();
   }
 
+  void _submit() {
+    FocusScope.of(context).unfocus();
+    setState(() {
+      _hasSubmitted = true;
+    });
+
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    Navigator.of(context).pop();
+    context.read<SignUp_Bloc>().add(
+          SignUp_Event_ResendEmailVerificationLink(email: controller.text),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FDialog(
-      direction: Axis.horizontal,
-      title: Text(context.t.signUp.resendEmailVerification.dialog.title),
-      body: SignUp_Input_Email(controller: controller),
+    final t = context.t.signUp.resendEmailVerification.dialog;
+
+    return HabitHeroes_Dialog(
+      icon: Icons.mark_email_unread_outlined,
+      dialogType: HabitHeroesDialogType.info,
+      title: t.title,
+      body: Form(
+        key: _formKey,
+        autovalidateMode: _hasSubmitted
+            ? AutovalidateMode.onUserInteraction
+            : AutovalidateMode.disabled,
+        child: SignUp_Input_Email(controller: controller),
+      ),
       actions: [
-        FButton(
-          key: const Key('cancel'),
-          style: FButtonStyle.outline(),
-          child: Text(context.t.signUp.resendEmailVerification.dialog.cancel),
-          onPress: () => Navigator.of(context).pop(),
+        HabitHeroesDialogAction(
+          label: t.cancel,
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        FButton(
-          key: const Key('resend'),
-          child: Text(
-            context.t.signUp.resendEmailVerification.dialog.submit.label,
-          ),
-          onPress: () {
-            Navigator.of(context).pop();
-            context.read<SignUp_Bloc>().add(
-              SignUp_Event_ResendEmailVerificationLink(email: controller.text),
-            );
-          },
+        HabitHeroesDialogAction(
+          label: t.submit.label,
+          isPrimary: true,
+          onPressed: _submit,
         ),
       ],
     );

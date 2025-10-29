@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
+
+import '../../../../../outside/theme/theme.dart';
+import '../../../../../shared/widgets/colorful_text_field.dart';
 
 class SignUp_Input_FamilyName extends StatelessWidget {
   const SignUp_Input_FamilyName({required this.controller, super.key});
@@ -12,10 +14,12 @@ class SignUp_Input_FamilyName extends StatelessWidget {
     const hint = 'Enter a name for your new family';
     const emptyError = 'Family name is required';
 
-    return FTextFormField(
+    return ColorfulTextField(
       controller: controller,
-      label: const Text(label),
+      label: label,
       hint: hint,
+      textCapitalization: TextCapitalization.words,
+      gradient: context.colors.parentsPrimary,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return emptyError;

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forui/forui.dart';
 
 import '../../../../../../outside/theme/theme.dart';
 import '../../../../../blocs/reset_password/bloc.dart';
@@ -16,31 +15,43 @@ class ResetPasswordLinkSent_Link_Resend extends StatelessWidget {
     final question = context.t.resetPasswordLinkSent.resend.question;
     final action = context.t.resetPasswordLinkSent.resend.action;
     final email = context.routeData.queryParams.getString('email');
+    final spacing = context.tokens.spacing;
+    final accent = context.colors.parentsPrimary;
 
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      runSpacing: context.tokens.spacing.xSmall,
-      spacing: context.tokens.spacing.xSmall,
-      children: [
-        Text(question),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FTappable(
-              onPress: () {
-                context.read<ResetPassword_Bloc>().add(
-                  ResetPassword_Event_ResendResetPasswordLink(email: email),
-                );
-              },
-              child: Text(
-                action,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: spacing.small),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: spacing.xSmall,
+        runSpacing: spacing.xxSmall,
+        children: [
+          Text(
+            question,
+            style: context.typography.bodySmall?.copyWith(
+              color: context.solidColors.onSurfaceVariant,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<ResetPassword_Bloc>().add(
+                    ResetPassword_Event_ResendResetPasswordLink(email: email),
+                  );
+            },
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(
+                horizontal: spacing.small,
+                vertical: spacing.xxSmall,
+              ),
+              foregroundColor: accent.end,
+              textStyle: context.typography.button?.copyWith(
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ],
-        ),
-      ],
+            child: Text(action),
+          ),
+        ],
+      ),
     );
   }
 }

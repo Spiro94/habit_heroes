@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 
 import '../../../../../outside/theme/theme.dart';
 import '../../../../i18n/translations.g.dart';
@@ -13,28 +12,41 @@ class SignIn_Link_SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     final question = context.t.signIn.signUp.question;
     final action = context.t.signIn.signUp.action;
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      runSpacing: context.tokens.spacing.xSmall,
-      spacing: context.tokens.spacing.xSmall,
-      children: [
-        Text(question),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FTappable(
-              onPress: () {
-                context.router.navigate(const SignUp_Route());
-              },
-              child: Text(
-                action,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+    final spacing = context.tokens.spacing;
+    final accent = context.colors.parentsPrimary;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: spacing.small),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: spacing.xSmall,
+        runSpacing: spacing.xxSmall,
+        children: [
+          Text(
+            question,
+            style: context.typography.bodySmall?.copyWith(
+              color: context.solidColors.onSurfaceVariant,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              context.router.navigate(const SignUp_Route());
+            },
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(
+                horizontal: spacing.small,
+                vertical: spacing.xxSmall,
+              ),
+              foregroundColor: accent.end,
+              textStyle: context.typography.button?.copyWith(
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ],
-        ),
-      ],
+            child: Text(action),
+          ),
+        ],
+      ),
     );
   }
 }

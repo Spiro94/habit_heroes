@@ -47,6 +47,7 @@ class _SignIn_Form_SignInState extends State<SignIn_Form_SignIn> {
   }
 
   void _onSubmit() {
+    FocusScope.of(context).unfocus();
     widget.log.info('submitting form');
 
     setState(() {
@@ -70,25 +71,43 @@ class _SignIn_Form_SignInState extends State<SignIn_Form_SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      autovalidateMode: _hasSubmittedBefore
-          ? AutovalidateMode.onUserInteraction
-          : AutovalidateMode.disabled,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(height: context.tokens.spacing.medium),
-          SignIn_Input_Email(controller: emailController),
-          SizedBox(height: context.tokens.spacing.medium),
-          SignIn_Input_Password(controller: passwordController),
-          SizedBox(height: context.tokens.spacing.medium),
-          const SignIn_Link_ForgotPassword(),
-          SizedBox(height: context.tokens.spacing.medium),
-          SignIn_Button_Submit(onSubmit: _onSubmit),
-          SizedBox(height: context.tokens.spacing.medium),
+    final spacing = context.tokens.spacing;
+    final cardGradient = context.colors.parentsPrimary;
+
+    return Container(
+      padding: EdgeInsets.all(spacing.large),
+      decoration: BoxDecoration(
+        color: context.solidColors.surface,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: context.solidColors.border.withValues(alpha: 0.15),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: cardGradient.toShadowColor(0.2),
+            blurRadius: 30,
+            offset: const Offset(0, 16),
+          ),
         ],
+      ),
+      child: Form(
+        key: _formKey,
+        autovalidateMode: _hasSubmittedBefore
+            ? AutovalidateMode.onUserInteraction
+            : AutovalidateMode.disabled,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SignIn_Input_Email(controller: emailController),
+            SizedBox(height: spacing.medium),
+            SignIn_Input_Password(controller: passwordController),
+            SizedBox(height: spacing.small),
+            const SignIn_Link_ForgotPassword(),
+            SizedBox(height: spacing.large),
+            SignIn_Button_Submit(onSubmit: _onSubmit),
+          ],
+        ),
       ),
     );
   }

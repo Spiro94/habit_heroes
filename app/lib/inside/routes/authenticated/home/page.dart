@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../outside/theme/theme.dart';
-import '../../../util/breakpoints.dart';
+import '../../../blocs/auth/bloc.dart';
+import '../../../blocs/auth/events.dart';
 import '../../router.dart';
 import '../../widgets/colorful_button.dart';
-import '../../widgets/scaffold.dart';
 import 'widgets/pin_dialog.dart';
 
 @RoutePage()
@@ -31,23 +31,33 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return Routes_Scaffold(
-      breakpointType: InsideUtil_BreakpointType.constrained,
-      scaffold: FScaffold(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                context.solidColors.background,
-                context.solidColors.surfaceVariant.withValues(alpha: 0.3),
-              ],
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<Auth_Bloc>().add(Auth_Event_SignOut());
+            },
+            icon: const Icon(Icons.logout_rounded, color: Colors.black),
           ),
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
+        ],
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              context.solidColors.background,
+              context.solidColors.surfaceVariant.withValues(alpha: 0.3),
+            ],
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 420),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
