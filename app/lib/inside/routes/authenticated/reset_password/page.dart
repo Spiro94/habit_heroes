@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 
@@ -7,7 +8,6 @@ import '../../../../outside/repositories/auth/repository.dart';
 import '../../../../outside/theme/theme.dart';
 import '../../../blocs/reset_password/bloc.dart';
 import '../../../util/breakpoints.dart';
-import '../../widgets/scaffold.dart';
 import 'widgets/form_reset_password.dart';
 import 'widgets/header.dart';
 import 'widgets/listener_status_change.dart';
@@ -30,18 +30,50 @@ class ResetPassword_Page extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return Routes_Scaffold(
+    final theme = context.theme;
+    final scaffoldStyle = theme.scaffoldStyle;
+    final contentWidth = InsideUtil_Breakpoints.getContentWidth(
       breakpointType: InsideUtil_BreakpointType.constrained,
-      scaffold: FScaffold(
-        header: const ResetPassword_Header(),
-        child: ResetPassword_Listener_StatusChange(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const ResetPassword_Form_ResetPassword(),
-                SizedBox(height: context.tokens.spacing.medium),
-              ],
+      context: context,
+    );
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: scaffoldStyle.systemOverlayStyle,
+      child: IconTheme(
+        data: theme.style.iconStyle,
+        child: Scaffold(
+          backgroundColor: scaffoldStyle.backgroundColor,
+          body: SafeArea(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                width: contentWidth,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DecoratedBox(
+                      decoration: scaffoldStyle.headerDecoration,
+                      child: const ResetPassword_Header(),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: scaffoldStyle.childPadding,
+                        child: ResetPassword_Listener_StatusChange(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                const ResetPassword_Form_ResetPassword(),
+                                SizedBox(height: context.tokens.spacing.medium),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

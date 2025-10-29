@@ -47,49 +47,52 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
 
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                KidsDashboard_Widget_KidsPointsSection(
-                  kidsPoints: state.kidsPoints,
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Recompensas Disponibles',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                if (state.rewards.isEmpty)
-                  const Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 32),
-                      child: Text(
-                        'No hay recompensas disponibles',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
-                    ),
-                  )
-                else
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.rewards.length,
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 12),
-                    itemBuilder: (context, index) {
-                      final reward = state.rewards[index];
-                      return KidsDashboard_Widget_RewardCard(
-                        reward: reward,
-                        kidsPoints: state.kidsPoints,
-                        onRedeem: () => _showKidSelectionDialog(
-                          context,
-                          state.kidsPoints,
-                          reward,
-                        ),
-                      );
-                    },
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  KidsDashboard_Widget_KidsPointsSection(
+                    kidsPoints: state.kidsPoints,
                   ),
-              ],
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Recompensas Disponibles',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 16),
+                  if (state.rewards.isEmpty)
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 32),
+                        child: Text(
+                          'No hay recompensas disponibles',
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        ),
+                      ),
+                    )
+                  else
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.rewards.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12),
+                      itemBuilder: (context, index) {
+                        final reward = state.rewards[index];
+                        return KidsDashboard_Widget_RewardCard(
+                          reward: reward,
+                          kidsPoints: state.kidsPoints,
+                          onRedeem: () => _showKidSelectionDialog(
+                            context,
+                            state.kidsPoints,
+                            reward,
+                          ),
+                        );
+                      },
+                    ),
+                ],
+              ),
             ),
           );
         },

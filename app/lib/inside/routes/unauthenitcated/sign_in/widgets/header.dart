@@ -17,27 +17,19 @@ class SignIn_Header extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: 96,
-          height: 96,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: accent.toLinearGradient(),
-            boxShadow: [
-              BoxShadow(
-                color: accent.toShadowColor(0.35),
-                blurRadius: 24,
-                offset: const Offset(0, 12),
-              ),
-            ],
-          ),
-          child: const Icon(
-            Icons.auto_awesome,
-            color: Colors.white,
-            size: 44,
+        Image.asset('assets/icon/icon.png', width: 250, height: 250),
+        Text(
+          'Habit Heroes',
+          style: context.typography.pageTitle?.copyWith(
+            fontSize: 60,
+            fontWeight: FontWeight.w800,
+            foreground: Paint()
+              ..shader = LinearGradient(
+                colors: [accent.start, accent.end],
+              ).createShader(const Rect.fromLTWH(0, 0, 200, 70)),
           ),
         ),
-        SizedBox(height: spacing.large),
+        SizedBox(height: spacing.small),
         Text(
           title,
           style: context.typography.pageTitle?.copyWith(

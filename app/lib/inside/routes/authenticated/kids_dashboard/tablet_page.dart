@@ -61,12 +61,15 @@ class _KidsDashboard_TabletPageState extends State<KidsDashboard_TabletPage> {
             ),
             const VerticalDivider(width: 1),
             Expanded(
-              child: IndexedStack(
-                index: _selectedDestination,
-                children: const [
-                  _KidsDashboard_TabletTasksView(),
-                  KidsDashboard_Widget_RewardsTab(),
-                ],
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: IndexedStack(
+                  index: _selectedDestination,
+                  children: const [
+                    _KidsDashboard_TabletTasksView(),
+                    KidsDashboard_Widget_RewardsTab(),
+                  ],
+                ),
               ),
             ),
           ],

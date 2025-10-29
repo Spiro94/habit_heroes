@@ -31,6 +31,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
+    final accent = context.colors.parentsPrimary;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -55,7 +56,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
         ),
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 420),
               child: Column(
@@ -64,12 +65,14 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
                   Image.asset('assets/icon/icon.png', width: 200, height: 200),
                   Text(
                     '¡Bienvenido a \nHabit Heroes!',
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: context.solidColors.onBackground,
+                    style: context.typography.pageTitle?.copyWith(
+                      fontSize: 48,
+                      fontWeight: FontWeight.w800,
+                      foreground: Paint()
+                        ..shader = LinearGradient(
+                          colors: [accent.start, accent.end],
+                        ).createShader(const Rect.fromLTWH(0, 0, 200, 70)),
                     ),
-                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 32),
                   ColorfulButton(

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 
@@ -7,7 +8,6 @@ import '../../../../outside/repositories/auth/repository.dart';
 import '../../../../outside/theme/theme.dart';
 import '../../../blocs/sign_up/bloc.dart';
 import '../../../util/breakpoints.dart';
-import '../../widgets/scaffold.dart';
 import 'widgets/header.dart';
 import 'widgets/text_subtitle.dart';
 
@@ -28,18 +28,50 @@ class EmailVerificationLinkSent_Page extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Routes_Scaffold(
+    final theme = context.theme;
+    final scaffoldStyle = theme.scaffoldStyle;
+    final contentWidth = InsideUtil_Breakpoints.getContentWidth(
       breakpointType: InsideUtil_BreakpointType.constrained,
-      scaffold: FScaffold(
-        header: const EmailVerificationLinkSent_Header(),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: context.tokens.spacing.medium),
-              const EmailVerificationLinkSent_Text_Subtitle(),
-              SizedBox(height: context.tokens.spacing.medium),
-            ],
+      context: context,
+    );
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: scaffoldStyle.systemOverlayStyle,
+      child: IconTheme(
+        data: theme.style.iconStyle,
+        child: Scaffold(
+          backgroundColor: scaffoldStyle.backgroundColor,
+          body: SafeArea(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                width: contentWidth,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DecoratedBox(
+                      decoration: scaffoldStyle.headerDecoration,
+                      child: const EmailVerificationLinkSent_Header(),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: scaffoldStyle.childPadding,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SizedBox(height: context.tokens.spacing.medium),
+                              const EmailVerificationLinkSent_Text_Subtitle(),
+                              SizedBox(height: context.tokens.spacing.medium),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),

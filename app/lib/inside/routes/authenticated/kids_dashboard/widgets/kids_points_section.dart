@@ -25,7 +25,7 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         SizedBox(
-          height: 130,
+          height: 150,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: kidsPoints.length,
