@@ -53,7 +53,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
                 children: [
                   Image.asset('assets/icon/icon.png', width: 200, height: 200),
                   Text(
-                    '¡Bienvenido a Habit Heroes!',
+                    '¡Bienvenido a \nHabit Heroes!',
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
@@ -66,7 +66,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
                     gradient: context.colors.parentsPrimary,
                     label: 'Padres',
                     subtitle: 'Gestiona tareas y recompensas',
-                    icon: Icons.admin_panel_settings,
+                    icon: Icons.admin_panel_settings_rounded,
                     onPressed: () => _handleParentAccess(context),
                   ),
                   const SizedBox(height: 24),
@@ -74,7 +74,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
                     gradient: context.colors.kidsPrimary,
                     label: 'Héroes',
                     subtitle: '¡Completa tus tareas y gana recompensas!',
-                    icon: Icons.child_care,
+                    icon: Icons.child_care_rounded,
                     onPressed: () =>
                         context.router.push(const KidsDashboard_Route()),
                   ),
