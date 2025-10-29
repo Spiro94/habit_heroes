@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import 'tablet_page.dart';
 import 'widgets/rewards_tab_widget.dart';
 import 'widgets/tasks_tab_widget.dart';
 
@@ -17,6 +18,11 @@ class _KidsDashboard_PageState extends State<KidsDashboard_Page> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth >= 900) {
+      return const KidsDashboard_TabletPage();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
