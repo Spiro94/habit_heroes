@@ -24,6 +24,14 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    final baseColor = _colorForPartOfDay(partOfDay);
+    final backgroundColor = isCurrentSection
+        ? baseColor.withOpacity(0.25)
+        : baseColor.withOpacity(0.12);
+    final borderColor = isCurrentSection
+        ? baseColor
+        : baseColor.withOpacity(0.6);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,39 +39,20 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 16, top: 16),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
-            color:
-                isCurrentSection
-                    ? const Color(0xFFEC4899).withOpacity(0.2)
-                    : Colors.grey[200],
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color:
-                  isCurrentSection
-                      ? const Color(0xFFEC4899)
-                      : Colors.grey[300]!,
-              width: 2,
-            ),
+            border: Border.all(color: borderColor, width: 2),
           ),
           child: Row(
             children: [
-              Icon(
-                _iconForPartOfDay(partOfDay),
-                color:
-                    isCurrentSection
-                        ? const Color(0xFFEC4899)
-                        : Colors.grey[600],
-                size: 24,
-              ),
+              Icon(_iconForPartOfDay(partOfDay), color: baseColor, size: 24),
               const SizedBox(width: 12),
               Text(
                 partOfDay.displayName,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color:
-                      isCurrentSection
-                          ? const Color(0xFFEC4899)
-                          : Colors.grey[800],
+                  color: baseColor,
                 ),
               ),
               if (isCurrentSection) ...[
@@ -74,7 +63,7 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEC4899),
+                    color: baseColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Text(
@@ -108,6 +97,17 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
         return Icons.wb_cloudy;
       case PartOfDay.night:
         return Icons.nightlight_round;
+    }
+  }
+
+  Color _colorForPartOfDay(PartOfDay partOfDay) {
+    switch (partOfDay) {
+      case PartOfDay.morning:
+        return const Color(0xFFFACC15); // warm yellow
+      case PartOfDay.afternoon:
+        return const Color(0xFFF97316); // vibrant orange
+      case PartOfDay.night:
+        return const Color(0xFF1E3A8A); // deep blue
     }
   }
 }

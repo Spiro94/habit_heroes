@@ -25,7 +25,7 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         SizedBox(
-          height: 140,
+          height: 130,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: kidsPoints.length,
@@ -35,8 +35,8 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
               final color = _resolveKidColor(kidPoints);
 
               return Container(
-                width: 140,
-                padding: const EdgeInsets.all(16),
+                width: 130,
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [color.withOpacity(0.8), color.withOpacity(0.6)],
@@ -52,37 +52,15 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CircleAvatar(
-                          radius: 22,
+                          radius: 18,
                           backgroundColor: Colors.white,
                           child: Text(
                             _initials(kidPoints.kidName),
                             style: TextStyle(
                               color: color,
                               fontWeight: FontWeight.bold,
+                              fontSize: 12,
                             ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Row(
-                            children: [
-                              Icon(Icons.star, size: 14, color: Colors.white),
-                              SizedBox(width: 4),
-                              Text(
-                                'Activo',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
                           ),
                         ),
                       ],
@@ -92,23 +70,27 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
                       kidPoints.kidName,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     const Text(
                       'Puntos Acumulados',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 3),
                     Text(
                       '${kidPoints.totalPoints} pts',
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -137,8 +119,9 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
       return parts.first.substring(0, 1).toUpperCase();
     }
 
-    final firstInitial =
-        parts.first.isNotEmpty ? parts.first.substring(0, 1) : '';
+    final firstInitial = parts.first.isNotEmpty
+        ? parts.first.substring(0, 1)
+        : '';
     final lastInitial = parts.last.isNotEmpty ? parts.last.substring(0, 1) : '';
     return (firstInitial + lastInitial).toUpperCase();
   }

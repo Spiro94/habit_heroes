@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
@@ -41,10 +42,12 @@ class _ParentCreateReward_ScaffoldState
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.reward?.name ?? '');
-    _descriptionController =
-        TextEditingController(text: widget.reward?.description ?? '');
-    _pointsController =
-        TextEditingController(text: widget.reward?.points.toString() ?? '');
+    _descriptionController = TextEditingController(
+      text: widget.reward?.description ?? '',
+    );
+    _pointsController = TextEditingController(
+      text: widget.reward?.points.toString() ?? '',
+    );
   }
 
   @override
@@ -88,8 +91,7 @@ class _ParentCreateReward_ScaffoldState
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      state.createErrorMessage ??
-                          'Error al crear recompensa',
+                      state.createErrorMessage ?? 'Error al crear recompensa',
                     ),
                   ),
                 );
@@ -128,8 +130,8 @@ class _ParentCreateReward_ScaffoldState
                 Text(
                   'Detalles de la Recompensa',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const Gap(24),
                 TextField(
@@ -154,6 +156,7 @@ class _ParentCreateReward_ScaffoldState
                       vertical: 16,
                     ),
                   ),
+                  textCapitalization: TextCapitalization.words,
                 ),
                 const Gap(24),
                 TextField(
@@ -184,6 +187,7 @@ class _ParentCreateReward_ScaffoldState
                 TextField(
                   controller: _pointsController,
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
                     labelText: 'Puntos Requeridos',
                     filled: true,
@@ -211,9 +215,9 @@ class _ParentCreateReward_ScaffoldState
                   builder: (context, state) {
                     final isLoading = isEditing
                         ? state.updateStatus ==
-                            ParentRewards_UpdateStatus.updating
+                              ParentRewards_UpdateStatus.updating
                         : state.createStatus ==
-                            ParentRewards_CreateStatus.creating;
+                              ParentRewards_CreateStatus.creating;
 
                     return SizedBox(
                       height: 56,
@@ -230,8 +234,8 @@ class _ParentCreateReward_ScaffoldState
                           isLoading
                               ? 'Guardando...'
                               : isEditing
-                                  ? 'Actualizar Recompensa'
-                                  : 'Crear Recompensa',
+                              ? 'Actualizar Recompensa'
+                              : 'Crear Recompensa',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -284,8 +288,8 @@ class _ParentCreateReward_ScaffoldState
         updatedAt: DateTime.now(),
       );
       context.read<ParentRewards_Bloc>().add(
-            ParentRewards_Event_UpdateReward(reward: updatedReward),
-          );
+        ParentRewards_Event_UpdateReward(reward: updatedReward),
+      );
     } else {
       // Get parentId from existing rewards, or from state if available
       final rewardsBloc = context.read<ParentRewards_Bloc>();
@@ -301,9 +305,7 @@ class _ParentCreateReward_ScaffoldState
         points: points,
         createdAt: DateTime.now(),
       );
-      rewardsBloc.add(
-        ParentRewards_Event_AddReward(reward: newReward),
-      );
+      rewardsBloc.add(ParentRewards_Event_AddReward(reward: newReward));
     }
   }
 }

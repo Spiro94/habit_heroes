@@ -83,7 +83,7 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const KidsDashboard_Widget_DateHeader(),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 ...PartOfDay.values.map((partOfDay) {
                   final partOfDayTasks = tasksByPartOfDay[partOfDay.key] ?? [];
                   return KidsDashboard_Widget_PartOfDaySection(
