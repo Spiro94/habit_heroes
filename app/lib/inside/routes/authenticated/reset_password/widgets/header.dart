@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 import '../../../../i18n/translations.g.dart';
 import '../../../router.dart';
 
@@ -11,15 +10,15 @@ class ResetPassword_Header extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = context.t.resetPassword.title;
 
-    return FHeader.nested(
+    return AppBar(
       title: Text(title),
-      prefixes: [
-        FHeaderAction.back(
-          onPress: () {
-            context.router.navigate(const Home_Route());
-          },
-        ),
-      ],
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          context.router.navigate(const Home_Route());
+        },
+      ),
+      elevation: 0,
     );
   }
 }

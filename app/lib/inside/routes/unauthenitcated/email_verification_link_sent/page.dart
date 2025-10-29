@@ -41,34 +41,27 @@ class EmailVerificationLinkSent_Page extends StatelessWidget
         data: theme.style.iconStyle,
         child: Scaffold(
           backgroundColor: scaffoldStyle.backgroundColor,
+          appBar: const PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: EmailVerificationLinkSent_Header(),
+          ),
           body: SafeArea(
             child: Align(
               alignment: Alignment.topCenter,
               child: SizedBox(
                 width: contentWidth,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    DecoratedBox(
-                      decoration: scaffoldStyle.headerDecoration,
-                      child: const EmailVerificationLinkSent_Header(),
+                child: Padding(
+                  padding: scaffoldStyle.childPadding,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(height: context.tokens.spacing.medium),
+                        const EmailVerificationLinkSent_Text_Subtitle(),
+                        SizedBox(height: context.tokens.spacing.medium),
+                      ],
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: scaffoldStyle.childPadding,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              SizedBox(height: context.tokens.spacing.medium),
-                              const EmailVerificationLinkSent_Text_Subtitle(),
-                              SizedBox(height: context.tokens.spacing.medium),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
