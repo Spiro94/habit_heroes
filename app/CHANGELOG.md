@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.3.0
+
+- Added parental access PIN flow backed by SharedPreferences, including bloc events for creating, verifying, and updating the code.
+- Introduced parent dashboard and settings routes with tiles for tasks, kids, rewards, and a new change PIN screen.
+- Refreshed the home experience with parent gating dialogs, easier sign-out access, and layout tweaks for larger displays.
+- Registered the shared preferences client provider and parent access repository during application startup.
+- Updated launcher icon configuration to use the new kid-themed asset.
+
 ## 0.2.0
 
 - Added data models: AppUser, Task, Reward, TaskCompletion with JSON

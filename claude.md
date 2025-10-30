@@ -44,32 +44,43 @@ If this project was created from the `habit_heroes` template, perform these manu
 -   **Blocs**: Instantiated in widget tree, driven by events, hold application state.
 
 ### Bloc State Management Patterns
--   **Multiple Action Statuses**: Blocs that perform multiple actions should have separate status fields for each action.
--   **Status Enum Naming**: Use descriptive names like `loadStatus`, `createTaskStatus`, `deleteTaskStatus`, etc.
--   **Status Values**: Each status should have values like `initial`, `loading`, `success`, `error`.
--   **Avoid Widget State**: Do NOT track action states (like `_isSubmitting`) in widget state. Use bloc statuses instead.
+-   **Single Status Field**: Each bloc should have ONE `status` field that tracks the current action state.
+-   **Single Status Enum**: Use ONE enum (e.g., `BlocName_Status`) with descriptive values that identify the action and state (e.g., `checking`, `checked`, `checkError`, `creating`, `createSuccess`, `createError`).
+-   **Avoid Multiple Status Fields**: Do NOT create separate status fields like `loadStatus`, `createStatus`, etc. Use a single `status` field instead.
+-   **Avoid Widget State**: Do NOT track action states (like `_isSubmitting`) in widget state. Use bloc status instead.
 
 **Example Bloc State:**
 ```dart
-enum LoadStatus { initial, loading, loaded, error }
-enum CreateTaskStatus { initial, creating, success, error }
+// Single status enum with descriptive values for all actions
+enum ParentAccess_Status {
+  initial,
+  checking,
+  checked,
+  checkError,
+  creating,
+  createSuccess,
+  createError,
+  verifying,
+  verifySuccess,
+  verifyError,
+  updating,
+  updateSuccess,
+  updateError,
+}
 
-class ParentTasks_State {
-  final LoadStatus loadStatus;
-  final CreateTaskStatus createTaskStatus;
-  final List<Task> tasks;
-  final String? loadErrorMessage;
-  final String? createTaskErrorMessage;
-
-  // Separate error messages for different actions
+class ParentAccess_State {
+  final ParentAccess_Status status;
+  final String? errorMessage;
+  final bool? pinExists;  // Additional data as needed
 }
 ```
 
 **Benefits:**
-- Clear separation of different action states
-- Better error handling for specific actions
-- Easier to show loading indicators for specific operations
-- UI can react to specific action completions
+- Single status field simplifies state management
+- Descriptive status values make the current action clear
+- Single error message field reduces redundancy
+- Easier to track the current operation in the UI
+- Cleaner state transitions and less boilerplate code
 
 ### Theming and Colors
 -   **NEVER hardcode colors**: Always use the theme token system instead of hardcoded `Color(0xFF...)` values.

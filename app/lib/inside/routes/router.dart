@@ -22,6 +22,9 @@ import 'authenticated/parents/tasks/router.dart';
 import 'authenticated/parents/tasks/task_list/page.dart';
 import 'authenticated/reset_password/page.dart';
 import 'authenticated/router.dart';
+import 'authenticated/settings/change_passcode/page.dart';
+import 'authenticated/settings/router.dart';
+import 'authenticated/settings/settings_list/page.dart';
 import 'unauthenitcated/email_verification_link_sent/page.dart';
 import 'unauthenitcated/forgot_password_flow/forgot_password/page.dart';
 import 'unauthenitcated/forgot_password_flow/reset_password_link_sent/guard.dart';
@@ -109,6 +112,14 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
             AutoRoute(path: 'edit', page: AddEditKid_Route.page),
             RedirectRoute(path: '*', redirectTo: ''),
           ],
+        ),
+        AutoRoute(
+          path: 'parent-dashboard/settings',
+          page: SettingsList_Route.page,
+        ),
+        AutoRoute(
+          path: 'parent-dashboard/settings/change-passcode',
+          page: ChangePincode_Route.page,
         ),
         AutoRoute(page: KidsDashboard_Route.page, path: 'kids-dashboard'),
 

@@ -18,6 +18,12 @@ class ParentDashboard_Page extends StatelessWidget {
           'Gestión de Tareas y Niños',
           style: TextStyle(color: Colors.black),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => context.router.push(const SettingsList_Route()),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

@@ -2,9 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../outside/repositories/parent_access/repository.dart';
 import '../../../../outside/theme/theme.dart';
 import '../../../blocs/auth/bloc.dart';
 import '../../../blocs/auth/events.dart';
+import '../../../blocs/parent_access/bloc.dart';
+import '../../../blocs/parent_access/events.dart';
 import '../../router.dart';
 import '../../widgets/colorful_button.dart';
 import 'widgets/pin_dialog.dart';
@@ -15,13 +18,25 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return this;
+    final parentAccessRepository =
+        RepositoryProvider.of<ParentAccess_Repository>(context);
+
+    return BlocProvider(
+      create: (context) =>
+          ParentAccess_Bloc(parentAccessRepository: parentAccessRepository)
+            ..add(ParentAccess_Event_CheckPinExists()),
+      child: this,
+    );
   }
 
   Future<void> _handleParentAccess(BuildContext context) async {
+    final bloc = context.read<ParentAccess_Bloc>();
+
     final verified = await showDialog<bool>(
       context: context,
-      builder: (context) => const Home_Widget_PinDialog(),
+      barrierDismissible: false,
+      builder: (dialogContext) =>
+          BlocProvider.value(value: bloc, child: const Home_Widget_PinDialog()),
     );
 
     if ((verified ?? false) && context.mounted) {

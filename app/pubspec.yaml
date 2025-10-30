@@ -2,7 +2,7 @@ name: habit_heroes
 description: A gamified family habit-tracking app.
 publish_to: "none"
 
-version: 0.2.0
+version: 0.3.0
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -12,6 +12,7 @@ dependencies:
   auto_route: ^10.2.0
   bloc_concurrency: ^0.3.0
   collection: ^1.19.0
+  crypto: ^3.0.6
   cupertino_icons: ^1.0.8
   email_validator: ^3.0.0
   equatable: ^2.0.7
@@ -29,6 +30,7 @@ dependencies:
   recase: ^4.1.0
   sentry_flutter: ^8.13.2
   sentry_logging: ^8.13.2
+  shared_preferences: ^2.3.4
   slang_flutter: ^4.9.0
   supabase_flutter: 2.10.3
   google_fonts: ^6.3.0

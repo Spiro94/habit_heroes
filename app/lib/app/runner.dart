@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 import '../inside/blocs/observer.dart';
 import '../outside/client_providers/all.dart';
 import '../outside/client_providers/sentry/client_provider.dart';
+import '../outside/client_providers/shared_preferences/client_provider.dart';
 import '../outside/client_providers/supabase/client_provider.dart';
 import '../outside/effect_providers/all.dart';
 import '../outside/effect_providers/auth_change/effect_provider.dart';
@@ -19,6 +20,7 @@ import '../outside/repositories/auth/repository.dart';
 import '../outside/repositories/completions/repository.dart';
 import '../outside/repositories/kids/repository.dart';
 import '../outside/repositories/kids_dashboard/repository.dart';
+import '../outside/repositories/parent_access/repository.dart';
 import '../outside/repositories/reward_redemptions/repository.dart';
 import '../outside/repositories/rewards/repository.dart';
 import '../outside/repositories/task_instances/repository.dart';
@@ -53,6 +55,7 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
       initialSessionId: initialSessionId,
       configuration: configuration.clientProvidersConfigurations.sentry,
     ),
+    sharedPreferencesClientProvider: SharedPreferences_ClientProvider(),
     supabaseClientProvider: Supabase_ClientProvider(
       configuration: configuration.clientProvidersConfigurations.supabase,
     ),
@@ -87,6 +90,10 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
     ),
     kidsDashboardRepository: SupabaseKidsDashboard_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
+    ),
+    parentAccessRepository: ParentAccess_Repository(
+      sharedPreferencesClientProvider:
+          clientProviders.sharedPreferencesClientProvider,
     ),
     rewardRepository: SupabaseReward_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,

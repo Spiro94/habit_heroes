@@ -6,6 +6,7 @@ import 'base.dart';
 import 'completions/repository.dart';
 import 'kids/repository.dart';
 import 'kids_dashboard/repository.dart';
+import 'parent_access/repository.dart';
 import 'reward_redemptions/repository.dart';
 import 'rewards/repository.dart';
 import 'task_instances/repository.dart';
@@ -23,6 +24,7 @@ class Repositories_All {
     required this.authRepository,
     required this.kidRepository,
     required this.kidsDashboardRepository,
+    required this.parentAccessRepository,
     required this.rewardRepository,
     required this.taskCompletionRepository,
     required this.taskTemplateRepository,
@@ -35,6 +37,7 @@ class Repositories_All {
   final Auth_Repository authRepository;
   final Kids_Repository kidRepository;
   final KidsDashboard_Repository kidsDashboardRepository;
+  final ParentAccess_Repository parentAccessRepository;
   final Reward_Repository rewardRepository;
   final TaskCompletion_Repository taskCompletionRepository;
   final TaskTemplate_Repository taskTemplateRepository;
@@ -47,6 +50,7 @@ class Repositories_All {
     authRepository,
     kidRepository,
     kidsDashboardRepository,
+    parentAccessRepository,
     rewardRepository,
     taskCompletionRepository,
     taskTemplateRepository,
@@ -62,6 +66,9 @@ class Repositories_All {
       RepositoryProvider<Kids_Repository>.value(value: kidRepository),
       RepositoryProvider<KidsDashboard_Repository>.value(
         value: kidsDashboardRepository,
+      ),
+      RepositoryProvider<ParentAccess_Repository>.value(
+        value: parentAccessRepository,
       ),
       RepositoryProvider<Reward_Repository>.value(value: rewardRepository),
       RepositoryProvider<TaskCompletion_Repository>.value(

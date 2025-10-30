@@ -73,6 +73,22 @@ class Authenticated_Routes extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ChangePincode_Page]
+class ChangePincode_Route extends PageRouteInfo<void> {
+  const ChangePincode_Route({List<PageRouteInfo>? children})
+    : super(ChangePincode_Route.name, initialChildren: children);
+
+  static const String name = 'ChangePincode_Route';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ChangePincode_Page();
+    },
+  );
+}
+
+/// generated route for
 /// [CreateTask_Page]
 class CreateTask_Route extends PageRouteInfo<CreateTask_RouteArgs> {
   CreateTask_Route({
@@ -450,6 +466,38 @@ class ResetPassword_Route extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return WrappedRoute(child: const ResetPassword_Page());
+    },
+  );
+}
+
+/// generated route for
+/// [SettingsList_Page]
+class SettingsList_Route extends PageRouteInfo<void> {
+  const SettingsList_Route({List<PageRouteInfo>? children})
+    : super(SettingsList_Route.name, initialChildren: children);
+
+  static const String name = 'SettingsList_Route';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SettingsList_Page();
+    },
+  );
+}
+
+/// generated route for
+/// [Settings_Router]
+class Settings_Routes extends PageRouteInfo<void> {
+  const Settings_Routes({List<PageRouteInfo>? children})
+    : super(Settings_Routes.name, initialChildren: children);
+
+  static const String name = 'Settings_Routes';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const Settings_Router();
     },
   );
 }
