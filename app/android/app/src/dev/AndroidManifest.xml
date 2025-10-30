@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
+        android:label="@string/app_name">
+        <activity
+            android:name="com.daniel.villamizar.habit_heroes.MainActivity">
+            <!-- Deep Links for Dev Environment -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="com.daniel.villamizar.habit_heroes.dev.deep"
+                    android:host="deeplink-callback" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

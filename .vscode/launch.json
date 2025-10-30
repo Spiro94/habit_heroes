@@ -13,6 +13,8 @@
       "args": [
         "--target",
         "lib/app/configurations/development.dart",
+        "--flavor",
+        "dev"
       ]
     },
     {
@@ -24,13 +26,8 @@
       "args": [
         "--target",
         "lib/app/configurations/production.dart",
-        "--web-renderer",
-        "canvaskit",
-        "--web-port",
-        "3000",
-        "--web-hostname=${env:SITE_HOST}",
-        "--dart-define",
-        "SITE_HOST=${env:SITE_HOST}"
+        "--flavor",
+        "production",
       ]
     },
     {
