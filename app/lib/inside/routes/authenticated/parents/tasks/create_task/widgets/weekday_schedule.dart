@@ -8,10 +8,12 @@ import '../../../../../../i18n/translations.g.dart';
 class CreateTask_Widget_WeekdaySchedule extends StatefulWidget {
   final Map<DaysOfWeek, Set<PartOfDay>> dayControllers;
   final ValueNotifier<String?> errorNotifier;
+  final bool isCreating;
 
   const CreateTask_Widget_WeekdaySchedule({
     required this.dayControllers,
     required this.errorNotifier,
+    required this.isCreating,
     super.key,
   });
 
@@ -22,6 +24,16 @@ class CreateTask_Widget_WeekdaySchedule extends StatefulWidget {
 
 class _CreateTask_Widget_WeekdayScheduleState
     extends State<CreateTask_Widget_WeekdaySchedule> {
+  bool _shouldExpandDay(DaysOfWeek day) {
+    if (widget.isCreating) {
+      // When creating a task, expand all days
+      return true;
+    } else {
+      // When editing, only expand days that have selections
+      return widget.dayControllers[day]?.isNotEmpty ?? false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,6 +61,7 @@ class _CreateTask_Widget_WeekdayScheduleState
                 borderRadius: BorderRadius.circular(8),
               ),
               child: ExpansionTile(
+                initiallyExpanded: _shouldExpandDay(day),
                 title: Text(
                   day.fullName,
                   style: const TextStyle(fontWeight: FontWeight.w600),

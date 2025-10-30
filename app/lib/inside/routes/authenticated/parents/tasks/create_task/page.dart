@@ -1,20 +1,24 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../../outside/theme/theme.dart';
+import '../../../../../../shared/extensions/days_of_week_extension.dart';
 import '../../../../../../shared/models/enums/days_of_week.dart';
 import '../../../../../../shared/models/enums/part_of_day.dart';
 import '../../../../../../shared/models/kid.dart';
-import '../../../../../../shared/widgets/all.dart';
 import '../../../../../blocs/parent_tasks/bloc.dart';
 import '../../../../../blocs/parent_tasks/events.dart';
 import '../../../../../blocs/parent_tasks/state.dart';
 import '../../../../../i18n/translations.g.dart';
-import '../../../../router.dart';
+import 'widgets/kid_dropdown.dart';
+import 'widgets/listeners.dart';
+import 'widgets/points_field.dart';
+import 'widgets/schedule_type_toggle.dart';
 import 'widgets/specific_date_picker.dart';
+import 'widgets/submit_button.dart';
+import 'widgets/title_field.dart';
 import 'widgets/weekday_schedule.dart';
 
 @RoutePage()
@@ -112,7 +116,7 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
         for (final schedule in schedules) {
           if (schedule.daysOfWeek != null && schedule.timeOfDay != null) {
             for (final dayInt in schedule.daysOfWeek!) {
-              final day = _intToDaysOfWeek(dayInt);
+              final day = dayInt.toDaysOfWeek();
               if (day != null) {
                 final part = PartOfDay.values.firstWhere(
                   (p) => p.key == schedule.timeOfDay!.key,
@@ -131,124 +135,13 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
 
   bool get _isEditing => widget.taskScheduleId != null;
 
-  DaysOfWeek? _intToDaysOfWeek(int i) {
-    switch (i) {
-      case 0:
-        return DaysOfWeek.sunday;
-      case 1:
-        return DaysOfWeek.monday;
-      case 2:
-        return DaysOfWeek.tuesday;
-      case 3:
-        return DaysOfWeek.wednesday;
-      case 4:
-        return DaysOfWeek.thursday;
-      case 5:
-        return DaysOfWeek.friday;
-      case 6:
-        return DaysOfWeek.saturday;
-      default:
-        return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<ParentTasks_Bloc, ParentTasks_State>(
-          listenWhen: (previous, current) =>
-              previous.createTaskStatus != current.createTaskStatus,
-          listener: (context, state) {
-            if (state.createTaskStatus == CreateTaskStatus.error) {
-              // Show error dialog
-              showDialog<void>(
-                context: context,
-                builder: (context) => HabitHeroes_Dialog(
-                  title: t.tasks.errorCreatingTask,
-                  dialogType: HabitHeroesDialogType.error,
-                  icon: Icons.error_outline,
-                  body: Text(
-                    state.createTaskErrorMessage ?? t.tasks.errorCreatingTask,
-                  ),
-                  actions: [
-                    HabitHeroesDialogAction(
-                      label: t.kids.cancel,
-                      isPrimary: true,
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
-                ),
-              );
-            } else if (state.createTaskStatus == CreateTaskStatus.success) {
-              // Task was successfully created, navigate back
-              context.router.navigate(const TaskList_Route());
-            }
-          },
-        ),
-        BlocListener<ParentTasks_Bloc, ParentTasks_State>(
-          listenWhen: (previous, current) =>
-              previous.updateTaskStatus != current.updateTaskStatus,
-          listener: (context, state) {
-            if (state.updateTaskStatus == UpdateTaskStatus.error) {
-              // Show error dialog
-              showDialog<void>(
-                context: context,
-                builder: (context) => HabitHeroes_Dialog(
-                  title: t.tasks.errorUpdatingTask,
-                  dialogType: HabitHeroesDialogType.error,
-                  icon: Icons.error_outline,
-                  body: Text(
-                    state.updateTaskErrorMessage ?? t.tasks.errorUpdatingTask,
-                  ),
-                  actions: [
-                    HabitHeroesDialogAction(
-                      label: t.kids.cancel,
-                      isPrimary: true,
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
-                ),
-              );
-            } else if (state.updateTaskStatus == UpdateTaskStatus.success) {
-              // Task was successfully updated, navigate back
-              context.router.navigate(const TaskList_Route());
-            }
-          },
-        ),
-        BlocListener<ParentTasks_Bloc, ParentTasks_State>(
-          listenWhen: (previous, current) =>
-              previous.loadEditingDataStatus != current.loadEditingDataStatus,
-          listener: (context, state) {
-            if (state.loadEditingDataStatus == LoadEditingDataStatus.loaded) {
-              // Prefill form with editing data
-              _prefillFormWithEditingData(state);
-            } else if (state.loadEditingDataStatus ==
-                LoadEditingDataStatus.error) {
-              // Show error dialog
-              showDialog<void>(
-                context: context,
-                builder: (context) => HabitHeroes_Dialog(
-                  title: t.tasks.errorLoadingTask,
-                  dialogType: HabitHeroesDialogType.error,
-                  icon: Icons.error_outline,
-                  body: Text(
-                    state.loadEditingDataErrorMessage ??
-                        t.tasks.errorLoadingTask,
-                  ),
-                  actions: [
-                    HabitHeroesDialogAction(
-                      label: t.kids.cancel,
-                      isPrimary: true,
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
-                ),
-              );
-            }
-          },
-        ),
-      ],
+    return CreateTask_Listeners(
+      onLoadEditingDataSuccess: () {
+        final state = BlocProvider.of<ParentTasks_Bloc>(context).state;
+        _prefillFormWithEditingData(state);
+      },
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -276,109 +169,25 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // Title Field
-                      ColorfulTextField(
-                        label: t.tasks.titleLabel,
-                        hint: t.tasks.titleHint,
+                      CreateTask_Widget_TitleField(
                         controller: _titleController,
-                        gradient: context.colors.tasksBlue,
-                        textCapitalization: TextCapitalization.words,
-                        prefixIcon: const Icon(Icons.task),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return t.tasks.titleRequired;
-                          }
-                          return null;
-                        },
                       ),
                       const Gap(24),
                       // Kid Dropdown
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            t.tasks.assignedTo,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          DropdownButtonFormField<Kid>(
-                            initialValue: _selectedKid,
-                            decoration: InputDecoration(
-                              hintText: t.tasks.assignedToHint,
-                              filled: true,
-                              fillColor: context.solidColors.surfaceVariant,
-                              prefixIcon: const Icon(Icons.person),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
-                                  color: context.colors.tasksBlue.start,
-                                  width: 2,
-                                ),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
-                                  color: context.solidColors.error,
-                                  width: 2,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 16,
-                              ),
-                            ),
-                            items: state.kids
-                                .map(
-                                  (kid) => DropdownMenuItem(
-                                    value: kid,
-                                    child: Text(kid.name),
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (kid) {
-                              setState(() {
-                                _selectedKid = kid;
-                              });
-                            },
-                            validator: (value) {
-                              if (value == null) {
-                                return t.tasks.selectAKid;
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
+                      CreateTask_Widget_KidDropdown(
+                        selectedKid: _selectedKid,
+                        kids: state.kids,
+                        onChanged: (kid) {
+                          setState(() {
+                            _selectedKid = kid;
+                          });
+                        },
                       ),
                       const Gap(24),
                       // Points Field
-                      ColorfulTextField(
-                        label: t.tasks.points,
-                        hint: t.tasks.pointsHint,
+                      CreateTask_Widget_PointsField(
                         controller: _pointsController,
-                        gradient: context.colors.pointsGold,
-                        keyboardType: TextInputType.number,
-                        prefixIcon: const Icon(Icons.star),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
                       ),
-                      if (t.tasks.pointsDescription.isNotEmpty) ...[
-                        const SizedBox(height: 4),
-                        Text(
-                          t.tasks.pointsDescription,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: context.solidColors.onSurfaceVariant,
-                          ),
-                        ),
-                      ],
                       const Gap(24),
                       // Divider
                       Divider(
@@ -387,40 +196,17 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                         thickness: 1,
                       ),
                       const Gap(24),
-                      // Specific Date Checkbox
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.solidColors.surfaceVariant,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: context.solidColors.border),
-                        ),
-                        child: CheckboxListTile(
-                          value: _isSpecificDate,
-                          onChanged: (value) {
-                            setState(() {
-                              _isSpecificDate = value ?? false;
-                              if (!_isSpecificDate) {
-                                _selectedDate = null;
-                              }
-                            });
-                          },
-                          title: Text(
-                            t.tasks.specificDateTask,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                          subtitle: Text(
-                            t.tasks.specificDateDescription,
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: context.solidColors.onSurfaceVariant,
-                            ),
-                          ),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: context.colors.tasksBlue.start,
-                        ),
+                      // Schedule Type Toggle
+                      CreateTask_Widget_ScheduleTypeToggle(
+                        isSpecificDate: _isSpecificDate,
+                        onChanged: (value) {
+                          setState(() {
+                            _isSpecificDate = value;
+                            if (!_isSpecificDate) {
+                              _selectedDate = null;
+                            }
+                          });
+                        },
                       ),
                       const Gap(16),
                       // Date/Schedule Selection
@@ -438,31 +224,13 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                         CreateTask_Widget_WeekdaySchedule(
                           dayControllers: _dayControllers,
                           errorNotifier: _scheduleErrorNotifier,
+                          isCreating: !_isEditing,
                         ),
                       const Gap(32),
                       // Submit Button
-                      SizedBox(
-                        height: 56,
-                        child: ElevatedButton(
-                          onPressed: () => _handleSubmit(context),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: context.colors.tasksBlue.start,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            elevation: 2,
-                          ),
-                          child: Text(
-                            _isEditing
-                                ? t.tasks.updateButton
-                                : t.tasks.createButton,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                      CreateTask_Widget_SubmitButton(
+                        isEditing: _isEditing,
+                        onPressed: () => _handleSubmit(context),
                       ),
                     ],
                   ),
@@ -540,7 +308,7 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
           schedules.add(
             TaskScheduleInput(
               kidId: _selectedKid!.id,
-              daysOfWeek: [_dayOfWeekToInt(day)],
+              daysOfWeek: [day.toInt()],
               timeOfDay: timeOfDay.key,
             ),
           );
@@ -576,28 +344,6 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
     }
 
     // Navigation handled by BlocListener on success
-  }
-
-  /// Convert DaysOfWeek enum to int (matching PostgreSQL day of week)
-  /// 0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday,
-  /// 6=Saturday
-  int _dayOfWeekToInt(DaysOfWeek day) {
-    switch (day) {
-      case DaysOfWeek.sunday:
-        return 0;
-      case DaysOfWeek.monday:
-        return 1;
-      case DaysOfWeek.tuesday:
-        return 2;
-      case DaysOfWeek.wednesday:
-        return 3;
-      case DaysOfWeek.thursday:
-        return 4;
-      case DaysOfWeek.friday:
-        return 5;
-      case DaysOfWeek.saturday:
-        return 6;
-    }
   }
 
   @override
