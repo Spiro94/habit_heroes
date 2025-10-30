@@ -1,13 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:forui/forui.dart';
 
-import '../../../../outside/repositories/auth/repository.dart';
 import '../../../../outside/theme/theme.dart';
-import '../../../blocs/sign_up/bloc.dart';
-import '../../../util/breakpoints.dart';
 import 'widgets/header.dart';
 import 'widgets/text_subtitle.dart';
 
@@ -18,51 +12,39 @@ class EmailVerificationLinkSent_Page extends StatelessWidget
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        return SignUp_Bloc(authRepository: context.read<Auth_Repository>());
-      },
-      child: this,
-    );
+    return this;
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
-    final scaffoldStyle = theme.scaffoldStyle;
-    final contentWidth = InsideUtil_Breakpoints.getContentWidth(
-      breakpointType: InsideUtil_BreakpointType.constrained,
-      context: context,
+    final spacing = context.tokens.spacing;
+    final backgroundGradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        context.solidColors.background,
+        context.colors.parentsPrimary.start.withValues(alpha: 0.05),
+        context.colors.parentsPrimary.end.withValues(alpha: 0.15),
+      ],
     );
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: scaffoldStyle.systemOverlayStyle,
-      child: IconTheme(
-        data: theme.style.iconStyle,
-        child: Scaffold(
-          backgroundColor: scaffoldStyle.backgroundColor,
-          appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight),
-            child: EmailVerificationLinkSent_Header(),
-          ),
-          body: SafeArea(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: SizedBox(
-                width: contentWidth,
-                child: Padding(
-                  padding: scaffoldStyle.childPadding,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SizedBox(height: context.tokens.spacing.medium),
-                        const EmailVerificationLinkSent_Text_Subtitle(),
-                        SizedBox(height: context.tokens.spacing.medium),
-                      ],
-                    ),
-                  ),
-                ),
+    return Scaffold(
+      backgroundColor: context.solidColors.background,
+      body: Container(
+        decoration: BoxDecoration(gradient: backgroundGradient),
+        alignment: Alignment.center,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(spacing.large),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 420),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const EmailVerificationLinkSent_Header(),
+                  SizedBox(height: spacing.large),
+                  const EmailVerificationLinkSent_Text_Subtitle(),
+                ],
               ),
             ),
           ),

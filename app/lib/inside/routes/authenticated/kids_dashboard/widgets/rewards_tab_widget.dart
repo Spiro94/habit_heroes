@@ -105,7 +105,7 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
     List<KidPoints> kidsPoints,
     Reward reward,
   ) {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (_) => KidsDashboard_Widget_KidSelectionDialog(
         kids: kidsPoints,

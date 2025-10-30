@@ -72,9 +72,14 @@ class SupabaseRewardRedemption_Repository extends RewardRedemption_Repository {
       query = query.lte('redeemed_at', endDate.toIso8601String());
     }
 
-    final response = await query.order('redeemed_at', ascending: false);
+    final response =
+        await query.order('redeemed_at', ascending: false) as List<dynamic>;
     return response
-        .map((json) => RewardRedemption.fromJson(_enrichRedemptionJson(json)))
+        .map(
+          (json) => RewardRedemption.fromJson(
+            _enrichRedemptionJson(json as Map<String, dynamic>),
+          ),
+        )
         .toList();
   }
 
@@ -108,9 +113,14 @@ class SupabaseRewardRedemption_Repository extends RewardRedemption_Repository {
       query = query.lte('redeemed_at', endDate.toIso8601String());
     }
 
-    final response = await query.order('redeemed_at', ascending: false);
+    final response =
+        await query.order('redeemed_at', ascending: false) as List<dynamic>;
     return response
-        .map((json) => RewardRedemption.fromJson(_enrichRedemptionJson(json)))
+        .map(
+          (json) => RewardRedemption.fromJson(
+            _enrichRedemptionJson(json as Map<String, dynamic>),
+          ),
+        )
         .toList();
   }
 
@@ -144,9 +154,14 @@ class SupabaseRewardRedemption_Repository extends RewardRedemption_Repository {
       query = query.lte('redeemed_at', endDate.toIso8601String());
     }
 
-    final response = await query.order('redeemed_at', ascending: false);
+    final response =
+        await query.order('redeemed_at', ascending: false) as List<dynamic>;
     return response
-        .map((json) => RewardRedemption.fromJson(_enrichRedemptionJson(json)))
+        .map(
+          (json) => RewardRedemption.fromJson(
+            _enrichRedemptionJson(json as Map<String, dynamic>),
+          ),
+        )
         .toList();
   }
 
@@ -155,16 +170,21 @@ class SupabaseRewardRedemption_Repository extends RewardRedemption_Repository {
         .from('kids')
         .select('id')
         .eq('parent_id', parentId);
-    return (response as List).map((e) => e['id'] as String).toList();
+    final data = response as List<dynamic>;
+    return data
+        .map((raw) => (raw as Map<String, dynamic>)['id'] as String)
+        .toList();
   }
 
   Map<String, dynamic> _enrichRedemptionJson(Map<String, dynamic> json) {
     final enriched = Map<String, dynamic>.from(json);
-    if (json['kids'] != null && json['kids'] is Map) {
-      enriched['kid_name'] = (json['kids'] as Map)['name'];
+    final kids = json['kids'];
+    if (kids is Map<String, dynamic>) {
+      enriched['kid_name'] = kids['name'] as String?;
     }
-    if (json['rewards'] != null && json['rewards'] is Map) {
-      enriched['reward_name'] = (json['rewards'] as Map)['name'];
+    final rewards = json['rewards'];
+    if (rewards is Map<String, dynamic>) {
+      enriched['reward_name'] = rewards['name'] as String?;
     }
     return enriched;
   }

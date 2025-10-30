@@ -263,7 +263,7 @@ AppSolidColors _lerpSolidColors(AppSolidColors a, AppSolidColors b, double t) {
 }
 
 /// Solid colors for light mode
-const _solidColors_light = AppSolidColors(
+const _solidColorsLight = AppSolidColors(
   background: Color(0xFFFAFAFA),
   surface: Color(0xFFFFFFFF),
   surfaceVariant: Color(0xFFF3F4F6),
@@ -286,7 +286,7 @@ const _solidColors_light = AppSolidColors(
 );
 
 /// Solid colors for dark mode
-const _solidColors_dark = AppSolidColors(
+const _solidColorsDark = AppSolidColors(
   background: Color(0xFF0F172A),
   surface: Color(0xFF1E293B),
   surfaceVariant: Color(0xFF334155),
@@ -309,8 +309,8 @@ const _solidColors_dark = AppSolidColors(
 );
 
 /// Light mode color palette
-const _colorTokens_light = ThemeColorTokens(
-  solidColors: _solidColors_light,
+const _colorTokensLight = ThemeColorTokens(
+  solidColors: _solidColorsLight,
   parentsPrimary: AppColorGradient(
     start: Color(0xFF6366F1),
     end: Color(0xFF8B5CF6),
@@ -342,8 +342,8 @@ const _colorTokens_light = ThemeColorTokens(
 );
 
 /// Dark mode color palette
-const _colorTokens_dark = ThemeColorTokens(
-  solidColors: _solidColors_dark,
+const _colorTokensDark = ThemeColorTokens(
+  solidColors: _solidColorsDark,
   parentsPrimary: AppColorGradient(
     start: Color(0xFF6366F1),
     end: Color(0xFF8B5CF6),

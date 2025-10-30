@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:habit_heroes/shared/models/enums/part_of_day.dart';
 import 'package:habit_heroes/shared/models/task.dart';
 
 void main() {
@@ -10,9 +11,10 @@ void main() {
         'title': 'Do dishes',
         'description': 'Wash all the dishes in the sink',
         'points': 10,
-        'time_of_day': 'morning',
-        'repeat': 'daily',
-        'days_of_week': [1, 2, 3],
+        'part_of_day': 'morning',
+        'is_repetitive': true,
+        'due_days_of_week': [1, 2, 3],
+        'assignee_id': 'kid1',
         'created_at': '2023-01-01T00:00:00.000Z',
       });
 
@@ -21,9 +23,10 @@ void main() {
       expect(task.title, 'Do dishes');
       expect(task.description, 'Wash all the dishes in the sink');
       expect(task.points, 10);
-      expect(task.partOfDay, TimeOfDayCategory.morning);
-      expect(task.isRepetitive, Repetition.daily);
+      expect(task.partOfDay, PartOfDay.morning);
+      expect(task.isRepetitive, isTrue);
       expect(task.dueDaysOfWeek, [1, 2, 3]);
+      expect(task.assigneeId, 'kid1');
       expect(task.createdAt, DateTime.parse('2023-01-01T00:00:00.000Z'));
     });
 
@@ -34,9 +37,10 @@ void main() {
         title: 'Do dishes',
         description: 'Wash all the dishes in the sink',
         points: 10,
-        partOfDay: TimeOfDayCategory.morning,
-        isRepetitive: Repetition.daily,
+        partOfDay: PartOfDay.morning,
+        isRepetitive: true,
         dueDaysOfWeek: const [1, 2, 3],
+        assigneeId: 'kid1',
         createdAt: DateTime.parse('2023-01-01T00:00:00.000Z'),
       );
 
@@ -47,9 +51,10 @@ void main() {
       expect(json['title'], 'Do dishes');
       expect(json['description'], 'Wash all the dishes in the sink');
       expect(json['points'], 10);
-      expect(json['time_of_day'], 'morning');
-      expect(json['repeat'], 'daily');
-      expect(json['days_of_week'], [1, 2, 3]);
+      expect(json['part_of_day'], 'morning');
+      expect(json['is_repetitive'], true);
+      expect(json['due_days_of_week'], [1, 2, 3]);
+      expect(json['assignee_id'], 'kid1');
       expect(json['created_at'], '2023-01-01T00:00:00.000Z');
     });
 
@@ -60,9 +65,10 @@ void main() {
         title: 'Do dishes',
         description: 'Wash all the dishes in the sink',
         points: 10,
-        partOfDay: TimeOfDayCategory.morning,
-        isRepetitive: Repetition.daily,
+        partOfDay: PartOfDay.morning,
+        isRepetitive: true,
         dueDaysOfWeek: const [1, 2, 3],
+        assigneeId: 'kid1',
         createdAt: DateTime.parse('2023-01-01T00:00:00.000Z'),
       );
       final task2 = Task(
@@ -71,9 +77,10 @@ void main() {
         title: 'Do dishes',
         description: 'Wash all the dishes in the sink',
         points: 10,
-        partOfDay: TimeOfDayCategory.morning,
-        isRepetitive: Repetition.daily,
+        partOfDay: PartOfDay.morning,
+        isRepetitive: true,
         dueDaysOfWeek: const [1, 2, 3],
+        assigneeId: 'kid1',
         createdAt: DateTime.parse('2023-01-01T00:00:00.000Z'),
       );
       final task3 = Task(
@@ -82,9 +89,10 @@ void main() {
         title: 'Clean room',
         description: 'Tidy up your room',
         points: 20,
-        partOfDay: TimeOfDayCategory.evening,
-        isRepetitive: Repetition.weekly,
+        partOfDay: PartOfDay.afternoon,
+        isRepetitive: false,
         dueDaysOfWeek: const [5],
+        assigneeId: 'kid2',
         createdAt: DateTime.parse('2023-01-02T00:00:00.000Z'),
       );
 

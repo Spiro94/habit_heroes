@@ -4,9 +4,9 @@ import '../../../../../shared/models/today_task.dart';
 
 class KidsDashboard_Widget_TaskCard extends StatelessWidget {
   const KidsDashboard_Widget_TaskCard({
-    super.key,
     required this.task,
     required this.onComplete,
+    super.key,
   });
 
   final TodayTask task;
@@ -42,7 +42,7 @@ class KidsDashboard_Widget_TaskCard extends StatelessWidget {
         boxShadow: [
           if (!_isSkipped)
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),

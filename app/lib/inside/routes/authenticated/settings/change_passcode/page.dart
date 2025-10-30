@@ -109,7 +109,8 @@ class _ChangePincode_ScaffoldState extends State<ChangePincode_Scaffold> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Ingresa tu PIN actual y luego el nuevo PIN que deseas configurar.',
+                      'Ingresa tu PIN actual y luego el nuevo PIN que deseas '
+                      'configurar.',
                       style: TextStyle(
                         fontSize: 16,
                         color: context.solidColors.onSurface,

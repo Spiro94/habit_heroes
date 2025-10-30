@@ -6,40 +6,62 @@ void main() {
   group('AppUser', () {
     test('supports value equality', () {
       expect(
-        const AppUser(id: '1', displayName: 'Test User', role: UserRole.parent),
-        const AppUser(id: '1', displayName: 'Test User', role: UserRole.parent),
+        const AppUser(id: '1', name: 'Test User', avatarUrl: 'avatar.png'),
+        equals(
+          const AppUser(
+            id: '1',
+            name: 'Test User',
+            avatarUrl: 'avatar.png',
+          ),
+        ),
       );
     });
 
     test('props are correct', () {
+      final createdAt = DateTime.parse('2023-01-01T00:00:00.000Z');
+      final updatedAt = DateTime.parse('2023-01-02T00:00:00.000Z');
       expect(
-        const AppUser(
+        AppUser(
           id: '1',
-          displayName: 'Test User',
-          role: UserRole.parent,
+          name: 'Test User',
+          avatarUrl: 'avatar.png',
+          createdAt: createdAt,
+          updatedAt: updatedAt,
         ).props,
-        ['1', 'Test User', UserRole.parent],
+        ['1', 'Test User', 'avatar.png', createdAt, updatedAt],
       );
     });
 
     test('fromJson creates a valid model', () {
-      final json = {'id': '1', 'display_name': 'Test User', 'role': 'parent'};
+      final json = {
+        'id': '1',
+        'name': 'Test User',
+        'avatar_url': 'https://example.com/avatar.png',
+        'created_at': '2023-01-01T00:00:00.000Z',
+        'updated_at': '2023-01-02T00:00:00.000Z',
+      };
       final user = AppUser.fromJson(json);
       expect(user.id, '1');
-      expect(user.displayName, 'Test User');
-      expect(user.role, UserRole.parent);
+      expect(user.name, 'Test User');
+      expect(user.avatarUrl, 'https://example.com/avatar.png');
+      expect(user.createdAt, DateTime.parse('2023-01-01T00:00:00.000Z'));
+      expect(user.updatedAt, DateTime.parse('2023-01-02T00:00:00.000Z'));
     });
 
     test('toJson creates a valid map', () {
-      const user = AppUser(
+      final user = AppUser(
         id: '1',
-        displayName: 'Test User',
-        role: UserRole.parent,
+        name: 'Test User',
+        avatarUrl: 'https://example.com/avatar.png',
+        createdAt: DateTime.parse('2023-01-01T00:00:00.000Z'),
+        updatedAt: DateTime.parse('2023-01-02T00:00:00.000Z'),
       );
       final json = user.toJson();
       expect(json['id'], '1');
-      expect(json['display_name'], 'Test User');
-      expect(json['role'], 'parent');
+      expect(json['name'], 'Test User');
+      expect(json['avatar_url'], 'https://example.com/avatar.png');
+      expect(json['created_at'], '2023-01-01T00:00:00.000Z');
+      expect(json['updated_at'], '2023-01-02T00:00:00.000Z');
     });
   });
 }

@@ -1,4 +1,3 @@
-import 'dart:collection';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -176,10 +175,10 @@ class _KidsDashboard_TabletTasksView extends StatelessWidget {
     );
   }
 
-  LinkedHashMap<String, List<TodayTask>> _groupTasksByKid(
+  Map<String, List<TodayTask>> _groupTasksByKid(
     List<TodayTask> tasks,
   ) {
-    final sortedMap = LinkedHashMap<String, List<TodayTask>>();
+    final sortedMap = <String, List<TodayTask>>{};
 
     final entries = <String, List<TodayTask>>{};
     for (final task in tasks) {
@@ -296,7 +295,7 @@ class _KidColumnHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.12),
+        color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -337,10 +336,10 @@ class _PartOfDayLabel extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withOpacity(isCurrent ? 0.25 : 0.15),
+        color: color.withValues(alpha: isCurrent ? 0.25 : 0.15),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: color.withOpacity(isCurrent ? 1 : 0.6),
+          color: color.withValues(alpha: isCurrent ? 1 : 0.6),
           width: 1.5,
         ),
       ),

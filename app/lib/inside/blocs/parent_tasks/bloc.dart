@@ -155,7 +155,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
         template: updatedTemplate,
       );
 
-      // Replace schedules: delete existing schedules for this template and recreate
+      // Replace existing schedules for this template.
       final allSchedules = await _taskScheduleRepository.getTaskSchedules();
       final existingForTemplate = allSchedules
           .where((s) => s.taskTemplateId == event.templateId)

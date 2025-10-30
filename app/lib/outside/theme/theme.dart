@@ -34,8 +34,8 @@ OutsideTheme _buildOutsideTheme({required Brightness brightness}) {
     materialThemeBuilder: () {
       final colorTokens =
           brightness == Brightness.dark
-              ? _colorTokens_dark
-              : _colorTokens_light;
+              ? _colorTokensDark
+              : _colorTokensLight;
 
       final tokenExtensions = _buildThemeTokenExtensions(
         brightness: brightness,
@@ -81,7 +81,6 @@ ColorScheme _buildColorScheme({
   final base = ColorScheme.fromSeed(
     seedColor: solid.primary,
     brightness: brightness,
-    background: solid.background,
     primary: solid.primary,
   );
 
@@ -92,11 +91,10 @@ ColorScheme _buildColorScheme({
     onSecondary: solid.onSecondary,
     error: solid.error,
     onError: solid.onError,
-    background: solid.background,
-    onBackground: solid.onBackground,
     surface: solid.surface,
+    surfaceContainerLowest: solid.background,
     onSurface: solid.onSurface,
-    surfaceVariant: solid.surfaceVariant,
+    surfaceContainerHighest: solid.surfaceVariant,
     onSurfaceVariant: solid.onSurfaceVariant,
     outline: solid.border,
     outlineVariant: solid.divider,
@@ -152,8 +150,8 @@ ThemeData _buildMaterialThemeData({
     ),
     chipTheme: base.chipTheme.copyWith(
       backgroundColor: solid.surfaceVariant,
-      selectedColor: colorScheme.primary.withOpacity(0.12),
-      secondarySelectedColor: colorScheme.primary.withOpacity(0.12),
+      selectedColor: colorScheme.primary.withValues(alpha: 0.12),
+      secondarySelectedColor: colorScheme.primary.withValues(alpha: 0.12),
       disabledColor: solid.disabled,
       labelStyle: typography.textTheme.labelSmall?.copyWith(
         color: colorScheme.onSurface,

@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 
 import '../../outside/theme/theme.dart';
 
-/// A colorful text field with gradient focus border and enhanced visual feedback.
+/// A colorful text field with gradient focus border and enhanced visual
+/// feedback.
 ///
 /// This component provides a more vibrant alternative to standard TextFields,
 /// featuring gradient-colored focus borders and subtle hover effects.

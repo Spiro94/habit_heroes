@@ -11,10 +11,13 @@ class AuthChange_Effect with SharedMixin_Logging {
   StreamSubscription<AuthState>? _subscription;
 
   void listen(void Function(AuthState authState) onChange) {
-    _subscription = supabaseClient.auth.onAuthStateChange.listen((authState) {
-      log.fine('authState change: ${authState.event.name}');
-      onChange(authState);
-    }, onError: (e) {});
+    _subscription = supabaseClient.auth.onAuthStateChange.listen(
+      (authState) {
+        log.fine('authState change: ${authState.event.name}');
+        onChange(authState);
+      },
+      onError: (e) {},
+    );
   }
 
   void dispose() {

@@ -5,10 +5,10 @@ import '../../../../../shared/models/reward.dart';
 
 class KidsDashboard_Widget_RewardCard extends StatelessWidget {
   const KidsDashboard_Widget_RewardCard({
-    super.key,
     required this.reward,
     required this.kidsPoints,
     required this.onRedeem,
+    super.key,
   });
 
   final Reward reward;
@@ -36,7 +36,7 @@ class KidsDashboard_Widget_RewardCard extends StatelessWidget {
             decoration: BoxDecoration(
               color:
                   _canRedeem
-                      ? const Color(0xFFEC4899).withOpacity(0.1)
+                      ? const Color(0xFFEC4899).withValues(alpha: 0.1)
                       : Colors.grey[200],
               borderRadius: BorderRadius.circular(8),
             ),

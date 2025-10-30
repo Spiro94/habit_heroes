@@ -56,9 +56,14 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
                 ),
               ),
               trailing: canRedeem
-                  ? Icon(Icons.check_circle,
-                      color: context.solidColors.success)
-                  : Icon(Icons.block, color: context.solidColors.error),
+                  ? Icon(
+                      Icons.check_circle,
+                      color: context.solidColors.success,
+                    )
+                  : Icon(
+                      Icons.block,
+                      color: context.solidColors.error,
+                    ),
               onTap: canRedeem
                   ? () {
                       Navigator.of(context).pop();

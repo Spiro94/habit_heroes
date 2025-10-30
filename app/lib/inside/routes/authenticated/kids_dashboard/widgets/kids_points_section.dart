@@ -4,8 +4,8 @@ import '../../../../../shared/models/kid_points.dart';
 
 class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
   const KidsDashboard_Widget_KidsPointsSection({
-    super.key,
     required this.kidsPoints,
+    super.key,
   });
 
   final List<KidPoints> kidsPoints;
@@ -39,7 +39,10 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [color.withOpacity(0.8), color.withOpacity(0.6)],
+                    colors: [
+                      color.withValues(alpha: 0.8),
+                      color.withValues(alpha: 0.6),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),

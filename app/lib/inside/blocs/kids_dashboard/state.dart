@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../shared/models/kid_points.dart';
-import '../../../shared/models/today_task.dart';
 import '../../../shared/models/reward.dart';
+import '../../../shared/models/today_task.dart';
 
 part 'state.g.dart';
 

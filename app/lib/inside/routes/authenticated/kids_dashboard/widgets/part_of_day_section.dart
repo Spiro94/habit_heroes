@@ -6,11 +6,11 @@ import 'task_card.dart';
 
 class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
   const KidsDashboard_Widget_PartOfDaySection({
-    super.key,
     required this.partOfDay,
     required this.tasks,
     required this.isCurrentSection,
     required this.onTaskCompleted,
+    super.key,
   });
 
   final PartOfDay partOfDay;
@@ -26,11 +26,11 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
 
     final baseColor = _colorForPartOfDay(partOfDay);
     final backgroundColor = isCurrentSection
-        ? baseColor.withOpacity(0.25)
-        : baseColor.withOpacity(0.12);
+        ? baseColor.withValues(alpha: 0.25)
+        : baseColor.withValues(alpha: 0.12);
     final borderColor = isCurrentSection
         ? baseColor
-        : baseColor.withOpacity(0.6);
+        : baseColor.withValues(alpha: 0.6);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -70,7 +70,8 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
 
     if (appUser == null) {
       log.warning(
-        'AppUser profile not found for id: ${supabaseUser.id}. The profile should be created automatically by the database trigger.',
+        'AppUser profile not found for id: ${supabaseUser.id}. '
+        'The profile should be created automatically by the database trigger.',
       );
     }
 

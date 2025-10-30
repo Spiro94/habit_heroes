@@ -47,7 +47,7 @@ class _ParentRedemptionsHistory_ScaffoldState
       body: BlocBuilder<ParentRewards_Bloc, ParentRewards_State>(
         builder: (context, state) {
           if (state.redemptionLoadStatus ==
-              ParentRewards_RedemptionLoadStatus.loading ||
+                  ParentRewards_RedemptionLoadStatus.loading ||
               state.redemptionLoadStatus ==
                   ParentRewards_RedemptionLoadStatus.initial) {
             return const Center(child: CircularProgressIndicator());
@@ -85,7 +85,7 @@ class _ParentRedemptionsHistory_ScaffoldState
                   const Gap(16),
                   const Text('No hay canjes registrados'),
                   const Gap(8),
-                  const Text('Los canjes de recompensas aparecerán aquí'),
+                  const Text('Los canjes de recompensas apareceran aqui'),
                 ],
               ),
             );
@@ -118,8 +118,9 @@ class ParentRedemptionsHistory_Widget_RedemptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd/MM/yyyy HH:mm');
-    final formattedDate =
-        dateFormat.format(redemption.redeemedAt.toLocal());
+    final formattedDate = dateFormat.format(redemption.redeemedAt.toLocal());
+    final rewardName = redemption.rewardName ?? 'Recompensa desconocida';
+    final kidName = redemption.kidName ?? 'Nino desconocido';
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -136,7 +137,7 @@ class ParentRedemptionsHistory_Widget_RedemptionCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        redemption.rewardName ?? 'Recompensa desconocida',
+                        rewardName,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -144,7 +145,7 @@ class ParentRedemptionsHistory_Widget_RedemptionCard extends StatelessWidget {
                       ),
                       const Gap(4),
                       Text(
-                        'Canjeado por: ${redemption.kidName ?? 'Niño desconocido'}',
+                        'Canjeado por: $kidName',
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 14,
@@ -165,7 +166,8 @@ class ParentRedemptionsHistory_Widget_RedemptionCard extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: context.colors.pointsGold.start.withOpacity(0.2),
+                    color: context.colors.pointsGold.start
+                        .withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(

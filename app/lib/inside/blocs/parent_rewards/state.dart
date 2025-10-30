@@ -67,8 +67,9 @@ class ParentRewards_State extends Equatable {
       redemptionLoadStatus: redemptionLoadStatus ?? this.redemptionLoadStatus,
       rewards: rewards ?? this.rewards,
       redemptions: redemptions ?? this.redemptions,
-      loadErrorMessage:
-          setLoadErrorMessage != null ? setLoadErrorMessage() : loadErrorMessage,
+      loadErrorMessage: setLoadErrorMessage != null
+          ? setLoadErrorMessage()
+          : loadErrorMessage,
       createErrorMessage: setCreateErrorMessage != null
           ? setCreateErrorMessage()
           : createErrorMessage,

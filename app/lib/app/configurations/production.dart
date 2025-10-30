@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart' as logging;
 
 import '../../inside/i18n/translations.g.dart';
-import '../../outside/client_providers/sentry/client_provider_configuration.dart';
 import '../../outside/client_providers/supabase/client_provider_configuration.dart';
 import '../../outside/effect_providers/mixpanel/effect_provider_configuration.dart';
 import '../../outside/theme/theme.dart';
@@ -16,23 +14,18 @@ void main() {
     appLocale: AppLocale.esCo,
     logLevel: logging.Level.INFO,
     theme: OutsideThemes.lightTheme,
-    deepLinkBaseUri: kIsWeb
-        ? 'CHANGE_ME'
-        : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
+    deepLinkBaseUri:
+        'com.daniel.villamizar.habit_heroes.deep://deeplink-callback',
     clientProvidersConfigurations: ClientProvidersConfigurations(
-      sentry: const Sentry_ClientProvider_Configuration(
-        dsn: 'CHANGE_ME',
-        environment: 'production',
-        tracesSampleRate: 0,
-      ),
+      sentry: null,
       supabase: const Supabase_ClientProvider_Configuration(
-        url: 'CHANGE_ME',
-        anonKey: '''CHANGE_ME''',
+        url: 'https://fpfpxsfqphascipoibbj.supabase.co',
+        anonKey: '''sb_publishable_4a0xrMFx7ZnwQ2HYOi6MkQ_XhsCwK98''',
       ),
     ),
     effectProvidersConfigurations: EffectProvidersConfigurations(
       mixpanel: const Mixpanel_EffectProvider_Configuration(
-        sendEvents: true,
+        sendEvents: false,
         token: 'CHANGE_ME',
         environment: 'CHANGE_ME',
       ),
