@@ -33,6 +33,8 @@ class ColorfulTextField extends StatefulWidget {
     this.inputFormatters,
     this.validator,
     this.onChanged,
+    this.onFieldSubmitted,
+    this.onEditingComplete,
     this.autofocus = false,
     super.key,
   });
@@ -51,6 +53,8 @@ class ColorfulTextField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
+  final void Function()? onEditingComplete;
   final bool autofocus;
 
   @override
@@ -79,8 +83,7 @@ class _ColorfulTextFieldState extends State<ColorfulTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final gradient =
-        widget.gradient ?? context.colors.datePickerCyan;
+    final gradient = widget.gradient ?? context.colors.datePickerCyan;
     final focusColor = gradient.start;
 
     return Column(
@@ -93,9 +96,7 @@ class _ColorfulTextFieldState extends State<ColorfulTextField> {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: _isFocused
-                ? focusColor
-                : context.solidColors.onSurface,
+            color: _isFocused ? focusColor : context.solidColors.onSurface,
           ),
         ),
         const SizedBox(height: 8),
@@ -127,6 +128,8 @@ class _ColorfulTextFieldState extends State<ColorfulTextField> {
             validator: widget.validator,
             onChanged: widget.onChanged,
             autofocus: widget.autofocus,
+            onFieldSubmitted: widget.onFieldSubmitted,
+            onEditingComplete: widget.onEditingComplete,
             style: const TextStyle(fontSize: 16),
             decoration: InputDecoration(
               hintText: widget.hint,
@@ -145,10 +148,7 @@ class _ColorfulTextFieldState extends State<ColorfulTextField> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: focusColor,
-                  width: 2,
-                ),
+                borderSide: BorderSide(color: focusColor, width: 2),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),

@@ -23,6 +23,12 @@ class _Home_Widget_PinDialogState extends State<Home_Widget_PinDialog> {
   bool isCreateMode = false;
 
   @override
+  void initState() {
+    context.read<ParentAccess_Bloc>().add(ParentAccess_Event_CheckPinExists());
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _pinController.dispose();
     _confirmPinController.dispose();

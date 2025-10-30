@@ -5,9 +5,14 @@ import '../../../../../shared/widgets/colorful_text_field.dart';
 import '../../../../i18n/translations.g.dart';
 
 class SignIn_Input_Password extends StatelessWidget {
-  const SignIn_Input_Password({required this.controller, super.key});
+  const SignIn_Input_Password({
+    required this.controller,
+    required this.onEditingComplete,
+    super.key,
+  });
 
   final TextEditingController controller;
+  final void Function()? onEditingComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +24,7 @@ class SignIn_Input_Password extends StatelessWidget {
       label: label,
       obscureText: true,
       gradient: context.colors.parentsPrimary,
+      onEditingComplete: onEditingComplete,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return emptyError;

@@ -7,7 +7,6 @@ import '../../../../outside/theme/theme.dart';
 import '../../../blocs/auth/bloc.dart';
 import '../../../blocs/auth/events.dart';
 import '../../../blocs/parent_access/bloc.dart';
-import '../../../blocs/parent_access/events.dart';
 import '../../router.dart';
 import '../../widgets/colorful_button.dart';
 import 'widgets/pin_dialog.dart';
@@ -23,8 +22,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
 
     return BlocProvider(
       create: (context) =>
-          ParentAccess_Bloc(parentAccessRepository: parentAccessRepository)
-            ..add(ParentAccess_Event_CheckPinExists()),
+          ParentAccess_Bloc(parentAccessRepository: parentAccessRepository),
       child: this,
     );
   }

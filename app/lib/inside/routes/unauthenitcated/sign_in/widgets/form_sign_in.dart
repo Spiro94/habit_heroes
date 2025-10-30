@@ -101,10 +101,13 @@ class _SignIn_Form_SignInState extends State<SignIn_Form_SignIn> {
           children: [
             SignIn_Input_Email(controller: emailController),
             SizedBox(height: spacing.medium),
-            SignIn_Input_Password(controller: passwordController),
+            SignIn_Input_Password(
+              controller: passwordController,
+              onEditingComplete: _onSubmit,
+            ),
             SizedBox(height: spacing.small),
             const SignIn_Link_ForgotPassword(),
-            SizedBox(height: spacing.large),
+            SizedBox(height: spacing.small),
             SignIn_Button_Submit(onSubmit: _onSubmit),
           ],
         ),
