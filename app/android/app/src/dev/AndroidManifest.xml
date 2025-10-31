@@ -9,7 +9,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:scheme="com.daniel.villamizar.habit_heroes.dev.deep"
+                    android:scheme="com.daniel.villamizar.habit-heroes.dev.deep"
                     android:host="deeplink-callback" />
             </intent-filter>
         </activity>
