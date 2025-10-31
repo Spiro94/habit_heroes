@@ -278,11 +278,11 @@ class TranslationsKidsEsCo {
 	/// es-CO: 'Agregar Niño'
 	String get addKid => 'Agregar Niño';
 
-	/// es-CO: 'Agregar Primer Niño'
-	String get addFirstKid => 'Agregar Primer Niño';
+	/// es-CO: 'Agrega a tu hijo'
+	String get addFirstKid => 'Agrega a tu hijo';
 
-	/// es-CO: 'No hay niños agregados aún.'
-	String get noKidsYet => 'No hay niños agregados aún.';
+	/// es-CO: 'No hay niños creados aún.'
+	String get noKidsYet => 'No hay niños creados aún.';
 
 	/// es-CO: 'Intentar de Nuevo'
 	String get tryAgain => 'Intentar de Nuevo';
@@ -451,6 +451,15 @@ class TranslationsTasksEsCo {
 
 	/// es-CO: 'Intentar de nuevo'
 	String get tryAgainButton => 'Intentar de nuevo';
+
+	/// es-CO: 'Aún no hay niños agregados'
+	String get noKidsDialogTitle => 'Aún no hay niños agregados';
+
+	/// es-CO: 'Debes agregar al menos un niño antes de crear una tarea. Las tareas deben asignarse a un niño.'
+	String get noKidsDialogMessage => 'Debes agregar al menos un niño antes de crear una tarea. Las tareas deben asignarse a un niño.';
+
+	/// es-CO: 'Agregar Niño'
+	String get addKidButton => 'Agregar Niño';
 }
 
 // Path: daysOfWeek
@@ -1589,8 +1598,8 @@ extension on Translations {
 			case 'parentRewards.redemptionsHistory.points': return ({required Object points}) => '${points} puntos';
 			case 'kids.title': return 'Niños';
 			case 'kids.addKid': return 'Agregar Niño';
-			case 'kids.addFirstKid': return 'Agregar Primer Niño';
-			case 'kids.noKidsYet': return 'No hay niños agregados aún.';
+			case 'kids.addFirstKid': return 'Agrega a tu hijo';
+			case 'kids.noKidsYet': return 'No hay niños creados aún.';
 			case 'kids.tryAgain': return 'Intentar de Nuevo';
 			case 'kids.name': return 'Nombre';
 			case 'kids.nameHint': return 'Ingresa el nombre del niño';
@@ -1644,6 +1653,9 @@ extension on Translations {
 			case 'tasks.deleteTaskConfirm': return '¿Estás seguro que deseas eliminar esta tarea?';
 			case 'tasks.delete': return 'Eliminar';
 			case 'tasks.tryAgainButton': return 'Intentar de nuevo';
+			case 'tasks.noKidsDialogTitle': return 'Aún no hay niños agregados';
+			case 'tasks.noKidsDialogMessage': return 'Debes agregar al menos un niño antes de crear una tarea. Las tareas deben asignarse a un niño.';
+			case 'tasks.addKidButton': return 'Agregar Niño';
 			case 'daysOfWeek.monday.short': return 'Lun';
 			case 'daysOfWeek.monday.full': return 'Lunes';
 			case 'daysOfWeek.tuesday.short': return 'Mar';

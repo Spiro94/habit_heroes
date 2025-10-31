@@ -23,19 +23,16 @@ class CreateTask_Listeners extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<ParentTasks_Bloc, ParentTasks_State>(
-          listenWhen: (previous, current) =>
-              previous.createTaskStatus != current.createTaskStatus,
+          listenWhen: (previous, current) => previous.status != current.status,
           listener: (context, state) {
-            if (state.createTaskStatus == CreateTaskStatus.error) {
+            if (state.status == ParentTasks_Status.createError) {
               showDialog<void>(
                 context: context,
                 builder: (context) => HabitHeroes_Dialog(
                   title: t.tasks.errorCreatingTask,
                   dialogType: HabitHeroesDialogType.error,
                   icon: Icons.error_outline,
-                  body: Text(
-                    state.createTaskErrorMessage ?? t.tasks.errorCreatingTask,
-                  ),
+                  body: Text(state.errorMessage ?? t.tasks.errorCreatingTask),
                   actions: [
                     HabitHeroesDialogAction(
                       label: t.kids.cancel,
@@ -45,25 +42,16 @@ class CreateTask_Listeners extends StatelessWidget {
                   ],
                 ),
               );
-            } else if (state.createTaskStatus == CreateTaskStatus.success) {
+            } else if (state.status == ParentTasks_Status.createSuccess) {
               context.router.navigate(const TaskList_Route());
-            }
-          },
-        ),
-        BlocListener<ParentTasks_Bloc, ParentTasks_State>(
-          listenWhen: (previous, current) =>
-              previous.updateTaskStatus != current.updateTaskStatus,
-          listener: (context, state) {
-            if (state.updateTaskStatus == UpdateTaskStatus.error) {
+            } else if (state.status == ParentTasks_Status.updateError) {
               showDialog<void>(
                 context: context,
                 builder: (context) => HabitHeroes_Dialog(
                   title: t.tasks.errorUpdatingTask,
                   dialogType: HabitHeroesDialogType.error,
                   icon: Icons.error_outline,
-                  body: Text(
-                    state.updateTaskErrorMessage ?? t.tasks.errorUpdatingTask,
-                  ),
+                  body: Text(state.errorMessage ?? t.tasks.errorUpdatingTask),
                   actions: [
                     HabitHeroesDialogAction(
                       label: t.kids.cancel,
@@ -73,30 +61,20 @@ class CreateTask_Listeners extends StatelessWidget {
                   ],
                 ),
               );
-            } else if (state.updateTaskStatus == UpdateTaskStatus.success) {
+            } else if (state.status == ParentTasks_Status.updateSuccess) {
               context.router.navigate(const TaskList_Route());
-            }
-          },
-        ),
-        BlocListener<ParentTasks_Bloc, ParentTasks_State>(
-          listenWhen: (previous, current) =>
-              previous.loadEditingDataStatus != current.loadEditingDataStatus,
-          listener: (context, state) {
-            if (state.loadEditingDataStatus == LoadEditingDataStatus.loaded) {
+            } else if (state.status == ParentTasks_Status.loadedEditingData) {
               // Call the prefill callback if provided
               onLoadEditingDataSuccess?.call();
-            } else if (state.loadEditingDataStatus ==
-                LoadEditingDataStatus.error) {
+            } else if (state.status ==
+                ParentTasks_Status.loadEditingDataError) {
               showDialog<void>(
                 context: context,
                 builder: (context) => HabitHeroes_Dialog(
                   title: t.tasks.errorLoadingTask,
                   dialogType: HabitHeroesDialogType.error,
                   icon: Icons.error_outline,
-                  body: Text(
-                    state.loadEditingDataErrorMessage ??
-                        t.tasks.errorLoadingTask,
-                  ),
+                  body: Text(state.errorMessage ?? t.tasks.errorLoadingTask),
                   actions: [
                     HabitHeroesDialogAction(
                       label: t.kids.cancel,

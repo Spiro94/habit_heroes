@@ -158,7 +158,7 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
         body: SafeArea(
           child: BlocBuilder<ParentTasks_Bloc, ParentTasks_State>(
             builder: (context, state) {
-              if (state.loadStatus == LoadStatus.loading) {
+              if (state.status == ParentTasks_Status.loading) {
                 return const Center(child: CircularProgressIndicator());
               }
               return SingleChildScrollView(

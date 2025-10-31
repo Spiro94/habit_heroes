@@ -49,7 +49,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
     ParentTasks_Event_LoadTasks event,
     Emitter<ParentTasks_State> emit,
   ) async {
-    emit(state.copyWith(loadStatus: LoadStatus.loading));
+    emit(state.copyWith(status: ParentTasks_Status.loading));
     try {
       // Load today's task instances
       final taskInstances = await _taskInstanceRepository
@@ -61,7 +61,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       final kids = await _kidRepository.getKidsForParent();
       emit(
         state.copyWith(
-          loadStatus: LoadStatus.loaded,
+          status: ParentTasks_Status.loaded,
           taskInstances: taskInstances,
           kids: kids,
           taskTemplates: templates,
@@ -72,8 +72,8 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          loadStatus: LoadStatus.error,
-          setLoadErrorMessage: e.toString,
+          status: ParentTasks_Status.loadError,
+          setErrorMessage: e.toString,
         ),
       );
     }
@@ -83,7 +83,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
     ParentTasks_Event_AddTask event,
     Emitter<ParentTasks_State> emit,
   ) async {
-    emit(state.copyWith(createTaskStatus: CreateTaskStatus.creating));
+    emit(state.copyWith(status: ParentTasks_Status.creating));
     try {
       // Step 1: Create the task template
       final taskTemplate = TaskTemplate(
@@ -117,7 +117,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       }
 
       // Step 3: Mark creation as successful
-      emit(state.copyWith(createTaskStatus: CreateTaskStatus.success));
+      emit(state.copyWith(status: ParentTasks_Status.createSuccess));
 
       // Step 4: Reload tasks to show the new task instances
       add(const ParentTasks_Event_LoadTasks());
@@ -125,8 +125,8 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          createTaskStatus: CreateTaskStatus.error,
-          setCreateTaskErrorMessage: e.toString,
+          status: ParentTasks_Status.createError,
+          setErrorMessage: e.toString,
         ),
       );
     }
@@ -140,7 +140,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
     ParentTasks_Event_UpdateTask event,
     Emitter<ParentTasks_State> emit,
   ) async {
-    emit(state.copyWith(updateTaskStatus: UpdateTaskStatus.updating));
+    emit(state.copyWith(status: ParentTasks_Status.updating));
     try {
       // Update the task template with new values
       final updatedTemplate = TaskTemplate(
@@ -182,7 +182,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
         );
       }
 
-      emit(state.copyWith(updateTaskStatus: UpdateTaskStatus.success));
+      emit(state.copyWith(status: ParentTasks_Status.updateSuccess));
 
       // Reload tasks to reflect changes
       add(const ParentTasks_Event_LoadTasks());
@@ -190,8 +190,8 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          updateTaskStatus: UpdateTaskStatus.error,
-          setUpdateTaskErrorMessage: e.toString,
+          status: ParentTasks_Status.updateError,
+          setErrorMessage: e.toString,
         ),
       );
     }
@@ -201,12 +201,12 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
     ParentTasks_Event_DeleteTask event,
     Emitter<ParentTasks_State> emit,
   ) async {
-    emit(state.copyWith(deleteTaskStatus: DeleteTaskStatus.deleting));
+    emit(state.copyWith(status: ParentTasks_Status.deleting));
     try {
       // Delete the task template (and associated schedules if DB cascades)
       await _taskTemplateRepository.deleteTaskTemplate(id: event.id);
 
-      emit(state.copyWith(deleteTaskStatus: DeleteTaskStatus.success));
+      emit(state.copyWith(status: ParentTasks_Status.deleteSuccess));
 
       // reload tasks after deletion
       add(const ParentTasks_Event_LoadTasks());
@@ -214,8 +214,8 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          deleteTaskStatus: DeleteTaskStatus.error,
-          setDeleteTaskErrorMessage: e.toString,
+          status: ParentTasks_Status.deleteError,
+          setErrorMessage: e.toString,
         ),
       );
     }
@@ -225,7 +225,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
     ParentTasks_Event_LoadTaskForEditing event,
     Emitter<ParentTasks_State> emit,
   ) async {
-    emit(state.copyWith(loadEditingDataStatus: LoadEditingDataStatus.loading));
+    emit(state.copyWith(status: ParentTasks_Status.loadingEditingData));
     try {
       // Load the schedule to get the template ID
       final schedule = await _taskScheduleRepository.getTaskSchedule(
@@ -235,8 +235,8 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       if (schedule == null) {
         emit(
           state.copyWith(
-            loadEditingDataStatus: LoadEditingDataStatus.error,
-            setLoadEditingDataErrorMessage: () => 'Schedule not found',
+            status: ParentTasks_Status.loadEditingDataError,
+            setErrorMessage: () => 'Schedule not found',
           ),
         );
         return;
@@ -255,7 +255,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
 
       emit(
         state.copyWith(
-          loadEditingDataStatus: LoadEditingDataStatus.loaded,
+          status: ParentTasks_Status.loadedEditingData,
           setEditingSchedules: () => templateSchedules,
           setEditingTemplate: () => template,
         ),
@@ -264,8 +264,8 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          loadEditingDataStatus: LoadEditingDataStatus.error,
-          setLoadEditingDataErrorMessage: e.toString,
+          status: ParentTasks_Status.loadEditingDataError,
+          setErrorMessage: e.toString,
         ),
       );
     }

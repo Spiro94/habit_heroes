@@ -47,18 +47,27 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
     final accent = context.colors.parentsPrimary;
     final isTablet = MediaQuery.sizeOf(context).shortestSide >= 600;
     return Scaffold(
-      appBar: isTablet
-          ? AppBar(
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    context.read<Auth_Bloc>().add(Auth_Event_SignOut());
-                  },
-                  icon: const Icon(Icons.logout_rounded, color: Colors.black),
-                ),
-              ],
-            )
-          : null,
+      appBar: AppBar(
+        backgroundColor: context.solidColors.background,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: OutlinedButton.icon(
+              onPressed: () {
+                context.read<Auth_Bloc>().add(Auth_Event_SignOut());
+              },
+              icon: Icon(
+                Icons.logout_rounded,
+                color: context.solidColors.onSurface,
+              ),
+              label: Text(
+                'Cerrar sesión',
+                style: TextStyle(color: context.solidColors.onSurface),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -79,39 +88,11 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (isTablet)
-                      Image.asset(
-                        'assets/icon/icon.png',
-                        width: 200,
-                        height: 200,
-                      )
-                    else
-                      Stack(
-                        children: [
-                          SizedBox(
-                            width: double.maxFinite,
-                            child: Image.asset(
-                              'assets/icon/icon.png',
-                              width: isTablet ? 200 : 150,
-                              height: isTablet ? 200 : 150,
-                            ),
-                          ),
-                          Positioned(
-                            right: 0,
-                            child: IconButton(
-                              onPressed: () {
-                                context.read<Auth_Bloc>().add(
-                                  Auth_Event_SignOut(),
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.logout_rounded,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    Image.asset(
+                      'assets/icon/icon.png',
+                      width: isTablet ? 200 : 150,
+                      height: isTablet ? 200 : 150,
+                    ),
                     Text(
                       '¡Bienvenido a \nHabit Heroes!',
                       style: context.typography.pageTitle?.copyWith(

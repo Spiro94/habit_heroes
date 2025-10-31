@@ -227,6 +227,9 @@ tasks:
   deleteTaskConfirm: "¿Estás seguro que deseas eliminar esta tarea?"
   delete: "Eliminar"
   tryAgainButton: "Intentar de nuevo"
+  noKidsDialogTitle: "No Kids Added Yet"
+  noKidsDialogMessage: "You must add at least one kid before creating a task. Tasks need to be assigned to a kid."
+  addKidButton: "Add Kid"
 
 daysOfWeek:
   monday:

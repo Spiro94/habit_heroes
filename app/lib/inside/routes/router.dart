@@ -16,7 +16,7 @@ import 'authenticated/parents/kids/router.dart';
 import 'authenticated/parents/rewards/create_reward/page.dart';
 import 'authenticated/parents/rewards/redemptions_history/page.dart';
 import 'authenticated/parents/rewards/rewards_list/page.dart';
-import 'authenticated/parents/rewards/router.dart' show ParentRewards_Router;
+import 'authenticated/parents/rewards/router.dart';
 import 'authenticated/parents/tasks/create_task/page.dart';
 import 'authenticated/parents/tasks/router.dart';
 import 'authenticated/parents/tasks/task_list/page.dart';
@@ -81,16 +81,16 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
       children: [
         AutoRoute(initial: true, path: 'home', page: Home_Route.page),
         AutoRoute(path: 'home/reset-password', page: ResetPassword_Route.page),
+        AutoRoute(path: 'parent-dashboard', page: ParentDashboard_Route.page),
         AutoRoute(
           page: ParentTasks_Routes.page,
-          path: 'home/tasks',
+          path: 'parent-dashboard/tasks',
           children: [
             AutoRoute(path: '', page: TaskList_Route.page),
             AutoRoute(path: 'create', page: CreateTask_Route.page),
             RedirectRoute(path: '*', redirectTo: ''),
           ],
         ),
-        AutoRoute(path: 'parent-dashboard', page: ParentDashboard_Route.page),
         AutoRoute(
           page: ParentRewards_Routes.page,
           path: 'parent-dashboard/rewards',
@@ -106,7 +106,7 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
         ),
         AutoRoute(
           page: ParentKids_Routes.page,
-          path: 'home/kids',
+          path: 'parent-dashboard/kids',
           children: [
             AutoRoute(path: '', page: KidList_Route.page),
             AutoRoute(path: 'edit', page: AddEditKid_Route.page),
@@ -122,7 +122,6 @@ class Routes_router extends RootStackRouter with SharedMixin_Logging {
           page: ChangePincode_Route.page,
         ),
         AutoRoute(page: KidsDashboard_Route.page, path: 'kids-dashboard'),
-
         RedirectRoute(path: '*', redirectTo: 'home'),
       ],
     ),

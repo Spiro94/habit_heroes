@@ -170,8 +170,8 @@ parentRewards:
 kids:
   title: "Niños"
   addKid: "Agregar Niño"
-  addFirstKid: "Agregar Primer Niño"
-  noKidsYet: "No hay niños agregados aún."
+  addFirstKid: "Agrega a tu hijo"
+  noKidsYet: "No hay niños creados aún."
   tryAgain: "Intentar de Nuevo"
   name: "Nombre"
   nameHint: "Ingresa el nombre del niño"
@@ -227,6 +227,9 @@ tasks:
   deleteTaskConfirm: "¿Estás seguro que deseas eliminar esta tarea?"
   delete: "Eliminar"
   tryAgainButton: "Intentar de nuevo"
+  noKidsDialogTitle: "Aún no hay niños agregados"
+  noKidsDialogMessage: "Debes agregar al menos un niño antes de crear una tarea. Las tareas deben asignarse a un niño."
+  addKidButton: "Agregar Niño"
 
 daysOfWeek:
   monday:

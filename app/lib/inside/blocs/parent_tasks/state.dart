@@ -8,98 +8,67 @@ import '../../../shared/models/task_template.dart';
 
 part 'state.g.dart';
 
-enum LoadStatus { initial, loading, loaded, error }
-
-enum CreateTaskStatus { initial, creating, success, error }
-
-enum UpdateTaskStatus { initial, updating, success, error }
-
-enum DeleteTaskStatus { initial, deleting, success, error }
-
-enum LoadEditingDataStatus { initial, loading, loaded, error }
+// Single status enum with descriptive values for all actions
+enum ParentTasks_Status {
+  initial,
+  loading,
+  loaded,
+  loadError,
+  creating,
+  createSuccess,
+  createError,
+  updating,
+  updateSuccess,
+  updateError,
+  deleting,
+  deleteSuccess,
+  deleteError,
+  loadingEditingData,
+  loadedEditingData,
+  loadEditingDataError,
+}
 
 @JsonSerializable()
 class ParentTasks_State extends Equatable {
   const ParentTasks_State({
-    required this.loadStatus,
-    required this.createTaskStatus,
-    required this.updateTaskStatus,
-    required this.deleteTaskStatus,
-    required this.loadEditingDataStatus,
+    required this.status,
     required this.taskInstances,
     required this.kids,
     required this.taskTemplates,
     required this.taskSchedules,
     required this.editingSchedules,
-    this.loadErrorMessage,
-    this.createTaskErrorMessage,
-    this.updateTaskErrorMessage,
-    this.deleteTaskErrorMessage,
-    this.loadEditingDataErrorMessage,
+    this.errorMessage,
     this.editingTemplate,
   });
 
-  final LoadStatus loadStatus;
-  final CreateTaskStatus createTaskStatus;
-  final UpdateTaskStatus updateTaskStatus;
-  final DeleteTaskStatus deleteTaskStatus;
-  final LoadEditingDataStatus loadEditingDataStatus;
+  final ParentTasks_Status status;
   final List<TaskInstance> taskInstances;
   final List<Kid> kids;
   final List<TaskTemplate> taskTemplates;
   final List<TaskSchedule> taskSchedules;
-  final String? loadErrorMessage;
-  final String? createTaskErrorMessage;
-  final String? updateTaskErrorMessage;
-  final String? deleteTaskErrorMessage;
-  final String? loadEditingDataErrorMessage;
+  final String? errorMessage;
   final List<TaskSchedule> editingSchedules;
   final TaskTemplate? editingTemplate;
 
   ParentTasks_State copyWith({
-    LoadStatus? loadStatus,
-    CreateTaskStatus? createTaskStatus,
-    UpdateTaskStatus? updateTaskStatus,
-    DeleteTaskStatus? deleteTaskStatus,
-    LoadEditingDataStatus? loadEditingDataStatus,
+    ParentTasks_Status? status,
     List<TaskInstance>? taskInstances,
     List<Kid>? kids,
     List<TaskTemplate>? taskTemplates,
     List<TaskSchedule>? taskSchedules,
-    String? Function()? setLoadErrorMessage,
-    String? Function()? setCreateTaskErrorMessage,
-    String? Function()? setUpdateTaskErrorMessage,
-    String? Function()? setDeleteTaskErrorMessage,
-    String? Function()? setLoadEditingDataErrorMessage,
+    String? Function()? setErrorMessage,
     List<TaskSchedule>? Function()? setEditingSchedules,
     TaskTemplate? Function()? setEditingTemplate,
   }) {
     return ParentTasks_State(
-      loadStatus: loadStatus ?? this.loadStatus,
-      createTaskStatus: createTaskStatus ?? this.createTaskStatus,
-      updateTaskStatus: updateTaskStatus ?? this.updateTaskStatus,
-      deleteTaskStatus: deleteTaskStatus ?? this.deleteTaskStatus,
-      loadEditingDataStatus:
-          loadEditingDataStatus ?? this.loadEditingDataStatus,
+      status: status ?? this.status,
       taskInstances: taskInstances ?? this.taskInstances,
       kids: kids ?? this.kids,
       taskTemplates: taskTemplates ?? this.taskTemplates,
       taskSchedules: taskSchedules ?? this.taskSchedules,
-      loadErrorMessage: setLoadErrorMessage != null
-          ? setLoadErrorMessage()
-          : loadErrorMessage,
-      createTaskErrorMessage: setCreateTaskErrorMessage != null
-          ? setCreateTaskErrorMessage()
-          : createTaskErrorMessage,
-      updateTaskErrorMessage: setUpdateTaskErrorMessage != null
-          ? setUpdateTaskErrorMessage()
-          : updateTaskErrorMessage,
-      deleteTaskErrorMessage: setDeleteTaskErrorMessage != null
-          ? setDeleteTaskErrorMessage()
-          : deleteTaskErrorMessage,
-      loadEditingDataErrorMessage: setLoadEditingDataErrorMessage != null
-          ? setLoadEditingDataErrorMessage()
-          : loadEditingDataErrorMessage,
+      errorMessage: setErrorMessage != null
+          ? setErrorMessage()
+          : errorMessage,
       editingSchedules: setEditingSchedules != null
           ? setEditingSchedules()!
           : editingSchedules,
@@ -111,41 +80,25 @@ class ParentTasks_State extends Equatable {
 
   factory ParentTasks_State.initial() {
     return const ParentTasks_State(
-      loadStatus: LoadStatus.initial,
-      createTaskStatus: CreateTaskStatus.initial,
-      updateTaskStatus: UpdateTaskStatus.initial,
-      deleteTaskStatus: DeleteTaskStatus.initial,
-      loadEditingDataStatus: LoadEditingDataStatus.initial,
+      status: ParentTasks_Status.initial,
       taskInstances: [],
       kids: [],
       taskTemplates: [],
       taskSchedules: [],
       editingSchedules: [],
-      loadErrorMessage: null,
-      createTaskErrorMessage: null,
-      updateTaskErrorMessage: null,
-      deleteTaskErrorMessage: null,
-      loadEditingDataErrorMessage: null,
+      errorMessage: null,
       editingTemplate: null,
     );
   }
 
   @override
   List<Object?> get props => [
-    loadStatus,
-    createTaskStatus,
-    updateTaskStatus,
-    deleteTaskStatus,
-    loadEditingDataStatus,
+    status,
     taskInstances,
     kids,
     taskTemplates,
     taskSchedules,
-    loadErrorMessage,
-    createTaskErrorMessage,
-    updateTaskErrorMessage,
-    deleteTaskErrorMessage,
-    loadEditingDataErrorMessage,
+    errorMessage,
     editingSchedules,
     editingTemplate,
   ];

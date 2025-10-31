@@ -282,6 +282,9 @@ class TranslationsTasksEn implements TranslationsTasksEsCo {
 	@override String get deleteTaskConfirm => '¿Estás seguro que deseas eliminar esta tarea?';
 	@override String get delete => 'Eliminar';
 	@override String get tryAgainButton => 'Intentar de nuevo';
+	@override String get noKidsDialogTitle => 'No Kids Added Yet';
+	@override String get noKidsDialogMessage => 'You must add at least one kid before creating a task. Tasks need to be assigned to a kid.';
+	@override String get addKidButton => 'Add Kid';
 }
 
 // Path: daysOfWeek
@@ -1215,6 +1218,9 @@ extension on TranslationsEn {
 			case 'tasks.deleteTaskConfirm': return '¿Estás seguro que deseas eliminar esta tarea?';
 			case 'tasks.delete': return 'Eliminar';
 			case 'tasks.tryAgainButton': return 'Intentar de nuevo';
+			case 'tasks.noKidsDialogTitle': return 'No Kids Added Yet';
+			case 'tasks.noKidsDialogMessage': return 'You must add at least one kid before creating a task. Tasks need to be assigned to a kid.';
+			case 'tasks.addKidButton': return 'Add Kid';
 			case 'daysOfWeek.monday.short': return 'Mon';
 			case 'daysOfWeek.monday.full': return 'Monday';
 			case 'daysOfWeek.tuesday.short': return 'Tue';
