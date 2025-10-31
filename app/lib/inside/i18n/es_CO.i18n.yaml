@@ -157,6 +157,15 @@ parentDashboard:
 parentRewards:
   title: "Recompensas para Padres"
   body: "Lista de recompensas para padres"
+  redemptionsHistory:
+    title: "Historial de canjes"
+    retryButton: "Intentar de nuevo"
+    emptyTitle: "No hay canjes registrados"
+    emptySubtitle: "Los canjes de recompensas aparecerán aquí"
+    unknownReward: "Recompensa desconocida"
+    unknownKid: "Niño desconocido"
+    redeemedBy(name): "Canjeado por: $name"
+    points(points): "$points puntos"
 
 kids:
   title: "Niños"
@@ -246,3 +255,46 @@ partOfDay:
   morning: "Mañana"
   afternoon: "Tarde"
   night: "Noche"
+
+common:
+  cancel: "Cancelar"
+  retry: "Reintentar"
+  tryAgain: "Intentar de nuevo"
+  unknownError: "Error desconocido"
+  errorWithMessage(message): "Error: $message"
+  pointsLabel(points): "$points puntos"
+  pointsShort(points): "$points pts"
+
+kidsDashboard:
+  appBar:
+    greetingMobile: "¡Hola, Héroes!"
+    greetingTablet: "Hola, Héroes!"
+  tabs:
+    myTasks: "Mis tareas"
+    rewards: "Recompensas"
+  navigation:
+    tasks: "Tareas"
+    rewards: "Recompensas"
+  tasks:
+    emptyTitle: "No hay tareas para hoy!"
+    emptySubtitle: "Disfruta tu día libre"
+    now: "Ahora"
+  rewards:
+    title: "Recompensas Disponibles"
+    empty: "No hay recompensas disponibles"
+    retry: "Reintentar"
+    successSnack: "Recompensa canjeada!"
+  kidsPoints:
+    title: "Puntos por niño"
+    accumulated: "Puntos Acumulados"
+    total(points): "$points pts"
+  kidSelection:
+    title: "Selecciona quién redime"
+    points(points): "$points puntos"
+    cancel: "Cancelar"
+  rewardCard:
+    redeem: "Canjear"
+    notEnoughPoints: "No hay puntos"
+    points(points): "$points puntos"
+  dateHeader:
+    date(day, month): "$day de $month"

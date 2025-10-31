@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../shared/models/enums/part_of_day.dart';
 import '../../../../shared/models/today_task.dart';
 import '../../../blocs/kids_dashboard/bloc.dart';
+import '../../../i18n/translations.g.dart';
 import 'widgets/date_header.dart';
 import 'widgets/rewards_tab_widget.dart';
 import 'widgets/task_card.dart';
@@ -23,11 +24,13 @@ class _KidsDashboard_TabletPageState extends State<KidsDashboard_TabletPage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.t.kidsDashboard;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Hola, Heroes!',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        title: Text(
+          t.appBar.greetingTablet,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFFEC4899),
         foregroundColor: Colors.white,
@@ -45,16 +48,16 @@ class _KidsDashboard_TabletPageState extends State<KidsDashboard_TabletPage> {
                 setState(() => _selectedDestination = index);
               },
               labelType: NavigationRailLabelType.all,
-              destinations: const [
+              destinations: [
                 NavigationRailDestination(
-                  icon: Icon(Icons.task_alt_outlined),
-                  selectedIcon: Icon(Icons.task_alt),
-                  label: Text('Tareas'),
+                  icon: const Icon(Icons.task_alt_outlined),
+                  selectedIcon: const Icon(Icons.task_alt),
+                  label: Text(t.navigation.tasks),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.stars_outlined),
-                  selectedIcon: Icon(Icons.stars),
-                  label: Text('Recompensas'),
+                  icon: const Icon(Icons.stars_outlined),
+                  selectedIcon: const Icon(Icons.stars),
+                  label: Text(t.navigation.rewards),
                 ),
               ],
             ),
@@ -85,6 +88,10 @@ class _KidsDashboard_TabletTasksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<KidsDashboard_Bloc, KidsDashboard_State>(
       builder: (context, state) {
+        final translations = context.t;
+        final kids = translations.kidsDashboard;
+        final common = translations.common;
+
         if (state.loadStatus == LoadStatus.loading) {
           return const Center(child: CircularProgressIndicator());
         }
@@ -97,7 +104,11 @@ class _KidsDashboard_TabletTasksView extends StatelessWidget {
                 const Icon(Icons.error, size: 48, color: Colors.red),
                 const SizedBox(height: 16),
                 Text(
-                  'Error: ${state.loadErrorMessage ?? "Unknown error"}',
+                  state.loadErrorMessage != null
+                      ? common.errorWithMessage(
+                          message: state.loadErrorMessage!,
+                        )
+                      : common.unknownError,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
@@ -107,7 +118,7 @@ class _KidsDashboard_TabletTasksView extends StatelessWidget {
                       const KidsDashboard_Event_LoadData(),
                     );
                   },
-                  child: const Text('Reintentar'),
+                  child: Text(common.retry),
                 ),
               ],
             ),
@@ -126,14 +137,17 @@ class _KidsDashboard_TabletTasksView extends StatelessWidget {
                   color: Colors.green[300],
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'No hay tareas para hoy!',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Text(
+                  kids.tasks.emptyTitle,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Disfruta tu dia libre',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                Text(
+                  kids.tasks.emptySubtitle,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ],
             ),
@@ -332,7 +346,9 @@ class _PartOfDayLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translations = context.t.kidsDashboard.tasks;
     final color = _colorForPartOfDay(part);
+    final nowLabel = translations.now;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -363,9 +379,9 @@ class _PartOfDayLabel extends StatelessWidget {
                 color: color,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Text(
-                'Ahora',
-                style: TextStyle(
+              child: Text(
+                nowLabel,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,

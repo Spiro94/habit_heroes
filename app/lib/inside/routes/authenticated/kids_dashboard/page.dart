@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../i18n/translations.g.dart';
 import 'tablet_page.dart';
 import 'widgets/rewards_tab_widget.dart';
 import 'widgets/tasks_tab_widget.dart';
@@ -18,6 +19,8 @@ class _KidsDashboard_PageState extends State<KidsDashboard_Page> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.t.kidsDashboard;
+
     final screenWidth = MediaQuery.of(context).size.width;
     if (screenWidth >= 900) {
       return const KidsDashboard_TabletPage();
@@ -25,9 +28,9 @@ class _KidsDashboard_PageState extends State<KidsDashboard_Page> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '¡Hola, Héroes!',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        title: Text(
+          t.appBar.greetingMobile,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFFEC4899),
         foregroundColor: Colors.white,
@@ -76,7 +79,7 @@ class _KidsDashboard_PageState extends State<KidsDashboard_Page> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Mis Tareas',
+                            t.tabs.myTasks,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: _selectedTab == 0
@@ -118,7 +121,7 @@ class _KidsDashboard_PageState extends State<KidsDashboard_Page> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Recompensas',
+                            t.tabs.rewards,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: _selectedTab == 1

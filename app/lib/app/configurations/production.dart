@@ -15,7 +15,7 @@ void main() {
     logLevel: logging.Level.INFO,
     theme: OutsideThemes.lightTheme,
     deepLinkBaseUri:
-        'com.daniel.villamizar.habit_heroes.deep://deeplink-callback',
+        'com.daniel.villamizar.habit-heroes.deep://deeplink-callback',
     clientProvidersConfigurations: ClientProvidersConfigurations(
       sentry: null,
       supabase: const Supabase_ClientProvider_Configuration(

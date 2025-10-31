@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../shared/models/kid_points.dart';
+import '../../../../i18n/translations.g.dart';
 
 class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
   const KidsDashboard_Widget_KidsPointsSection({
@@ -16,12 +17,14 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    final translations = context.t.kidsDashboard.kidsPoints;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Puntos por Nino',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        Text(
+          translations.title,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         SizedBox(
@@ -33,6 +36,9 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
             itemBuilder: (context, index) {
               final kidPoints = kidsPoints[index];
               final color = _resolveKidColor(kidPoints);
+              final totalPointsLabel = translations.total(
+                points: kidPoints.totalPoints,
+              );
 
               return Container(
                 width: 130,
@@ -80,13 +86,14 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 6),
-                    const Text(
-                      'Puntos Acumulados',
-                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                    Text(
+                      translations.accumulated,
+                      style:
+                          const TextStyle(color: Colors.white70, fontSize: 12),
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      '${kidPoints.totalPoints} pts',
+                      totalPointsLabel,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,

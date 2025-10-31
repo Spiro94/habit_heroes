@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../shared/models/enums/part_of_day.dart';
 import '../../../../../shared/models/today_task.dart';
+import '../../../../i18n/translations.g.dart';
 import 'task_card.dart';
 
 class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
@@ -31,6 +32,7 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
     final borderColor = isCurrentSection
         ? baseColor
         : baseColor.withValues(alpha: 0.6);
+    final nowLabel = context.t.kidsDashboard.tasks.now;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,9 +68,9 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
                     color: baseColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text(
-                    'Ahora',
-                    style: TextStyle(
+                  child: Text(
+                    nowLabel,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.bold,

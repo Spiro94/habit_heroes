@@ -28,6 +28,7 @@ class SignIn_Header extends StatelessWidget {
                 colors: [accent.start, accent.end],
               ).createShader(const Rect.fromLTWH(0, 0, 200, 70)),
           ),
+          textAlign: TextAlign.center,
         ),
         SizedBox(height: spacing.small),
         Text(

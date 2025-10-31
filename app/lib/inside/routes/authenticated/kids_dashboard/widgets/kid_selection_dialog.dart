@@ -4,6 +4,7 @@ import '../../../../../outside/theme/theme.dart';
 import '../../../../../shared/models/kid_points.dart';
 import '../../../../../shared/models/reward.dart';
 import '../../../../../shared/widgets/all.dart';
+import '../../../../i18n/translations.g.dart';
 
 class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
   const KidsDashboard_Widget_KidSelectionDialog({
@@ -19,8 +20,10 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translations = context.t.kidsDashboard.kidSelection;
+
     return HabitHeroes_Dialog(
-      title: 'Selecciona quién redime',
+      title: translations.title,
       dialogType: HabitHeroesDialogType.info,
       icon: Icons.card_giftcard,
       body: SizedBox(
@@ -31,6 +34,7 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
           itemBuilder: (context, index) {
             final kid = kids[index];
             final canRedeem = kid.totalPoints >= reward.points;
+            final pointsLabel = translations.points(points: kid.totalPoints);
 
             return ListTile(
               enabled: canRedeem,
@@ -47,7 +51,7 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
               ),
               title: Text(kid.kidName),
               subtitle: Text(
-                '${kid.totalPoints} puntos',
+                pointsLabel,
                 style: TextStyle(
                   color: canRedeem
                       ? context.solidColors.success
@@ -76,7 +80,7 @@ class KidsDashboard_Widget_KidSelectionDialog extends StatelessWidget {
       ),
       actions: [
         HabitHeroesDialogAction(
-          label: 'Cancelar',
+          label: translations.cancel,
           onPressed: () => Navigator.of(context).pop(),
         ),
       ],

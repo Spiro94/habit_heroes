@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../shared/models/enums/part_of_day.dart';
 import '../../../../../shared/models/today_task.dart';
 import '../../../../blocs/kids_dashboard/bloc.dart';
+import '../../../../i18n/translations.g.dart';
 import 'date_header.dart';
 import 'part_of_day_section.dart';
 
@@ -15,6 +16,10 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
     return SafeArea(
       child: BlocBuilder<KidsDashboard_Bloc, KidsDashboard_State>(
         builder: (context, state) {
+          final translations = context.t;
+          final kids = translations.kidsDashboard;
+          final common = translations.common;
+
           if (state.loadStatus == LoadStatus.loading) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -27,7 +32,11 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
                   const Icon(Icons.error, size: 48, color: Colors.red),
                   const SizedBox(height: 16),
                   Text(
-                    'Error: ${state.loadErrorMessage ?? "Unknown error"}',
+                    state.loadErrorMessage != null
+                        ? common.errorWithMessage(
+                            message: state.loadErrorMessage!,
+                          )
+                        : common.unknownError,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
@@ -37,7 +46,7 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
                         const KidsDashboard_Event_LoadData(),
                       );
                     },
-                    child: const Text('Reintentar'),
+                    child: Text(common.retry),
                   ),
                 ],
               ),
@@ -58,15 +67,18 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
                     color: Colors.green[300],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'No hay tareas para hoy!',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Text(
+                  kids.tasks.emptyTitle,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Disfruta tu dia libre',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  kids.tasks.emptySubtitle,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                ),
                 ],
               ),
             );

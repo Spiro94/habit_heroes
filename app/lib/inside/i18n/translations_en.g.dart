@@ -53,6 +53,8 @@ class TranslationsEn implements Translations {
 	@override late final TranslationsTasksEn tasks = TranslationsTasksEn._(_root);
 	@override late final TranslationsDaysOfWeekEn daysOfWeek = TranslationsDaysOfWeekEn._(_root);
 	@override late final TranslationsPartOfDayEn partOfDay = TranslationsPartOfDayEn._(_root);
+	@override late final TranslationsCommonEn common = TranslationsCommonEn._(_root);
+	@override late final TranslationsKidsDashboardEn kidsDashboard = TranslationsKidsDashboardEn._(_root);
 }
 
 // Path: emailVerificationLinkSent
@@ -204,6 +206,7 @@ class TranslationsParentRewardsEn implements TranslationsParentRewardsEsCo {
 	// Translations
 	@override String get title => 'Recompensas para Padres';
 	@override String get body => 'Lista de recompensas para padres';
+	@override late final TranslationsParentRewardsRedemptionsHistoryEn redemptionsHistory = TranslationsParentRewardsRedemptionsHistoryEn._(_root);
 }
 
 // Path: kids
@@ -307,6 +310,40 @@ class TranslationsPartOfDayEn implements TranslationsPartOfDayEsCo {
 	@override String get morning => 'Morning';
 	@override String get afternoon => 'Afternoon';
 	@override String get night => 'Night';
+}
+
+// Path: common
+class TranslationsCommonEn implements TranslationsCommonEsCo {
+	TranslationsCommonEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get cancel => 'Cancel';
+	@override String get retry => 'Retry';
+	@override String get tryAgain => 'Try Again';
+	@override String get unknownError => 'Unknown error';
+	@override String errorWithMessage({required Object message}) => 'Error: ${message}';
+	@override String pointsLabel({required Object points}) => '${points} points';
+	@override String pointsShort({required Object points}) => '${points} pts';
+}
+
+// Path: kidsDashboard
+class TranslationsKidsDashboardEn implements TranslationsKidsDashboardEsCo {
+	TranslationsKidsDashboardEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override late final TranslationsKidsDashboardAppBarEn appBar = TranslationsKidsDashboardAppBarEn._(_root);
+	@override late final TranslationsKidsDashboardTabsEn tabs = TranslationsKidsDashboardTabsEn._(_root);
+	@override late final TranslationsKidsDashboardNavigationEn navigation = TranslationsKidsDashboardNavigationEn._(_root);
+	@override late final TranslationsKidsDashboardTasksEn tasks = TranslationsKidsDashboardTasksEn._(_root);
+	@override late final TranslationsKidsDashboardRewardsEn rewards = TranslationsKidsDashboardRewardsEn._(_root);
+	@override late final TranslationsKidsDashboardKidsPointsEn kidsPoints = TranslationsKidsDashboardKidsPointsEn._(_root);
+	@override late final TranslationsKidsDashboardKidSelectionEn kidSelection = TranslationsKidsDashboardKidSelectionEn._(_root);
+	@override late final TranslationsKidsDashboardRewardCardEn rewardCard = TranslationsKidsDashboardRewardCardEn._(_root);
+	@override late final TranslationsKidsDashboardDateHeaderEn dateHeader = TranslationsKidsDashboardDateHeaderEn._(_root);
 }
 
 // Path: forgotPassword.form
@@ -460,6 +497,23 @@ class TranslationsProfileFormEn implements TranslationsProfileFormEsCo {
 	@override late final TranslationsProfileFormAvatarUrlEn avatarUrl = TranslationsProfileFormAvatarUrlEn._(_root);
 }
 
+// Path: parentRewards.redemptionsHistory
+class TranslationsParentRewardsRedemptionsHistoryEn implements TranslationsParentRewardsRedemptionsHistoryEsCo {
+	TranslationsParentRewardsRedemptionsHistoryEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Redemption History';
+	@override String get retryButton => 'Try Again';
+	@override String get emptyTitle => 'No redemptions recorded';
+	@override String get emptySubtitle => 'Reward redemptions will appear here';
+	@override String get unknownReward => 'Unknown reward';
+	@override String get unknownKid => 'Unknown kid';
+	@override String redeemedBy({required Object name}) => 'Redeemed by: ${name}';
+	@override String points({required Object points}) => '${points} points';
+}
+
 // Path: daysOfWeek.monday
 class TranslationsDaysOfWeekMondayEn implements TranslationsDaysOfWeekMondayEsCo {
 	TranslationsDaysOfWeekMondayEn._(this._root);
@@ -535,6 +589,110 @@ class TranslationsDaysOfWeekSundayEn implements TranslationsDaysOfWeekSundayEsCo
 	// Translations
 	@override String get short => 'Sun';
 	@override String get full => 'Sunday';
+}
+
+// Path: kidsDashboard.appBar
+class TranslationsKidsDashboardAppBarEn implements TranslationsKidsDashboardAppBarEsCo {
+	TranslationsKidsDashboardAppBarEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get greetingMobile => 'Hello, Heroes!';
+	@override String get greetingTablet => 'Hello, Heroes!';
+}
+
+// Path: kidsDashboard.tabs
+class TranslationsKidsDashboardTabsEn implements TranslationsKidsDashboardTabsEsCo {
+	TranslationsKidsDashboardTabsEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get myTasks => 'My Tasks';
+	@override String get rewards => 'Rewards';
+}
+
+// Path: kidsDashboard.navigation
+class TranslationsKidsDashboardNavigationEn implements TranslationsKidsDashboardNavigationEsCo {
+	TranslationsKidsDashboardNavigationEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get tasks => 'Tasks';
+	@override String get rewards => 'Rewards';
+}
+
+// Path: kidsDashboard.tasks
+class TranslationsKidsDashboardTasksEn implements TranslationsKidsDashboardTasksEsCo {
+	TranslationsKidsDashboardTasksEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get emptyTitle => 'No tasks for today!';
+	@override String get emptySubtitle => 'Enjoy your day off';
+	@override String get now => 'Now';
+}
+
+// Path: kidsDashboard.rewards
+class TranslationsKidsDashboardRewardsEn implements TranslationsKidsDashboardRewardsEsCo {
+	TranslationsKidsDashboardRewardsEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Available Rewards';
+	@override String get empty => 'No rewards available';
+	@override String get retry => 'Retry';
+	@override String get successSnack => 'Reward redeemed!';
+}
+
+// Path: kidsDashboard.kidsPoints
+class TranslationsKidsDashboardKidsPointsEn implements TranslationsKidsDashboardKidsPointsEsCo {
+	TranslationsKidsDashboardKidsPointsEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Points per Kid';
+	@override String get accumulated => 'Accumulated Points';
+	@override String total({required Object points}) => '${points} pts';
+}
+
+// Path: kidsDashboard.kidSelection
+class TranslationsKidsDashboardKidSelectionEn implements TranslationsKidsDashboardKidSelectionEsCo {
+	TranslationsKidsDashboardKidSelectionEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Select who redeems';
+	@override String points({required Object points}) => '${points} points';
+	@override String get cancel => 'Cancel';
+}
+
+// Path: kidsDashboard.rewardCard
+class TranslationsKidsDashboardRewardCardEn implements TranslationsKidsDashboardRewardCardEsCo {
+	TranslationsKidsDashboardRewardCardEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get redeem => 'Redeem';
+	@override String get notEnoughPoints => 'Not enough points';
+	@override String points({required Object points}) => '${points} points';
+}
+
+// Path: kidsDashboard.dateHeader
+class TranslationsKidsDashboardDateHeaderEn implements TranslationsKidsDashboardDateHeaderEsCo {
+	TranslationsKidsDashboardDateHeaderEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String date({required Object month, required Object day}) => '${month} ${day}';
 }
 
 // Path: forgotPassword.form.email
@@ -992,6 +1150,14 @@ extension on TranslationsEn {
 			case 'parentDashboard.welcome': return '¡Bienvenido al Tablero de Padres!';
 			case 'parentRewards.title': return 'Recompensas para Padres';
 			case 'parentRewards.body': return 'Lista de recompensas para padres';
+			case 'parentRewards.redemptionsHistory.title': return 'Redemption History';
+			case 'parentRewards.redemptionsHistory.retryButton': return 'Try Again';
+			case 'parentRewards.redemptionsHistory.emptyTitle': return 'No redemptions recorded';
+			case 'parentRewards.redemptionsHistory.emptySubtitle': return 'Reward redemptions will appear here';
+			case 'parentRewards.redemptionsHistory.unknownReward': return 'Unknown reward';
+			case 'parentRewards.redemptionsHistory.unknownKid': return 'Unknown kid';
+			case 'parentRewards.redemptionsHistory.redeemedBy': return ({required Object name}) => 'Redeemed by: ${name}';
+			case 'parentRewards.redemptionsHistory.points': return ({required Object points}) => '${points} points';
 			case 'kids.title': return 'Kids';
 			case 'kids.addKid': return 'Add Kid';
 			case 'kids.addFirstKid': return 'Add First Kid';
@@ -1066,6 +1232,36 @@ extension on TranslationsEn {
 			case 'partOfDay.morning': return 'Morning';
 			case 'partOfDay.afternoon': return 'Afternoon';
 			case 'partOfDay.night': return 'Night';
+			case 'common.cancel': return 'Cancel';
+			case 'common.retry': return 'Retry';
+			case 'common.tryAgain': return 'Try Again';
+			case 'common.unknownError': return 'Unknown error';
+			case 'common.errorWithMessage': return ({required Object message}) => 'Error: ${message}';
+			case 'common.pointsLabel': return ({required Object points}) => '${points} points';
+			case 'common.pointsShort': return ({required Object points}) => '${points} pts';
+			case 'kidsDashboard.appBar.greetingMobile': return 'Hello, Heroes!';
+			case 'kidsDashboard.appBar.greetingTablet': return 'Hello, Heroes!';
+			case 'kidsDashboard.tabs.myTasks': return 'My Tasks';
+			case 'kidsDashboard.tabs.rewards': return 'Rewards';
+			case 'kidsDashboard.navigation.tasks': return 'Tasks';
+			case 'kidsDashboard.navigation.rewards': return 'Rewards';
+			case 'kidsDashboard.tasks.emptyTitle': return 'No tasks for today!';
+			case 'kidsDashboard.tasks.emptySubtitle': return 'Enjoy your day off';
+			case 'kidsDashboard.tasks.now': return 'Now';
+			case 'kidsDashboard.rewards.title': return 'Available Rewards';
+			case 'kidsDashboard.rewards.empty': return 'No rewards available';
+			case 'kidsDashboard.rewards.retry': return 'Retry';
+			case 'kidsDashboard.rewards.successSnack': return 'Reward redeemed!';
+			case 'kidsDashboard.kidsPoints.title': return 'Points per Kid';
+			case 'kidsDashboard.kidsPoints.accumulated': return 'Accumulated Points';
+			case 'kidsDashboard.kidsPoints.total': return ({required Object points}) => '${points} pts';
+			case 'kidsDashboard.kidSelection.title': return 'Select who redeems';
+			case 'kidsDashboard.kidSelection.points': return ({required Object points}) => '${points} points';
+			case 'kidsDashboard.kidSelection.cancel': return 'Cancel';
+			case 'kidsDashboard.rewardCard.redeem': return 'Redeem';
+			case 'kidsDashboard.rewardCard.notEnoughPoints': return 'Not enough points';
+			case 'kidsDashboard.rewardCard.points': return ({required Object points}) => '${points} points';
+			case 'kidsDashboard.dateHeader.date': return ({required Object month, required Object day}) => '${month} ${day}';
 			default: return null;
 		}
 	}

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../shared/models/kid_points.dart';
 import '../../../../../shared/models/reward.dart';
 import '../../../../blocs/kids_dashboard/bloc.dart';
+import '../../../../i18n/translations.g.dart';
 import 'kid_selection_dialog.dart';
 import 'kids_points_section.dart';
 import 'reward_card.dart';
@@ -16,6 +17,10 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
     return SafeArea(
       child: BlocBuilder<KidsDashboard_Bloc, KidsDashboard_State>(
         builder: (context, state) {
+          final translations = context.t;
+          final kids = translations.kidsDashboard;
+          final common = translations.common;
+
           if (state.loadStatus == LoadStatus.loading) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -28,7 +33,11 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
                   const Icon(Icons.error, size: 48, color: Colors.red),
                   const SizedBox(height: 16),
                   Text(
-                    'Error: ${state.loadErrorMessage ?? "Unknown error"}',
+                    state.loadErrorMessage != null
+                        ? common.errorWithMessage(
+                            message: state.loadErrorMessage!,
+                          )
+                        : common.unknownError,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
@@ -38,7 +47,7 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
                         const KidsDashboard_Event_LoadData(),
                       );
                     },
-                    child: const Text('Reintentar'),
+                    child: Text(kids.rewards.retry),
                   ),
                 ],
               ),
@@ -56,18 +65,24 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
                     kidsPoints: state.kidsPoints,
                   ),
                   const SizedBox(height: 24),
-                  const Text(
-                    'Recompensas Disponibles',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Text(
+                    kids.rewards.title,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   if (state.rewards.isEmpty)
-                    const Center(
+                    Center(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 32),
+                        padding: const EdgeInsets.symmetric(vertical: 32),
                         child: Text(
-                          'No hay recompensas disponibles',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                          kids.rewards.empty,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     )
@@ -105,6 +120,8 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
     List<KidPoints> kidsPoints,
     Reward reward,
   ) {
+    final kids = context.t.kidsDashboard;
+
     showDialog<void>(
       context: context,
       builder: (_) => KidsDashboard_Widget_KidSelectionDialog(
@@ -116,10 +133,10 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
           );
 
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Recompensa canjeada!'),
+            SnackBar(
+              content: Text(kids.rewards.successSnack),
               backgroundColor: Colors.green,
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
             ),
           );
         },

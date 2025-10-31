@@ -157,6 +157,15 @@ parentDashboard:
 parentRewards:
   title: "Recompensas para Padres"
   body: "Lista de recompensas para padres"
+  redemptionsHistory:
+    title: "Redemption History"
+    retryButton: "Try Again"
+    emptyTitle: "No redemptions recorded"
+    emptySubtitle: "Reward redemptions will appear here"
+    unknownReward: "Unknown reward"
+    unknownKid: "Unknown kid"
+    redeemedBy(name): "Redeemed by: $name"
+    points(points): "$points points"
 
 kids:
   title: "Kids"
@@ -246,3 +255,46 @@ partOfDay:
   morning: "Morning"
   afternoon: "Afternoon"
   night: "Night"
+
+common:
+  cancel: "Cancel"
+  retry: "Retry"
+  tryAgain: "Try Again"
+  unknownError: "Unknown error"
+  errorWithMessage(message): "Error: $message"
+  pointsLabel(points): "$points points"
+  pointsShort(points): "$points pts"
+
+kidsDashboard:
+  appBar:
+    greetingMobile: "Hello, Heroes!"
+    greetingTablet: "Hello, Heroes!"
+  tabs:
+    myTasks: "My Tasks"
+    rewards: "Rewards"
+  navigation:
+    tasks: "Tasks"
+    rewards: "Rewards"
+  tasks:
+    emptyTitle: "No tasks for today!"
+    emptySubtitle: "Enjoy your day off"
+    now: "Now"
+  rewards:
+    title: "Available Rewards"
+    empty: "No rewards available"
+    retry: "Retry"
+    successSnack: "Reward redeemed!"
+  kidsPoints:
+    title: "Points per Kid"
+    accumulated: "Accumulated Points"
+    total(points): "$points pts"
+  kidSelection:
+    title: "Select who redeems"
+    points(points): "$points points"
+    cancel: "Cancel"
+  rewardCard:
+    redeem: "Redeem"
+    notEnoughPoints: "Not enough points"
+    points(points): "$points points"
+  dateHeader:
+    date(day, month): "$month $day"

@@ -56,6 +56,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsTasksEsCo tasks = TranslationsTasksEsCo._(_root);
 	late final TranslationsDaysOfWeekEsCo daysOfWeek = TranslationsDaysOfWeekEsCo._(_root);
 	late final TranslationsPartOfDayEsCo partOfDay = TranslationsPartOfDayEsCo._(_root);
+	late final TranslationsCommonEsCo common = TranslationsCommonEsCo._(_root);
+	late final TranslationsKidsDashboardEsCo kidsDashboard = TranslationsKidsDashboardEsCo._(_root);
 }
 
 // Path: emailVerificationLinkSent
@@ -258,6 +260,8 @@ class TranslationsParentRewardsEsCo {
 
 	/// es-CO: 'Lista de recompensas para padres'
 	String get body => 'Lista de recompensas para padres';
+
+	late final TranslationsParentRewardsRedemptionsHistoryEsCo redemptionsHistory = TranslationsParentRewardsRedemptionsHistoryEsCo._(_root);
 }
 
 // Path: kids
@@ -483,6 +487,54 @@ class TranslationsPartOfDayEsCo {
 	String get night => 'Noche';
 }
 
+// Path: common
+class TranslationsCommonEsCo {
+	TranslationsCommonEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Cancelar'
+	String get cancel => 'Cancelar';
+
+	/// es-CO: 'Reintentar'
+	String get retry => 'Reintentar';
+
+	/// es-CO: 'Intentar de nuevo'
+	String get tryAgain => 'Intentar de nuevo';
+
+	/// es-CO: 'Error desconocido'
+	String get unknownError => 'Error desconocido';
+
+	/// es-CO: 'Error: $message'
+	String errorWithMessage({required Object message}) => 'Error: ${message}';
+
+	/// es-CO: '$points puntos'
+	String pointsLabel({required Object points}) => '${points} puntos';
+
+	/// es-CO: '$points pts'
+	String pointsShort({required Object points}) => '${points} pts';
+}
+
+// Path: kidsDashboard
+class TranslationsKidsDashboardEsCo {
+	TranslationsKidsDashboardEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsKidsDashboardAppBarEsCo appBar = TranslationsKidsDashboardAppBarEsCo._(_root);
+	late final TranslationsKidsDashboardTabsEsCo tabs = TranslationsKidsDashboardTabsEsCo._(_root);
+	late final TranslationsKidsDashboardNavigationEsCo navigation = TranslationsKidsDashboardNavigationEsCo._(_root);
+	late final TranslationsKidsDashboardTasksEsCo tasks = TranslationsKidsDashboardTasksEsCo._(_root);
+	late final TranslationsKidsDashboardRewardsEsCo rewards = TranslationsKidsDashboardRewardsEsCo._(_root);
+	late final TranslationsKidsDashboardKidsPointsEsCo kidsPoints = TranslationsKidsDashboardKidsPointsEsCo._(_root);
+	late final TranslationsKidsDashboardKidSelectionEsCo kidSelection = TranslationsKidsDashboardKidSelectionEsCo._(_root);
+	late final TranslationsKidsDashboardRewardCardEsCo rewardCard = TranslationsKidsDashboardRewardCardEsCo._(_root);
+	late final TranslationsKidsDashboardDateHeaderEsCo dateHeader = TranslationsKidsDashboardDateHeaderEsCo._(_root);
+}
+
 // Path: forgotPassword.form
 class TranslationsForgotPasswordFormEsCo {
 	TranslationsForgotPasswordFormEsCo._(this._root);
@@ -664,6 +716,39 @@ class TranslationsProfileFormEsCo {
 	late final TranslationsProfileFormAvatarUrlEsCo avatarUrl = TranslationsProfileFormAvatarUrlEsCo._(_root);
 }
 
+// Path: parentRewards.redemptionsHistory
+class TranslationsParentRewardsRedemptionsHistoryEsCo {
+	TranslationsParentRewardsRedemptionsHistoryEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Historial de canjes'
+	String get title => 'Historial de canjes';
+
+	/// es-CO: 'Intentar de nuevo'
+	String get retryButton => 'Intentar de nuevo';
+
+	/// es-CO: 'No hay canjes registrados'
+	String get emptyTitle => 'No hay canjes registrados';
+
+	/// es-CO: 'Los canjes de recompensas aparecerán aquí'
+	String get emptySubtitle => 'Los canjes de recompensas aparecerán aquí';
+
+	/// es-CO: 'Recompensa desconocida'
+	String get unknownReward => 'Recompensa desconocida';
+
+	/// es-CO: 'Niño desconocido'
+	String get unknownKid => 'Niño desconocido';
+
+	/// es-CO: 'Canjeado por: $name'
+	String redeemedBy({required Object name}) => 'Canjeado por: ${name}';
+
+	/// es-CO: '$points puntos'
+	String points({required Object points}) => '${points} puntos';
+}
+
 // Path: daysOfWeek.monday
 class TranslationsDaysOfWeekMondayEsCo {
 	TranslationsDaysOfWeekMondayEsCo._(this._root);
@@ -767,6 +852,156 @@ class TranslationsDaysOfWeekSundayEsCo {
 
 	/// es-CO: 'Domingo'
 	String get full => 'Domingo';
+}
+
+// Path: kidsDashboard.appBar
+class TranslationsKidsDashboardAppBarEsCo {
+	TranslationsKidsDashboardAppBarEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: '¡Hola, Héroes!'
+	String get greetingMobile => '¡Hola, Héroes!';
+
+	/// es-CO: 'Hola, Héroes!'
+	String get greetingTablet => 'Hola, Héroes!';
+}
+
+// Path: kidsDashboard.tabs
+class TranslationsKidsDashboardTabsEsCo {
+	TranslationsKidsDashboardTabsEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Mis tareas'
+	String get myTasks => 'Mis tareas';
+
+	/// es-CO: 'Recompensas'
+	String get rewards => 'Recompensas';
+}
+
+// Path: kidsDashboard.navigation
+class TranslationsKidsDashboardNavigationEsCo {
+	TranslationsKidsDashboardNavigationEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Tareas'
+	String get tasks => 'Tareas';
+
+	/// es-CO: 'Recompensas'
+	String get rewards => 'Recompensas';
+}
+
+// Path: kidsDashboard.tasks
+class TranslationsKidsDashboardTasksEsCo {
+	TranslationsKidsDashboardTasksEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'No hay tareas para hoy!'
+	String get emptyTitle => 'No hay tareas para hoy!';
+
+	/// es-CO: 'Disfruta tu día libre'
+	String get emptySubtitle => 'Disfruta tu día libre';
+
+	/// es-CO: 'Ahora'
+	String get now => 'Ahora';
+}
+
+// Path: kidsDashboard.rewards
+class TranslationsKidsDashboardRewardsEsCo {
+	TranslationsKidsDashboardRewardsEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Recompensas Disponibles'
+	String get title => 'Recompensas Disponibles';
+
+	/// es-CO: 'No hay recompensas disponibles'
+	String get empty => 'No hay recompensas disponibles';
+
+	/// es-CO: 'Reintentar'
+	String get retry => 'Reintentar';
+
+	/// es-CO: 'Recompensa canjeada!'
+	String get successSnack => 'Recompensa canjeada!';
+}
+
+// Path: kidsDashboard.kidsPoints
+class TranslationsKidsDashboardKidsPointsEsCo {
+	TranslationsKidsDashboardKidsPointsEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Puntos por niño'
+	String get title => 'Puntos por niño';
+
+	/// es-CO: 'Puntos Acumulados'
+	String get accumulated => 'Puntos Acumulados';
+
+	/// es-CO: '$points pts'
+	String total({required Object points}) => '${points} pts';
+}
+
+// Path: kidsDashboard.kidSelection
+class TranslationsKidsDashboardKidSelectionEsCo {
+	TranslationsKidsDashboardKidSelectionEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Selecciona quién redime'
+	String get title => 'Selecciona quién redime';
+
+	/// es-CO: '$points puntos'
+	String points({required Object points}) => '${points} puntos';
+
+	/// es-CO: 'Cancelar'
+	String get cancel => 'Cancelar';
+}
+
+// Path: kidsDashboard.rewardCard
+class TranslationsKidsDashboardRewardCardEsCo {
+	TranslationsKidsDashboardRewardCardEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Canjear'
+	String get redeem => 'Canjear';
+
+	/// es-CO: 'No hay puntos'
+	String get notEnoughPoints => 'No hay puntos';
+
+	/// es-CO: '$points puntos'
+	String points({required Object points}) => '${points} puntos';
+}
+
+// Path: kidsDashboard.dateHeader
+class TranslationsKidsDashboardDateHeaderEsCo {
+	TranslationsKidsDashboardDateHeaderEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: '$day de $month'
+	String date({required Object day, required Object month}) => '${day} de ${month}';
 }
 
 // Path: forgotPassword.form.email
@@ -1344,6 +1579,14 @@ extension on Translations {
 			case 'parentDashboard.welcome': return '¡Bienvenido al Tablero de Padres!';
 			case 'parentRewards.title': return 'Recompensas para Padres';
 			case 'parentRewards.body': return 'Lista de recompensas para padres';
+			case 'parentRewards.redemptionsHistory.title': return 'Historial de canjes';
+			case 'parentRewards.redemptionsHistory.retryButton': return 'Intentar de nuevo';
+			case 'parentRewards.redemptionsHistory.emptyTitle': return 'No hay canjes registrados';
+			case 'parentRewards.redemptionsHistory.emptySubtitle': return 'Los canjes de recompensas aparecerán aquí';
+			case 'parentRewards.redemptionsHistory.unknownReward': return 'Recompensa desconocida';
+			case 'parentRewards.redemptionsHistory.unknownKid': return 'Niño desconocido';
+			case 'parentRewards.redemptionsHistory.redeemedBy': return ({required Object name}) => 'Canjeado por: ${name}';
+			case 'parentRewards.redemptionsHistory.points': return ({required Object points}) => '${points} puntos';
 			case 'kids.title': return 'Niños';
 			case 'kids.addKid': return 'Agregar Niño';
 			case 'kids.addFirstKid': return 'Agregar Primer Niño';
@@ -1418,6 +1661,36 @@ extension on Translations {
 			case 'partOfDay.morning': return 'Mañana';
 			case 'partOfDay.afternoon': return 'Tarde';
 			case 'partOfDay.night': return 'Noche';
+			case 'common.cancel': return 'Cancelar';
+			case 'common.retry': return 'Reintentar';
+			case 'common.tryAgain': return 'Intentar de nuevo';
+			case 'common.unknownError': return 'Error desconocido';
+			case 'common.errorWithMessage': return ({required Object message}) => 'Error: ${message}';
+			case 'common.pointsLabel': return ({required Object points}) => '${points} puntos';
+			case 'common.pointsShort': return ({required Object points}) => '${points} pts';
+			case 'kidsDashboard.appBar.greetingMobile': return '¡Hola, Héroes!';
+			case 'kidsDashboard.appBar.greetingTablet': return 'Hola, Héroes!';
+			case 'kidsDashboard.tabs.myTasks': return 'Mis tareas';
+			case 'kidsDashboard.tabs.rewards': return 'Recompensas';
+			case 'kidsDashboard.navigation.tasks': return 'Tareas';
+			case 'kidsDashboard.navigation.rewards': return 'Recompensas';
+			case 'kidsDashboard.tasks.emptyTitle': return 'No hay tareas para hoy!';
+			case 'kidsDashboard.tasks.emptySubtitle': return 'Disfruta tu día libre';
+			case 'kidsDashboard.tasks.now': return 'Ahora';
+			case 'kidsDashboard.rewards.title': return 'Recompensas Disponibles';
+			case 'kidsDashboard.rewards.empty': return 'No hay recompensas disponibles';
+			case 'kidsDashboard.rewards.retry': return 'Reintentar';
+			case 'kidsDashboard.rewards.successSnack': return 'Recompensa canjeada!';
+			case 'kidsDashboard.kidsPoints.title': return 'Puntos por niño';
+			case 'kidsDashboard.kidsPoints.accumulated': return 'Puntos Acumulados';
+			case 'kidsDashboard.kidsPoints.total': return ({required Object points}) => '${points} pts';
+			case 'kidsDashboard.kidSelection.title': return 'Selecciona quién redime';
+			case 'kidsDashboard.kidSelection.points': return ({required Object points}) => '${points} puntos';
+			case 'kidsDashboard.kidSelection.cancel': return 'Cancelar';
+			case 'kidsDashboard.rewardCard.redeem': return 'Canjear';
+			case 'kidsDashboard.rewardCard.notEnoughPoints': return 'No hay puntos';
+			case 'kidsDashboard.rewardCard.points': return ({required Object points}) => '${points} puntos';
+			case 'kidsDashboard.dateHeader.date': return ({required Object day, required Object month}) => '${day} de ${month}';
 			default: return null;
 		}
 	}

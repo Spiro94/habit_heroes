@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../shared/models/kid_points.dart';
 import '../../../../../shared/models/reward.dart';
+import '../../../../i18n/translations.g.dart';
 
 class KidsDashboard_Widget_RewardCard extends StatelessWidget {
   const KidsDashboard_Widget_RewardCard({
@@ -20,6 +21,11 @@ class KidsDashboard_Widget_RewardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translations = context.t.kidsDashboard.rewardCard;
+    final pointsLabel = translations.points(points: reward.points);
+    final buttonLabel =
+        _canRedeem ? translations.redeem : translations.notEnoughPoints;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -64,7 +70,7 @@ class KidsDashboard_Widget_RewardCard extends StatelessWidget {
                     const Icon(Icons.star, size: 16, color: Color(0xFFFCD34D)),
                     const SizedBox(width: 4),
                     Text(
-                      '${reward.points} puntos',
+                      pointsLabel,
                       style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                     ),
                   ],
@@ -80,7 +86,7 @@ class KidsDashboard_Widget_RewardCard extends StatelessWidget {
               disabledBackgroundColor: Colors.grey[300],
             ),
             child: Text(
-              _canRedeem ? 'Canjear' : 'No hay puntos',
+              buttonLabel,
               style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
           ),

@@ -8,6 +8,7 @@ import '../../../../../../outside/theme/theme.dart';
 import '../../../../../../shared/models/reward_redemption.dart';
 import '../../../../../blocs/parent_rewards/bloc.dart';
 import '../../../../../blocs/parent_rewards/state.dart';
+import '../../../../../i18n/translations.g.dart';
 
 @RoutePage()
 class ParentRedemptionsHistoryPage extends StatelessWidget {
@@ -33,9 +34,9 @@ class _ParentRedemptionsHistory_ScaffoldState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Historial de Canjes',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        title: Text(
+          context.t.parentRewards.redemptionsHistory.title,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         backgroundColor: context.colors.pointsGold.start,
         foregroundColor: Colors.white,
@@ -46,6 +47,10 @@ class _ParentRedemptionsHistory_ScaffoldState
       ),
       body: BlocBuilder<ParentRewards_Bloc, ParentRewards_State>(
         builder: (context, state) {
+          final translations = context.t;
+          final parentRewards = translations.parentRewards.redemptionsHistory;
+          final common = translations.common;
+
           if (state.redemptionLoadStatus ==
                   ParentRewards_RedemptionLoadStatus.loading ||
               state.redemptionLoadStatus ==
@@ -55,17 +60,23 @@ class _ParentRedemptionsHistory_ScaffoldState
 
           if (state.redemptionLoadStatus ==
               ParentRewards_RedemptionLoadStatus.error) {
+            final errorMessage = state.redemptionLoadErrorMessage;
+
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Error: ${state.redemptionLoadErrorMessage}'),
+                  Text(
+                    errorMessage != null
+                        ? common.errorWithMessage(message: errorMessage)
+                        : common.unknownError,
+                  ),
                   const Gap(16),
                   ElevatedButton(
                     onPressed: () {
                       // Trigger reload
                     },
-                    child: const Text('Intentar de nuevo'),
+                    child: Text(parentRewards.retryButton),
                   ),
                 ],
               ),
@@ -83,9 +94,9 @@ class _ParentRedemptionsHistory_ScaffoldState
                     color: Colors.grey[400],
                   ),
                   const Gap(16),
-                  const Text('No hay canjes registrados'),
+                  Text(parentRewards.emptyTitle),
                   const Gap(8),
-                  const Text('Los canjes de recompensas apareceran aqui'),
+                  Text(parentRewards.emptySubtitle),
                 ],
               ),
             );
@@ -119,8 +130,11 @@ class ParentRedemptionsHistory_Widget_RedemptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd/MM/yyyy HH:mm');
     final formattedDate = dateFormat.format(redemption.redeemedAt.toLocal());
-    final rewardName = redemption.rewardName ?? 'Recompensa desconocida';
-    final kidName = redemption.kidName ?? 'Nino desconocido';
+    final parentRewards = context.t.parentRewards.redemptionsHistory;
+    final rewardName = redemption.rewardName ?? parentRewards.unknownReward;
+    final kidName = redemption.kidName ?? parentRewards.unknownKid;
+    final redeemedBy = parentRewards.redeemedBy(name: kidName);
+    final pointsLabel = parentRewards.points(points: redemption.pointsCost);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -145,7 +159,7 @@ class ParentRedemptionsHistory_Widget_RedemptionCard extends StatelessWidget {
                       ),
                       const Gap(4),
                       Text(
-                        'Canjeado por: $kidName',
+                        redeemedBy,
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 14,
@@ -179,7 +193,7 @@ class ParentRedemptionsHistory_Widget_RedemptionCard extends StatelessWidget {
                       ),
                       const Gap(4),
                       Text(
-                        '${redemption.pointsCost} puntos',
+                        pointsLabel,
                         style: TextStyle(
                           color: context.colors.pointsGold.start,
                           fontWeight: FontWeight.bold,
