@@ -49,11 +49,15 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
 
   Kid? _selectedKid;
   DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
 
   bool _isSpecificDate = false;
 
   // Map to store selections for each day of week
   final Map<DaysOfWeek, Set<PartOfDay>> _dayControllers = {};
+
+  // Map to store specific times for each day+partOfDay combination
+  final Map<DaysOfWeek, Map<PartOfDay, TimeOfDay>> _timeControllers = {};
 
   // Error notifiers for custom validation
   final _dateErrorNotifier = ValueNotifier<String?>(null);
@@ -67,6 +71,7 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
     // Initialize controllers for all days
     for (final day in DaysOfWeek.values) {
       _dayControllers[day] = {};
+      _timeControllers[day] = {};
     }
 
     // If editing, dispatch event to load schedule/template
@@ -103,6 +108,7 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
       if (schedules.first.specificDate != null) {
         _isSpecificDate = true;
         _selectedDate = schedules.first.specificDate;
+        _selectedTime = schedules.first.specificTime;
       } else {
         // It's a weekday schedule - map ALL schedules to controllers
         _isSpecificDate = false;
@@ -110,6 +116,7 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
         // Clear all controllers first
         for (final day in _dayControllers.keys) {
           _dayControllers[day] = {};
+          _timeControllers[day] = {};
         }
 
         // Process each schedule and add to the appropriate day controller
@@ -125,6 +132,12 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                 // Add to existing selections for this day
                 final currentSelections = _dayControllers[day] ?? {};
                 _dayControllers[day] = {...currentSelections, part};
+
+                // Add specific time if available
+                if (schedule.specificTime != null) {
+                  _timeControllers[day] ??= {};
+                  _timeControllers[day]![part] = schedule.specificTime!;
+                }
               }
             }
           }
@@ -218,11 +231,18 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                               _selectedDate = date;
                             });
                           },
+                          selectedTime: _selectedTime,
+                          onTimeChanged: (time) {
+                            setState(() {
+                              _selectedTime = time;
+                            });
+                          },
                           errorNotifier: _dateErrorNotifier,
                         )
                       else
                         CreateTask_Widget_WeekdaySchedule(
                           dayControllers: _dayControllers,
+                          timeControllers: _timeControllers,
                           errorNotifier: _scheduleErrorNotifier,
                           isCreating: !_isEditing,
                         ),
@@ -278,9 +298,27 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
         return;
       }
 
+      // Calculate time_of_day based on specific_time
+      String? timeOfDay;
+      if (_selectedTime != null) {
+        final hour = _selectedTime!.hour;
+        if (hour >= 6 && hour < 12) {
+          timeOfDay = 'morning';
+        } else if (hour >= 12 && hour < 18) {
+          timeOfDay = 'afternoon';
+        } else {
+          timeOfDay = 'night';
+        }
+      }
+
       // Single schedule for specific date
       schedules.add(
-        TaskScheduleInput(kidId: _selectedKid!.id, specificDate: _selectedDate),
+        TaskScheduleInput(
+          kidId: _selectedKid!.id,
+          specificDate: _selectedDate,
+          specificTime: _selectedTime,
+          timeOfDay: timeOfDay,
+        ),
       );
     } else {
       // Validate weekday schedule - check if any day has selections
@@ -305,11 +343,15 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
         if (selectedTimesOfDay.isEmpty) continue;
 
         for (final timeOfDay in selectedTimesOfDay) {
+          // Get the specific time for this day+timeOfDay combination
+          final specificTime = _timeControllers[day]?[timeOfDay];
+
           schedules.add(
             TaskScheduleInput(
               kidId: _selectedKid!.id,
               daysOfWeek: [day.toInt()],
               timeOfDay: timeOfDay.key,
+              specificTime: specificTime,
             ),
           );
         }

@@ -27,20 +27,18 @@ class KidsDashboard_Widget_TaskCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color:
-              _isCompleted
-                  ? Colors.green[50]
-                  : _isSkipped
-                  ? Colors.grey[100]
-                  : Colors.white,
+          color: _isCompleted
+              ? Colors.green[50]
+              : _isSkipped
+              ? Colors.grey[100]
+              : Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color:
-                _isCompleted
-                    ? Colors.green
-                    : _isSkipped
-                    ? Colors.grey
-                    : kidColor,
+            color: _isCompleted
+                ? Colors.green
+                : _isSkipped
+                ? Colors.grey
+                : kidColor,
             width: 2,
           ),
           boxShadow: [
@@ -56,7 +54,9 @@ class KidsDashboard_Widget_TaskCard extends StatelessWidget {
           children: [
             _KidAvatar(kidName: task.kidName, backgroundColor: kidColor),
             const SizedBox(width: 12),
-            Expanded(child: _TaskInfo(task: task, isCompleted: _isCompleted)),
+            Expanded(
+              child: _TaskInfo(task: task, isCompleted: _isCompleted),
+            ),
             _PointsBadge(points: task.points),
             const SizedBox(width: 8),
             Icon(
@@ -119,18 +119,55 @@ class _TaskInfo extends StatelessWidget {
   final TodayTask task;
   final bool isCompleted;
 
+  String _formatTime(TimeOfDay time) {
+    final hour = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
+    final minute = time.minute.toString().padLeft(2, '0');
+    final period = time.period == DayPeriod.am ? 'AM' : 'PM';
+    return '$hour:$minute $period';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          task.kidName,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w500,
-          ),
+        Row(
+          children: [
+            Text(
+              task.kidName,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            if (task.specificTime != null) ...[
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.blue[50],
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: Colors.blue[200]!),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.access_time, size: 12, color: Colors.blue[700]),
+                    const SizedBox(width: 4),
+                    Text(
+                      _formatTime(task.specificTime!),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.blue[700],
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
         ),
         const SizedBox(height: 4),
         Text(

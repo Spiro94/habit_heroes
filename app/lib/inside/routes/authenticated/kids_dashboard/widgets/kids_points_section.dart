@@ -28,7 +28,7 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         SizedBox(
-          height: 150,
+          height: 125,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: kidsPoints.length,
@@ -74,7 +74,7 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Spacer(),
+                    const SizedBox(height: 4),
                     Text(
                       kidPoints.kidName,
                       style: const TextStyle(
@@ -88,8 +88,10 @@ class KidsDashboard_Widget_KidsPointsSection extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(
                       translations.accumulated,
-                      style:
-                          const TextStyle(color: Colors.white70, fontSize: 12),
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                      ),
                     ),
                     const SizedBox(height: 3),
                     Text(

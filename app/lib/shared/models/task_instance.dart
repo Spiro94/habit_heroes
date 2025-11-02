@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'task_instance.g.dart';
@@ -20,6 +21,7 @@ class TaskInstance extends Equatable {
     required this.kidId,
     required this.dueDate,
     required this.timeOfDay,
+    this.specificTime,
     this.status = TaskStatus.pending,
     this.completedAt,
     this.createdAt,
@@ -30,6 +32,11 @@ class TaskInstance extends Equatable {
   final String kidId;
   final DateTime dueDate;
   final String timeOfDay;
+  @JsonKey(
+    fromJson: _timeOfDayFromJson,
+    toJson: _timeOfDayToJson,
+  )
+  final TimeOfDay? specificTime;
   final TaskStatus status;
   final DateTime? completedAt;
   final DateTime? createdAt;
@@ -46,8 +53,25 @@ class TaskInstance extends Equatable {
         kidId,
         dueDate,
         timeOfDay,
+        specificTime,
         status,
         completedAt,
         createdAt,
       ];
+}
+
+// Helper functions for TimeOfDay JSON serialization
+TimeOfDay? _timeOfDayFromJson(String? time) {
+  if (time == null) return null;
+  final parts = time.split(':');
+  if (parts.length != 2) return null;
+  return TimeOfDay(
+    hour: int.parse(parts[0]),
+    minute: int.parse(parts[1]),
+  );
+}
+
+String? _timeOfDayToJson(TimeOfDay? time) {
+  if (time == null) return null;
+  return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 }

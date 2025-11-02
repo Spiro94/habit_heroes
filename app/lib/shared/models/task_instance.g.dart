@@ -12,6 +12,7 @@ TaskInstance _$TaskInstanceFromJson(Map<String, dynamic> json) => TaskInstance(
   kidId: json['kid_id'] as String,
   dueDate: DateTime.parse(json['due_date'] as String),
   timeOfDay: json['time_of_day'] as String,
+  specificTime: _timeOfDayFromJson(json['specific_time'] as String?),
   status:
       $enumDecodeNullable(_$TaskStatusEnumMap, json['status']) ??
       TaskStatus.pending,
@@ -30,6 +31,7 @@ Map<String, dynamic> _$TaskInstanceToJson(TaskInstance instance) =>
       'kid_id': instance.kidId,
       'due_date': instance.dueDate.toIso8601String(),
       'time_of_day': instance.timeOfDay,
+      'specific_time': _timeOfDayToJson(instance.specificTime),
       'status': _$TaskStatusEnumMap[instance.status]!,
       'completed_at': instance.completedAt?.toIso8601String(),
       'created_at': instance.createdAt?.toIso8601String(),

@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
+import '../../../../../../../shared/widgets/time_picker_field.dart';
 import '../../../../../../i18n/translations.g.dart';
 
 class CreateTask_Widget_SpecificDatePicker extends StatefulWidget {
   final DateTime? selectedDate;
   final void Function(DateTime) onDateChanged;
+  final TimeOfDay? selectedTime;
+  final void Function(TimeOfDay?) onTimeChanged;
   final ValueNotifier<String?> errorNotifier;
 
   const CreateTask_Widget_SpecificDatePicker({
     required this.selectedDate,
     required this.onDateChanged,
+    required this.selectedTime,
+    required this.onTimeChanged,
     required this.errorNotifier,
     super.key,
   });
@@ -60,6 +66,13 @@ class _CreateTask_Widget_SpecificDatePickerState
             },
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
           ),
+        ),
+        const Gap(16),
+        // Time Picker
+        TimePickerField(
+          label: 'Task time',
+          value: widget.selectedTime,
+          onChanged: widget.onTimeChanged,
         ),
         ValueListenableBuilder<String?>(
           valueListenable: widget.errorNotifier,

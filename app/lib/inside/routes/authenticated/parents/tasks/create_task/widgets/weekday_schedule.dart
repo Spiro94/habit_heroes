@@ -3,15 +3,26 @@ import 'package:gap/gap.dart';
 
 import '../../../../../../../shared/models/enums/days_of_week.dart';
 import '../../../../../../../shared/models/enums/part_of_day.dart';
+import '../../../../../../../shared/widgets/time_picker_field.dart';
 import '../../../../../../i18n/translations.g.dart';
+
+/// Represents a part of day with its specific time
+class PartOfDayWithTime {
+  final PartOfDay partOfDay;
+  TimeOfDay? specificTime;
+
+  PartOfDayWithTime({required this.partOfDay, this.specificTime});
+}
 
 class CreateTask_Widget_WeekdaySchedule extends StatefulWidget {
   final Map<DaysOfWeek, Set<PartOfDay>> dayControllers;
+  final Map<DaysOfWeek, Map<PartOfDay, TimeOfDay>> timeControllers;
   final ValueNotifier<String?> errorNotifier;
   final bool isCreating;
 
   const CreateTask_Widget_WeekdaySchedule({
     required this.dayControllers,
+    required this.timeControllers,
     required this.errorNotifier,
     required this.isCreating,
     super.key,
@@ -41,10 +52,7 @@ class _CreateTask_Widget_WeekdayScheduleState
       children: [
         Text(
           t.tasks.weeklySchedule,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         const Gap(4),
         Text(
@@ -66,46 +74,98 @@ class _CreateTask_Widget_WeekdayScheduleState
                   day.fullName,
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
-                backgroundColor:
-                    const Color(0xFF3B82F6).withValues(alpha: 0.05),
+                backgroundColor: const Color(
+                  0xFF3B82F6,
+                ).withValues(alpha: 0.05),
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(12),
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: PartOfDay.values.map((partOfDay) {
-                        final isSelected =
-                            widget.dayControllers[day]?.contains(partOfDay) ??
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: PartOfDay.values.map((partOfDay) {
+                            final isSelected =
+                                widget.dayControllers[day]?.contains(
+                                  partOfDay,
+                                ) ??
                                 false;
-                        return FilterChip(
-                          label: Text(partOfDay.displayName),
-                          selected: isSelected,
-                          onSelected: (selected) {
-                            setState(() {
-                              if (selected) {
-                                widget.dayControllers[day]?.add(partOfDay);
-                              } else {
-                                widget.dayControllers[day]?.remove(partOfDay);
-                              }
-                              // Clear error when user makes a selection
-                              final hasAnySelection =
-                                  widget.dayControllers.values.any(
-                                (set) => set.isNotEmpty,
+                            return FilterChip(
+                              label: Text(partOfDay.displayName),
+                              selected: isSelected,
+                              onSelected: (selected) {
+                                setState(() {
+                                  if (selected) {
+                                    widget.dayControllers[day]?.add(partOfDay);
+                                    // Set default time for this part of day
+                                    final defaultTime =
+                                        TimePickerField.getDefaultTime(
+                                          partOfDay,
+                                        );
+                                    widget.timeControllers[day] ??= {};
+                                    widget.timeControllers[day]![partOfDay] =
+                                        defaultTime;
+                                  } else {
+                                    widget.dayControllers[day]?.remove(
+                                      partOfDay,
+                                    );
+                                    // Remove time when deselecting
+                                    widget.timeControllers[day]?.remove(
+                                      partOfDay,
+                                    );
+                                  }
+                                  // Clear error when user makes a selection
+                                  final hasAnySelection = widget
+                                      .dayControllers
+                                      .values
+                                      .any((set) => set.isNotEmpty);
+                                  if (hasAnySelection) {
+                                    widget.errorNotifier.value = null;
+                                  }
+                                });
+                              },
+                              backgroundColor: Colors.grey[100],
+                              selectedColor: const Color(0xFF3B82F6),
+                              labelStyle: TextStyle(
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.black87,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        // Show time pickers for selected parts of day
+                        ...PartOfDay.values
+                            .where((partOfDay) {
+                              return widget.dayControllers[day]?.contains(
+                                    partOfDay,
+                                  ) ??
+                                  false;
+                            })
+                            .map((partOfDay) {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 12),
+                                child: TimePickerField(
+                                  label: '${partOfDay.displayName} time',
+                                  value:
+                                      widget.timeControllers[day]?[partOfDay],
+                                  partOfDay: partOfDay,
+                                  onChanged: (time) {
+                                    if (time != null) {
+                                      setState(() {
+                                        widget.timeControllers[day] ??= {};
+                                        widget.timeControllers[day]![partOfDay] =
+                                            time;
+                                      });
+                                    }
+                                  },
+                                ),
                               );
-                              if (hasAnySelection) {
-                                widget.errorNotifier.value = null;
-                              }
-                            });
-                          },
-                          backgroundColor: Colors.grey[100],
-                          selectedColor: const Color(0xFF3B82F6),
-                          labelStyle: TextStyle(
-                            color: isSelected ? Colors.white : Colors.black87,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        );
-                      }).toList(),
+                            }),
+                      ],
                     ),
                   ),
                 ],

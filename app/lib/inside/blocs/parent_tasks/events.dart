@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 abstract class ParentTasks_Event extends Equatable {
   const ParentTasks_Event();
@@ -17,16 +18,18 @@ class TaskScheduleInput extends Equatable {
     required this.kidId,
     this.daysOfWeek,
     this.timeOfDay,
+    this.specificTime,
     this.specificDate,
   });
 
   final String kidId;
   final List<int>? daysOfWeek;
   final String? timeOfDay;
+  final TimeOfDay? specificTime;
   final DateTime? specificDate;
 
   @override
-  List<Object?> get props => [kidId, daysOfWeek, timeOfDay, specificDate];
+  List<Object?> get props => [kidId, daysOfWeek, timeOfDay, specificTime, specificDate];
 }
 
 class ParentTasks_Event_AddTask extends ParentTasks_Event {

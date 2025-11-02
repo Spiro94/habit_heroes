@@ -14,6 +14,7 @@ TaskSchedule _$TaskScheduleFromJson(Map<String, dynamic> json) => TaskSchedule(
       ?.map((e) => (e as num).toInt())
       .toList(),
   timeOfDay: $enumDecodeNullable(_$PartOfDayEnumMap, json['time_of_day']),
+  specificTime: _timeOfDayFromJson(json['specific_time'] as String?),
   specificDate: json['specific_date'] == null
       ? null
       : DateTime.parse(json['specific_date'] as String),
@@ -32,6 +33,7 @@ Map<String, dynamic> _$TaskScheduleToJson(TaskSchedule instance) =>
       'kid_id': instance.kidId,
       'days_of_week': instance.daysOfWeek,
       'time_of_day': _$PartOfDayEnumMap[instance.timeOfDay],
+      'specific_time': _timeOfDayToJson(instance.specificTime),
       'specific_date': instance.specificDate?.toIso8601String(),
       'is_active': instance.isActive,
     };

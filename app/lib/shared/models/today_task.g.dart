@@ -15,6 +15,7 @@ TodayTask _$TodayTaskFromJson(Map<String, dynamic> json) => TodayTask(
   points: (json['points'] as num).toInt(),
   kidColor: json['kid_color'] as String?,
   taskDescription: json['task_description'] as String?,
+  specificTime: _timeOfDayFromJson(json['specific_time'] as String?),
   completedAt: json['completed_at'] == null
       ? null
       : DateTime.parse(json['completed_at'] as String),
@@ -27,6 +28,7 @@ Map<String, dynamic> _$TodayTaskToJson(TodayTask instance) => <String, dynamic>{
   'task_title': instance.taskTitle,
   'task_description': instance.taskDescription,
   'time_of_day': instance.timeOfDay,
+  'specific_time': _timeOfDayToJson(instance.specificTime),
   'status': instance.status,
   'points': instance.points,
   'completed_at': instance.completedAt?.toIso8601String(),

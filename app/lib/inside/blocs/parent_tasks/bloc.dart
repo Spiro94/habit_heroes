@@ -108,6 +108,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
           timeOfDay: scheduleInput.timeOfDay != null
               ? _parseTimeOfDay(scheduleInput.timeOfDay!)
               : null,
+          specificTime: scheduleInput.specificTime,
           specificDate: scheduleInput.specificDate,
         );
 
@@ -174,6 +175,7 @@ class ParentTasks_Bloc extends Bloc_Base<ParentTasks_Event, ParentTasks_State> {
           timeOfDay: input.timeOfDay != null
               ? _parseTimeOfDay(input.timeOfDay!)
               : null,
+          specificTime: input.specificTime,
           specificDate: input.specificDate,
         );
 
