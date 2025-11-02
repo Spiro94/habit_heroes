@@ -285,6 +285,9 @@ class TranslationsTasksEn implements TranslationsTasksEsCo {
 	@override String get noKidsDialogTitle => 'No Kids Added Yet';
 	@override String get noKidsDialogMessage => 'You must add at least one kid before creating a task. Tasks need to be assigned to a kid.';
 	@override String get addKidButton => 'Add Kid';
+	@override String get noKidsAvailable => 'No kids available';
+	@override String get allKidsSelected => 'All kids have been selected';
+	@override String get selectAtLeastOneKid => 'Please select at least one kid';
 }
 
 // Path: daysOfWeek
@@ -1221,6 +1224,9 @@ extension on TranslationsEn {
 			case 'tasks.noKidsDialogTitle': return 'No Kids Added Yet';
 			case 'tasks.noKidsDialogMessage': return 'You must add at least one kid before creating a task. Tasks need to be assigned to a kid.';
 			case 'tasks.addKidButton': return 'Add Kid';
+			case 'tasks.noKidsAvailable': return 'No kids available';
+			case 'tasks.allKidsSelected': return 'All kids have been selected';
+			case 'tasks.selectAtLeastOneKid': return 'Please select at least one kid';
 			case 'daysOfWeek.monday.short': return 'Mon';
 			case 'daysOfWeek.monday.full': return 'Monday';
 			case 'daysOfWeek.tuesday.short': return 'Tue';

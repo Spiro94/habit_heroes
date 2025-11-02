@@ -460,6 +460,15 @@ class TranslationsTasksEsCo {
 
 	/// es-CO: 'Agregar Niño'
 	String get addKidButton => 'Agregar Niño';
+
+	/// es-CO: 'No hay niños disponibles'
+	String get noKidsAvailable => 'No hay niños disponibles';
+
+	/// es-CO: 'Todos los niños han sido seleccionados'
+	String get allKidsSelected => 'Todos los niños han sido seleccionados';
+
+	/// es-CO: 'Por favor selecciona al menos un niño'
+	String get selectAtLeastOneKid => 'Por favor selecciona al menos un niño';
 }
 
 // Path: daysOfWeek
@@ -1656,6 +1665,9 @@ extension on Translations {
 			case 'tasks.noKidsDialogTitle': return 'Aún no hay niños agregados';
 			case 'tasks.noKidsDialogMessage': return 'Debes agregar al menos un niño antes de crear una tarea. Las tareas deben asignarse a un niño.';
 			case 'tasks.addKidButton': return 'Agregar Niño';
+			case 'tasks.noKidsAvailable': return 'No hay niños disponibles';
+			case 'tasks.allKidsSelected': return 'Todos los niños han sido seleccionados';
+			case 'tasks.selectAtLeastOneKid': return 'Por favor selecciona al menos un niño';
 			case 'daysOfWeek.monday.short': return 'Lun';
 			case 'daysOfWeek.monday.full': return 'Lunes';
 			case 'daysOfWeek.tuesday.short': return 'Mar';

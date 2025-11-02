@@ -12,7 +12,7 @@ import '../../../../../blocs/parent_tasks/bloc.dart';
 import '../../../../../blocs/parent_tasks/events.dart';
 import '../../../../../blocs/parent_tasks/state.dart';
 import '../../../../../i18n/translations.g.dart';
-import 'widgets/kid_dropdown.dart';
+import 'widgets/kid_multi_select.dart';
 import 'widgets/listeners.dart';
 import 'widgets/points_field.dart';
 import 'widgets/schedule_type_toggle.dart';
@@ -47,7 +47,7 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
   final _titleController = TextEditingController();
   final _pointsController = TextEditingController();
 
-  Kid? _selectedKid;
+  List<Kid> _selectedKids = [];
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
 
@@ -97,12 +97,12 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
         _pointsController.text = template.points.toString();
       }
 
-      // Prefill assigned kid from first schedule
-      final assignedKid = state.kids.firstWhere(
-        (kid) => kid.id == schedules.first.kidId,
-        orElse: () => state.kids.first,
-      );
-      _selectedKid = assignedKid;
+      // Prefill assigned kid(s) from schedule(s)
+      // When editing, collect all unique kids from schedules
+      final assignedKidIds = schedules.map((s) => s.kidId).toSet();
+      _selectedKids = state.kids
+          .where((kid) => assignedKidIds.contains(kid.id))
+          .toList();
 
       // Check if this is a specific date task (first schedule has specificDate)
       if (schedules.first.specificDate != null) {
@@ -186,13 +186,13 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
                         controller: _titleController,
                       ),
                       const Gap(24),
-                      // Kid Dropdown
-                      CreateTask_Widget_KidDropdown(
-                        selectedKid: _selectedKid,
-                        kids: state.kids,
-                        onChanged: (kid) {
+                      // Kid Multi-Select
+                      CreateTask_Widget_KidMultiSelect(
+                        selectedKids: _selectedKids,
+                        allKids: state.kids,
+                        onChanged: (kids) {
                           setState(() {
-                            _selectedKid = kid;
+                            _selectedKids = kids;
                           });
                         },
                       ),
@@ -274,8 +274,8 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
       return;
     }
 
-    // Validate kid selection
-    if (_selectedKid == null) {
+    // Validate kid selection - at least one kid must be selected
+    if (_selectedKids.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(t.tasks.selectAKid),
@@ -311,15 +311,17 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
         }
       }
 
-      // Single schedule for specific date
-      schedules.add(
-        TaskScheduleInput(
-          kidId: _selectedKid!.id,
-          specificDate: _selectedDate,
-          specificTime: _selectedTime,
-          timeOfDay: timeOfDay,
-        ),
-      );
+      // Create one schedule per selected kid for the specific date
+      for (final kid in _selectedKids) {
+        schedules.add(
+          TaskScheduleInput(
+            kidId: kid.id,
+            specificDate: _selectedDate,
+            specificTime: _selectedTime,
+            timeOfDay: timeOfDay,
+          ),
+        );
+      }
     } else {
       // Validate weekday schedule - check if any day has selections
       var hasAnySchedule = false;
@@ -335,25 +337,27 @@ class _CreateTask_ScaffoldState extends State<CreateTask_Scaffold> {
         return;
       }
 
-      // Collect all day+time combinations as schedules
-      for (final entry in _dayControllers.entries) {
-        final day = entry.key;
-        final selectedTimesOfDay = entry.value;
+      // Collect all day+time combinations as schedules for each selected kid
+      for (final kid in _selectedKids) {
+        for (final entry in _dayControllers.entries) {
+          final day = entry.key;
+          final selectedTimesOfDay = entry.value;
 
-        if (selectedTimesOfDay.isEmpty) continue;
+          if (selectedTimesOfDay.isEmpty) continue;
 
-        for (final timeOfDay in selectedTimesOfDay) {
-          // Get the specific time for this day+timeOfDay combination
-          final specificTime = _timeControllers[day]?[timeOfDay];
+          for (final timeOfDay in selectedTimesOfDay) {
+            // Get the specific time for this day+timeOfDay combination
+            final specificTime = _timeControllers[day]?[timeOfDay];
 
-          schedules.add(
-            TaskScheduleInput(
-              kidId: _selectedKid!.id,
-              daysOfWeek: [day.toInt()],
-              timeOfDay: timeOfDay.key,
-              specificTime: specificTime,
-            ),
-          );
+            schedules.add(
+              TaskScheduleInput(
+                kidId: kid.id,
+                daysOfWeek: [day.toInt()],
+                timeOfDay: timeOfDay.key,
+                specificTime: specificTime,
+              ),
+            );
+          }
         }
       }
     }

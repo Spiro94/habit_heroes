@@ -230,6 +230,9 @@ tasks:
   noKidsDialogTitle: "Aún no hay niños agregados"
   noKidsDialogMessage: "Debes agregar al menos un niño antes de crear una tarea. Las tareas deben asignarse a un niño."
   addKidButton: "Agregar Niño"
+  noKidsAvailable: "No hay niños disponibles"
+  allKidsSelected: "Todos los niños han sido seleccionados"
+  selectAtLeastOneKid: "Por favor selecciona al menos un niño"
 
 daysOfWeek:
   monday:

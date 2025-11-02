@@ -230,6 +230,9 @@ tasks:
   noKidsDialogTitle: "No Kids Added Yet"
   noKidsDialogMessage: "You must add at least one kid before creating a task. Tasks need to be assigned to a kid."
   addKidButton: "Add Kid"
+  noKidsAvailable: "No kids available"
+  allKidsSelected: "All kids have been selected"
+  selectAtLeastOneKid: "Please select at least one kid"
 
 daysOfWeek:
   monday:
