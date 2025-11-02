@@ -11,6 +11,7 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
     required this.tasks,
     required this.isCurrentSection,
     required this.onTaskCompleted,
+    required this.onTaskUncompleted,
     super.key,
   });
 
@@ -18,6 +19,7 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
   final List<TodayTask> tasks;
   final bool isCurrentSection;
   final ValueChanged<TodayTask> onTaskCompleted;
+  final ValueChanged<TodayTask> onTaskUncompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +87,7 @@ class KidsDashboard_Widget_PartOfDaySection extends StatelessWidget {
           return KidsDashboard_Widget_TaskCard(
             task: task,
             onComplete: () => onTaskCompleted(task),
+            onUncomplete: () => onTaskUncompleted(task),
           );
         }),
       ],

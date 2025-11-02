@@ -1,4 +1,3 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,11 +91,11 @@ class _KidsDashboard_TabletTasksView extends StatelessWidget {
         final kids = translations.kidsDashboard;
         final common = translations.common;
 
-        if (state.loadStatus == LoadStatus.loading) {
+        if (state.status == KidsDashboard_Status.loading) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (state.loadStatus == LoadStatus.error) {
+        if (state.status == KidsDashboard_Status.loadError) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -104,10 +103,8 @@ class _KidsDashboard_TabletTasksView extends StatelessWidget {
                 const Icon(Icons.error, size: 48, color: Colors.red),
                 const SizedBox(height: 16),
                 Text(
-                  state.loadErrorMessage != null
-                      ? common.errorWithMessage(
-                          message: state.loadErrorMessage!,
-                        )
+                  state.errorMessage != null
+                      ? common.errorWithMessage(message: state.errorMessage!)
                       : common.unknownError,
                   textAlign: TextAlign.center,
                 ),
@@ -189,9 +186,7 @@ class _KidsDashboard_TabletTasksView extends StatelessWidget {
     );
   }
 
-  Map<String, List<TodayTask>> _groupTasksByKid(
-    List<TodayTask> tasks,
-  ) {
+  Map<String, List<TodayTask>> _groupTasksByKid(List<TodayTask> tasks) {
     final sortedMap = <String, List<TodayTask>>{};
 
     final entries = <String, List<TodayTask>>{};
@@ -272,6 +267,13 @@ class _KidTaskColumn extends StatelessWidget {
                   onComplete: () {
                     context.read<KidsDashboard_Bloc>().add(
                       KidsDashboard_Event_CompleteTask(
+                        instanceId: task.instanceId,
+                      ),
+                    );
+                  },
+                  onUncomplete: () {
+                    context.read<KidsDashboard_Bloc>().add(
+                      KidsDashboard_Event_UncompleteTask(
                         instanceId: task.instanceId,
                       ),
                     );

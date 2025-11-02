@@ -7,85 +7,61 @@ import '../../../shared/models/today_task.dart';
 
 part 'state.g.dart';
 
-enum LoadStatus { initial, loading, loaded, error }
-
-enum CompleteTaskStatus { initial, completing, success, error }
-
-enum SkipTaskStatus { initial, skipping, success, error }
-
-enum RedeemRewardStatus { initial, redeeming, success, error }
+enum KidsDashboard_Status {
+  initial,
+  loading,
+  loaded,
+  loadError,
+  completing,
+  completeSuccess,
+  completeError,
+  uncompleting,
+  uncompleteSuccess,
+  uncompleteError,
+  skipping,
+  skipSuccess,
+  skipError,
+  redeeming,
+  redeemSuccess,
+  redeemError,
+}
 
 @JsonSerializable()
 class KidsDashboard_State extends Equatable {
   const KidsDashboard_State({
-    required this.loadStatus,
-    required this.completeTaskStatus,
-    required this.skipTaskStatus,
-    required this.redeemRewardStatus,
+    required this.status,
     required this.todayTasks,
     required this.kidsPoints,
     required this.rewards,
-    this.loadErrorMessage,
-    this.completeTaskErrorMessage,
-    this.skipTaskErrorMessage,
-    this.redeemRewardErrorMessage,
+    this.errorMessage,
   });
 
   factory KidsDashboard_State.initial() => const KidsDashboard_State(
-        loadStatus: LoadStatus.initial,
-        completeTaskStatus: CompleteTaskStatus.initial,
-        skipTaskStatus: SkipTaskStatus.initial,
-        redeemRewardStatus: RedeemRewardStatus.initial,
+        status: KidsDashboard_Status.initial,
         todayTasks: [],
         kidsPoints: [],
         rewards: [],
       );
 
-  final LoadStatus loadStatus;
-  final CompleteTaskStatus completeTaskStatus;
-  final SkipTaskStatus skipTaskStatus;
-  final RedeemRewardStatus redeemRewardStatus;
+  final KidsDashboard_Status status;
   final List<TodayTask> todayTasks;
   final List<KidPoints> kidsPoints;
   final List<Reward> rewards;
-  final String? loadErrorMessage;
-  final String? completeTaskErrorMessage;
-  final String? skipTaskErrorMessage;
-  final String? redeemRewardErrorMessage;
+  final String? errorMessage;
 
   KidsDashboard_State copyWith({
-    LoadStatus? loadStatus,
-    CompleteTaskStatus? completeTaskStatus,
-    SkipTaskStatus? skipTaskStatus,
-    RedeemRewardStatus? redeemRewardStatus,
+    KidsDashboard_Status? status,
     List<TodayTask>? todayTasks,
     List<KidPoints>? kidsPoints,
     List<Reward>? rewards,
-    String? Function()? setLoadErrorMessage,
-    String? Function()? setCompleteTaskErrorMessage,
-    String? Function()? setSkipTaskErrorMessage,
-    String? Function()? setRedeemRewardErrorMessage,
+    String? Function()? setErrorMessage,
   }) {
     return KidsDashboard_State(
-      loadStatus: loadStatus ?? this.loadStatus,
-      completeTaskStatus: completeTaskStatus ?? this.completeTaskStatus,
-      skipTaskStatus: skipTaskStatus ?? this.skipTaskStatus,
-      redeemRewardStatus: redeemRewardStatus ?? this.redeemRewardStatus,
+      status: status ?? this.status,
       todayTasks: todayTasks ?? this.todayTasks,
       kidsPoints: kidsPoints ?? this.kidsPoints,
       rewards: rewards ?? this.rewards,
-      loadErrorMessage: setLoadErrorMessage != null
-          ? setLoadErrorMessage()
-          : loadErrorMessage,
-      completeTaskErrorMessage: setCompleteTaskErrorMessage != null
-          ? setCompleteTaskErrorMessage()
-          : completeTaskErrorMessage,
-      skipTaskErrorMessage: setSkipTaskErrorMessage != null
-          ? setSkipTaskErrorMessage()
-          : skipTaskErrorMessage,
-      redeemRewardErrorMessage: setRedeemRewardErrorMessage != null
-          ? setRedeemRewardErrorMessage()
-          : redeemRewardErrorMessage,
+      errorMessage: setErrorMessage != null ? setErrorMessage() : errorMessage,
     );
   }
 
@@ -96,16 +72,10 @@ class KidsDashboard_State extends Equatable {
 
   @override
   List<Object?> get props => [
-        loadStatus,
-        completeTaskStatus,
-        skipTaskStatus,
-        redeemRewardStatus,
+        status,
         todayTasks,
         kidsPoints,
         rewards,
-        loadErrorMessage,
-        completeTaskErrorMessage,
-        skipTaskErrorMessage,
-        redeemRewardErrorMessage,
+        errorMessage,
       ];
 }

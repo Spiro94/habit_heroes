@@ -20,6 +20,15 @@ class KidsDashboard_Event_CompleteTask extends KidsDashboard_Event {
   List<Object?> get props => [instanceId];
 }
 
+class KidsDashboard_Event_UncompleteTask extends KidsDashboard_Event {
+  const KidsDashboard_Event_UncompleteTask({required this.instanceId});
+
+  final String instanceId;
+
+  @override
+  List<Object?> get props => [instanceId];
+}
+
 class KidsDashboard_Event_SkipTask extends KidsDashboard_Event {
   const KidsDashboard_Event_SkipTask({required this.instanceId});
 

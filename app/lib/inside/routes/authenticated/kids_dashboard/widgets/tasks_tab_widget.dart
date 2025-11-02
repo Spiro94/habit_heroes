@@ -20,11 +20,11 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
           final kids = translations.kidsDashboard;
           final common = translations.common;
 
-          if (state.loadStatus == LoadStatus.loading) {
+          if (state.status == KidsDashboard_Status.loading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (state.loadStatus == LoadStatus.error) {
+          if (state.status == KidsDashboard_Status.loadError) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -32,10 +32,8 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
                   const Icon(Icons.error, size: 48, color: Colors.red),
                   const SizedBox(height: 16),
                   Text(
-                    state.loadErrorMessage != null
-                        ? common.errorWithMessage(
-                            message: state.loadErrorMessage!,
-                          )
+                    state.errorMessage != null
+                        ? common.errorWithMessage(message: state.errorMessage!)
                         : common.unknownError,
                     textAlign: TextAlign.center,
                   ),
@@ -67,18 +65,18 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
                     color: Colors.green[300],
                   ),
                   const SizedBox(height: 16),
-                Text(
-                  kids.tasks.emptyTitle,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    kids.tasks.emptyTitle,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  kids.tasks.emptySubtitle,
-                  style: const TextStyle(fontSize: 16, color: Colors.grey),
-                ),
+                  const SizedBox(height: 8),
+                  Text(
+                    kids.tasks.emptySubtitle,
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
                 ],
               ),
             );
@@ -105,6 +103,13 @@ class KidsDashboard_Widget_TasksTab extends StatelessWidget {
                     onTaskCompleted: (task) {
                       context.read<KidsDashboard_Bloc>().add(
                         KidsDashboard_Event_CompleteTask(
+                          instanceId: task.instanceId,
+                        ),
+                      );
+                    },
+                    onTaskUncompleted: (task) {
+                      context.read<KidsDashboard_Bloc>().add(
+                        KidsDashboard_Event_UncompleteTask(
                           instanceId: task.instanceId,
                         ),
                       );

@@ -8,19 +8,7 @@ part of 'state.dart';
 
 KidsDashboard_State _$KidsDashboard_StateFromJson(Map<String, dynamic> json) =>
     KidsDashboard_State(
-      loadStatus: $enumDecode(_$LoadStatusEnumMap, json['loadStatus']),
-      completeTaskStatus: $enumDecode(
-        _$CompleteTaskStatusEnumMap,
-        json['completeTaskStatus'],
-      ),
-      skipTaskStatus: $enumDecode(
-        _$SkipTaskStatusEnumMap,
-        json['skipTaskStatus'],
-      ),
-      redeemRewardStatus: $enumDecode(
-        _$RedeemRewardStatusEnumMap,
-        json['redeemRewardStatus'],
-      ),
+      status: $enumDecode(_$KidsDashboard_StatusEnumMap, json['status']),
       todayTasks: (json['todayTasks'] as List<dynamic>)
           .map((e) => TodayTask.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -30,54 +18,34 @@ KidsDashboard_State _$KidsDashboard_StateFromJson(Map<String, dynamic> json) =>
       rewards: (json['rewards'] as List<dynamic>)
           .map((e) => Reward.fromJson(e as Map<String, dynamic>))
           .toList(),
-      loadErrorMessage: json['loadErrorMessage'] as String?,
-      completeTaskErrorMessage: json['completeTaskErrorMessage'] as String?,
-      skipTaskErrorMessage: json['skipTaskErrorMessage'] as String?,
-      redeemRewardErrorMessage: json['redeemRewardErrorMessage'] as String?,
+      errorMessage: json['errorMessage'] as String?,
     );
 
 Map<String, dynamic> _$KidsDashboard_StateToJson(
   KidsDashboard_State instance,
 ) => <String, dynamic>{
-  'loadStatus': _$LoadStatusEnumMap[instance.loadStatus]!,
-  'completeTaskStatus':
-      _$CompleteTaskStatusEnumMap[instance.completeTaskStatus]!,
-  'skipTaskStatus': _$SkipTaskStatusEnumMap[instance.skipTaskStatus]!,
-  'redeemRewardStatus':
-      _$RedeemRewardStatusEnumMap[instance.redeemRewardStatus]!,
+  'status': _$KidsDashboard_StatusEnumMap[instance.status]!,
   'todayTasks': instance.todayTasks,
   'kidsPoints': instance.kidsPoints,
   'rewards': instance.rewards,
-  'loadErrorMessage': instance.loadErrorMessage,
-  'completeTaskErrorMessage': instance.completeTaskErrorMessage,
-  'skipTaskErrorMessage': instance.skipTaskErrorMessage,
-  'redeemRewardErrorMessage': instance.redeemRewardErrorMessage,
+  'errorMessage': instance.errorMessage,
 };
 
-const _$LoadStatusEnumMap = {
-  LoadStatus.initial: 'initial',
-  LoadStatus.loading: 'loading',
-  LoadStatus.loaded: 'loaded',
-  LoadStatus.error: 'error',
-};
-
-const _$CompleteTaskStatusEnumMap = {
-  CompleteTaskStatus.initial: 'initial',
-  CompleteTaskStatus.completing: 'completing',
-  CompleteTaskStatus.success: 'success',
-  CompleteTaskStatus.error: 'error',
-};
-
-const _$SkipTaskStatusEnumMap = {
-  SkipTaskStatus.initial: 'initial',
-  SkipTaskStatus.skipping: 'skipping',
-  SkipTaskStatus.success: 'success',
-  SkipTaskStatus.error: 'error',
-};
-
-const _$RedeemRewardStatusEnumMap = {
-  RedeemRewardStatus.initial: 'initial',
-  RedeemRewardStatus.redeeming: 'redeeming',
-  RedeemRewardStatus.success: 'success',
-  RedeemRewardStatus.error: 'error',
+const _$KidsDashboard_StatusEnumMap = {
+  KidsDashboard_Status.initial: 'initial',
+  KidsDashboard_Status.loading: 'loading',
+  KidsDashboard_Status.loaded: 'loaded',
+  KidsDashboard_Status.loadError: 'loadError',
+  KidsDashboard_Status.completing: 'completing',
+  KidsDashboard_Status.completeSuccess: 'completeSuccess',
+  KidsDashboard_Status.completeError: 'completeError',
+  KidsDashboard_Status.uncompleting: 'uncompleting',
+  KidsDashboard_Status.uncompleteSuccess: 'uncompleteSuccess',
+  KidsDashboard_Status.uncompleteError: 'uncompleteError',
+  KidsDashboard_Status.skipping: 'skipping',
+  KidsDashboard_Status.skipSuccess: 'skipSuccess',
+  KidsDashboard_Status.skipError: 'skipError',
+  KidsDashboard_Status.redeeming: 'redeeming',
+  KidsDashboard_Status.redeemSuccess: 'redeemSuccess',
+  KidsDashboard_Status.redeemError: 'redeemError',
 };

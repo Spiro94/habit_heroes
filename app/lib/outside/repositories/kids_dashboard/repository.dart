@@ -24,6 +24,9 @@ abstract class KidsDashboard_Repository extends Repository_Base {
   /// Mark a task instance as completed
   Future<void> completeTask({required String instanceId});
 
+  /// Revert a completed task instance back to pending
+  Future<void> uncompleteTask({required String instanceId});
+
   /// Mark a task instance as skipped
   Future<void> skipTask({required String instanceId});
 }
@@ -82,6 +85,16 @@ class SupabaseKidsDashboard_Repository extends KidsDashboard_Repository {
     await _supabaseClient
         .from('task_instances')
         .update({'status': 'completed'})
+        .eq('id', instanceId);
+  }
+
+  @override
+  Future<void> uncompleteTask({required String instanceId}) async {
+    log.info('uncompleteTask: $instanceId');
+
+    await _supabaseClient
+        .from('task_instances')
+        .update({'status': 'pending'})
         .eq('id', instanceId);
   }
 

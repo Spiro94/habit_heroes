@@ -6,11 +6,13 @@ class KidsDashboard_Widget_TaskCard extends StatelessWidget {
   const KidsDashboard_Widget_TaskCard({
     required this.task,
     required this.onComplete,
+    required this.onUncomplete,
     super.key,
   });
 
   final TodayTask task;
   final VoidCallback onComplete;
+  final VoidCallback onUncomplete;
 
   bool get _isCompleted => task.status == 'completed';
   bool get _isSkipped => task.status == 'skipped';
@@ -19,54 +21,51 @@ class KidsDashboard_Widget_TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final kidColor = _resolveKidColor(task.kidColor);
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color:
-            _isCompleted
-                ? Colors.green[50]
-                : _isSkipped
-                ? Colors.grey[100]
-                : Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
+    return GestureDetector(
+      onTap: _isSkipped ? null : (_isCompleted ? onUncomplete : onComplete),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
           color:
               _isCompleted
-                  ? Colors.green
+                  ? Colors.green[50]
                   : _isSkipped
-                  ? Colors.grey
-                  : kidColor,
-          width: 2,
-        ),
-        boxShadow: [
-          if (!_isSkipped)
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-        ],
-      ),
-      child: Row(
-        children: [
-          _KidAvatar(kidName: task.kidName, backgroundColor: kidColor),
-          const SizedBox(width: 12),
-          Expanded(child: _TaskInfo(task: task, isCompleted: _isCompleted)),
-          _PointsBadge(points: task.points),
-          const SizedBox(width: 8),
-          Checkbox(
-            value: _isCompleted,
-            onChanged:
+                  ? Colors.grey[100]
+                  : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color:
                 _isCompleted
-                    ? null
-                    : (value) {
-                      if (value ?? false) {
-                        onComplete();
-                      }
-                    },
+                    ? Colors.green
+                    : _isSkipped
+                    ? Colors.grey
+                    : kidColor,
+            width: 2,
           ),
-        ],
+          boxShadow: [
+            if (!_isSkipped)
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+          ],
+        ),
+        child: Row(
+          children: [
+            _KidAvatar(kidName: task.kidName, backgroundColor: kidColor),
+            const SizedBox(width: 12),
+            Expanded(child: _TaskInfo(task: task, isCompleted: _isCompleted)),
+            _PointsBadge(points: task.points),
+            const SizedBox(width: 8),
+            Icon(
+              _isCompleted ? Icons.check_circle : Icons.circle_outlined,
+              color: _isCompleted ? Colors.green : Colors.grey,
+              size: 32,
+            ),
+          ],
+        ),
       ),
     );
   }

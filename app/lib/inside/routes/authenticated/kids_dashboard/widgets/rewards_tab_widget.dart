@@ -21,11 +21,11 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
           final kids = translations.kidsDashboard;
           final common = translations.common;
 
-          if (state.loadStatus == LoadStatus.loading) {
+          if (state.status == KidsDashboard_Status.loading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (state.loadStatus == LoadStatus.error) {
+          if (state.status == KidsDashboard_Status.loadError) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -33,10 +33,8 @@ class KidsDashboard_Widget_RewardsTab extends StatelessWidget {
                   const Icon(Icons.error, size: 48, color: Colors.red),
                   const SizedBox(height: 16),
                   Text(
-                    state.loadErrorMessage != null
-                        ? common.errorWithMessage(
-                            message: state.loadErrorMessage!,
-                          )
+                    state.errorMessage != null
+                        ? common.errorWithMessage(message: state.errorMessage!)
                         : common.unknownError,
                     textAlign: TextAlign.center,
                   ),

@@ -16,6 +16,7 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
        super(KidsDashboard_State.initial()) {
     on<KidsDashboard_Event_LoadData>(_onLoadData);
     on<KidsDashboard_Event_CompleteTask>(_onCompleteTask);
+    on<KidsDashboard_Event_UncompleteTask>(_onUncompleteTask);
     on<KidsDashboard_Event_SkipTask>(_onSkipTask);
     on<KidsDashboard_Event_RefreshData>(_onRefreshData);
     on<KidsDashboard_Event_RedeemReward>(_onRedeemReward);
@@ -30,7 +31,7 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
     log.info('_onLoadData');
 
     try {
-      emit(state.copyWith(loadStatus: LoadStatus.loading));
+      emit(state.copyWith(status: KidsDashboard_Status.loading));
 
       // Load today's tasks, kids points, and rewards in parallel
       final todayTasks = await _kidsDashboardRepository.getTodayTasks();
@@ -39,19 +40,19 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
 
       emit(
         state.copyWith(
-          loadStatus: LoadStatus.loaded,
+          status: KidsDashboard_Status.loaded,
           todayTasks: todayTasks,
           kidsPoints: kidsPoints,
           rewards: rewards,
-          setLoadErrorMessage: () => null,
+          setErrorMessage: () => null,
         ),
       );
     } catch (e, stackTrace) {
       log.severe('Error loading kids dashboard data', e, stackTrace);
       emit(
         state.copyWith(
-          loadStatus: LoadStatus.error,
-          setLoadErrorMessage: e.toString,
+          status: KidsDashboard_Status.loadError,
+          setErrorMessage: e.toString,
         ),
       );
     }
@@ -64,7 +65,7 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
     log.info('_onCompleteTask: ${event.instanceId}');
 
     try {
-      emit(state.copyWith(completeTaskStatus: CompleteTaskStatus.completing));
+      emit(state.copyWith(status: KidsDashboard_Status.completing));
 
       await _kidsDashboardRepository.completeTask(instanceId: event.instanceId);
 
@@ -72,9 +73,9 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
 
       emit(
         state.copyWith(
-          completeTaskStatus: CompleteTaskStatus.success,
+          status: KidsDashboard_Status.completeSuccess,
           kidsPoints: kidsPoints,
-          setCompleteTaskErrorMessage: () => null,
+          setErrorMessage: () => null,
         ),
       );
 
@@ -84,8 +85,44 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
       log.severe('Error completing task', e, stackTrace);
       emit(
         state.copyWith(
-          completeTaskStatus: CompleteTaskStatus.error,
-          setCompleteTaskErrorMessage: e.toString,
+          status: KidsDashboard_Status.completeError,
+          setErrorMessage: e.toString,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onUncompleteTask(
+    KidsDashboard_Event_UncompleteTask event,
+    Emitter<KidsDashboard_State> emit,
+  ) async {
+    log.info('_onUncompleteTask: ${event.instanceId}');
+
+    try {
+      emit(state.copyWith(status: KidsDashboard_Status.uncompleting));
+
+      await _kidsDashboardRepository.uncompleteTask(
+        instanceId: event.instanceId,
+      );
+
+      final kidsPoints = await _kidsDashboardRepository.getKidsPoints();
+
+      emit(
+        state.copyWith(
+          status: KidsDashboard_Status.uncompleteSuccess,
+          kidsPoints: kidsPoints,
+          setErrorMessage: () => null,
+        ),
+      );
+
+      // Reload data to get updated tasks and points
+      add(const KidsDashboard_Event_RefreshData());
+    } catch (e, stackTrace) {
+      log.severe('Error uncompleting task', e, stackTrace);
+      emit(
+        state.copyWith(
+          status: KidsDashboard_Status.uncompleteError,
+          setErrorMessage: e.toString,
         ),
       );
     }
@@ -98,14 +135,14 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
     log.info('_onSkipTask: ${event.instanceId}');
 
     try {
-      emit(state.copyWith(skipTaskStatus: SkipTaskStatus.skipping));
+      emit(state.copyWith(status: KidsDashboard_Status.skipping));
 
       await _kidsDashboardRepository.skipTask(instanceId: event.instanceId);
 
       emit(
         state.copyWith(
-          skipTaskStatus: SkipTaskStatus.success,
-          setSkipTaskErrorMessage: () => null,
+          status: KidsDashboard_Status.skipSuccess,
+          setErrorMessage: () => null,
         ),
       );
 
@@ -115,8 +152,8 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
       log.severe('Error skipping task', e, stackTrace);
       emit(
         state.copyWith(
-          skipTaskStatus: SkipTaskStatus.error,
-          setSkipTaskErrorMessage: e.toString,
+          status: KidsDashboard_Status.skipError,
+          setErrorMessage: e.toString,
         ),
       );
     }
@@ -147,7 +184,7 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
     log.info('_onRedeemReward: ${event.rewardId} for kid ${event.kidId}');
 
     try {
-      emit(state.copyWith(redeemRewardStatus: RedeemRewardStatus.redeeming));
+      emit(state.copyWith(status: KidsDashboard_Status.redeeming));
 
       await _kidsDashboardRepository.redeemReward(
         rewardId: event.rewardId,
@@ -156,8 +193,8 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
 
       emit(
         state.copyWith(
-          redeemRewardStatus: RedeemRewardStatus.success,
-          setRedeemRewardErrorMessage: () => null,
+          status: KidsDashboard_Status.redeemSuccess,
+          setErrorMessage: () => null,
         ),
       );
 
@@ -167,8 +204,8 @@ class KidsDashboard_Bloc extends Bloc<KidsDashboard_Event, KidsDashboard_State>
       log.severe('Error redeeming reward', e, stackTrace);
       emit(
         state.copyWith(
-          redeemRewardStatus: RedeemRewardStatus.error,
-          setRedeemRewardErrorMessage: e.toString,
+          status: KidsDashboard_Status.redeemError,
+          setErrorMessage: e.toString,
         ),
       );
     }
