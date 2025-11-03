@@ -14,6 +14,7 @@ import '../outside/client_providers/supabase/client_provider.dart';
 import '../outside/effect_providers/all.dart';
 import '../outside/effect_providers/auth_change/effect_provider.dart';
 import '../outside/effect_providers/mixpanel/effect_provider.dart';
+import '../outside/repositories/account_deletion/account_deletion_repository.dart';
 import '../outside/repositories/all.dart';
 import '../outside/repositories/app_user/repository.dart';
 import '../outside/repositories/auth/repository.dart';
@@ -76,6 +77,9 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
 
   // Create and initialize repositories
   final repositories = Repositories_All(
+    accountDeletionRepository: AccountDeletion_Repository(
+      supabaseClientProvider: clientProviders.supabaseClientProvider,
+    ),
     appUserRepository: SupabaseAppUser_Repository(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),

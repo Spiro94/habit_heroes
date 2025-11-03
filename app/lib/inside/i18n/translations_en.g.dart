@@ -55,6 +55,7 @@ class TranslationsEn implements Translations {
 	@override late final TranslationsPartOfDayEn partOfDay = TranslationsPartOfDayEn._(_root);
 	@override late final TranslationsCommonEn common = TranslationsCommonEn._(_root);
 	@override late final TranslationsKidsDashboardEn kidsDashboard = TranslationsKidsDashboardEn._(_root);
+	@override late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
 }
 
 // Path: emailVerificationLinkSent
@@ -350,6 +351,17 @@ class TranslationsKidsDashboardEn implements TranslationsKidsDashboardEsCo {
 	@override late final TranslationsKidsDashboardKidSelectionEn kidSelection = TranslationsKidsDashboardKidSelectionEn._(_root);
 	@override late final TranslationsKidsDashboardRewardCardEn rewardCard = TranslationsKidsDashboardRewardCardEn._(_root);
 	@override late final TranslationsKidsDashboardDateHeaderEn dateHeader = TranslationsKidsDashboardDateHeaderEn._(_root);
+}
+
+// Path: settings
+class TranslationsSettingsEn implements TranslationsSettingsEsCo {
+	TranslationsSettingsEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Settings';
+	@override late final TranslationsSettingsAccountDeletionEn accountDeletion = TranslationsSettingsAccountDeletionEn._(_root);
 }
 
 // Path: forgotPassword.form
@@ -701,6 +713,20 @@ class TranslationsKidsDashboardDateHeaderEn implements TranslationsKidsDashboard
 	@override String date({required Object month, required Object day}) => '${month} ${day}';
 }
 
+// Path: settings.accountDeletion
+class TranslationsSettingsAccountDeletionEn implements TranslationsSettingsAccountDeletionEsCo {
+	TranslationsSettingsAccountDeletionEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Request Account Deletion';
+	@override String get subtitle => 'Request your account to be permanently deleted';
+	@override String get pendingTitle => 'Account Deletion Request Pending';
+	@override String get pendingSubtitle => 'You already have a request in progress';
+	@override late final TranslationsSettingsAccountDeletionDialogEn dialog = TranslationsSettingsAccountDeletionDialogEn._(_root);
+}
+
 // Path: forgotPassword.form.email
 class TranslationsForgotPasswordFormEmailEn implements TranslationsForgotPasswordFormEmailEsCo {
 	TranslationsForgotPasswordFormEmailEn._(this._root);
@@ -926,6 +952,22 @@ class TranslationsProfileFormAvatarUrlEn implements TranslationsProfileFormAvata
 	@override String get hint => 'https://example.com/avatar.png';
 }
 
+// Path: settings.accountDeletion.dialog
+class TranslationsSettingsAccountDeletionDialogEn implements TranslationsSettingsAccountDeletionDialogEsCo {
+	TranslationsSettingsAccountDeletionDialogEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Confirm Deletion Request';
+	@override String get message => 'This action will initiate your account deletion process. An administrator will review your request.';
+	@override late final TranslationsSettingsAccountDeletionDialogFormEn form = TranslationsSettingsAccountDeletionDialogFormEn._(_root);
+	@override String get submit => 'Submit Request';
+	@override String get cancel => 'Cancel';
+	@override late final TranslationsSettingsAccountDeletionDialogSuccessEn success = TranslationsSettingsAccountDeletionDialogSuccessEn._(_root);
+	@override late final TranslationsSettingsAccountDeletionDialogErrorEn error = TranslationsSettingsAccountDeletionDialogErrorEn._(_root);
+}
+
 // Path: forgotPassword.form.email.error
 class TranslationsForgotPasswordFormEmailErrorEn implements TranslationsForgotPasswordFormEmailErrorEsCo {
 	TranslationsForgotPasswordFormEmailErrorEn._(this._root);
@@ -1053,6 +1095,74 @@ class TranslationsNewFamilyFormNameErrorEn implements TranslationsNewFamilyFormN
 
 	// Translations
 	@override String get empty => 'Por favor ingresa un nombre para la familia.';
+}
+
+// Path: settings.accountDeletion.dialog.form
+class TranslationsSettingsAccountDeletionDialogFormEn implements TranslationsSettingsAccountDeletionDialogFormEsCo {
+	TranslationsSettingsAccountDeletionDialogFormEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override late final TranslationsSettingsAccountDeletionDialogFormEmailEn email = TranslationsSettingsAccountDeletionDialogFormEmailEn._(_root);
+	@override late final TranslationsSettingsAccountDeletionDialogFormReasonEn reason = TranslationsSettingsAccountDeletionDialogFormReasonEn._(_root);
+}
+
+// Path: settings.accountDeletion.dialog.success
+class TranslationsSettingsAccountDeletionDialogSuccessEn implements TranslationsSettingsAccountDeletionDialogSuccessEsCo {
+	TranslationsSettingsAccountDeletionDialogSuccessEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Request Sent';
+	@override String get message => 'Your account deletion request has been received. An administrator will review it soon.';
+}
+
+// Path: settings.accountDeletion.dialog.error
+class TranslationsSettingsAccountDeletionDialogErrorEn implements TranslationsSettingsAccountDeletionDialogErrorEsCo {
+	TranslationsSettingsAccountDeletionDialogErrorEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Error';
+	@override String get alreadyExists => 'A deletion request already exists for this email.';
+	@override String get generic => 'Error submitting request. Please try again.';
+}
+
+// Path: settings.accountDeletion.dialog.form.email
+class TranslationsSettingsAccountDeletionDialogFormEmailEn implements TranslationsSettingsAccountDeletionDialogFormEmailEsCo {
+	TranslationsSettingsAccountDeletionDialogFormEmailEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Email';
+	@override String get hint => 'your@email.com';
+	@override late final TranslationsSettingsAccountDeletionDialogFormEmailErrorEn error = TranslationsSettingsAccountDeletionDialogFormEmailErrorEn._(_root);
+}
+
+// Path: settings.accountDeletion.dialog.form.reason
+class TranslationsSettingsAccountDeletionDialogFormReasonEn implements TranslationsSettingsAccountDeletionDialogFormReasonEsCo {
+	TranslationsSettingsAccountDeletionDialogFormReasonEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Reason (optional)';
+	@override String get hint => 'Why do you want to delete your account?';
+}
+
+// Path: settings.accountDeletion.dialog.form.email.error
+class TranslationsSettingsAccountDeletionDialogFormEmailErrorEn implements TranslationsSettingsAccountDeletionDialogFormEmailErrorEsCo {
+	TranslationsSettingsAccountDeletionDialogFormEmailErrorEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Please enter your email';
+	@override String get invalid => 'Please enter a valid email';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -1274,6 +1384,26 @@ extension on TranslationsEn {
 			case 'kidsDashboard.rewardCard.notEnoughPoints': return 'Not enough points';
 			case 'kidsDashboard.rewardCard.points': return ({required Object points}) => '${points} points';
 			case 'kidsDashboard.dateHeader.date': return ({required Object month, required Object day}) => '${month} ${day}';
+			case 'settings.title': return 'Settings';
+			case 'settings.accountDeletion.title': return 'Request Account Deletion';
+			case 'settings.accountDeletion.subtitle': return 'Request your account to be permanently deleted';
+			case 'settings.accountDeletion.pendingTitle': return 'Account Deletion Request Pending';
+			case 'settings.accountDeletion.pendingSubtitle': return 'You already have a request in progress';
+			case 'settings.accountDeletion.dialog.title': return 'Confirm Deletion Request';
+			case 'settings.accountDeletion.dialog.message': return 'This action will initiate your account deletion process. An administrator will review your request.';
+			case 'settings.accountDeletion.dialog.form.email.label': return 'Email';
+			case 'settings.accountDeletion.dialog.form.email.hint': return 'your@email.com';
+			case 'settings.accountDeletion.dialog.form.email.error.empty': return 'Please enter your email';
+			case 'settings.accountDeletion.dialog.form.email.error.invalid': return 'Please enter a valid email';
+			case 'settings.accountDeletion.dialog.form.reason.label': return 'Reason (optional)';
+			case 'settings.accountDeletion.dialog.form.reason.hint': return 'Why do you want to delete your account?';
+			case 'settings.accountDeletion.dialog.submit': return 'Submit Request';
+			case 'settings.accountDeletion.dialog.cancel': return 'Cancel';
+			case 'settings.accountDeletion.dialog.success.title': return 'Request Sent';
+			case 'settings.accountDeletion.dialog.success.message': return 'Your account deletion request has been received. An administrator will review it soon.';
+			case 'settings.accountDeletion.dialog.error.title': return 'Error';
+			case 'settings.accountDeletion.dialog.error.alreadyExists': return 'A deletion request already exists for this email.';
+			case 'settings.accountDeletion.dialog.error.generic': return 'Error submitting request. Please try again.';
 			default: return null;
 		}
 	}

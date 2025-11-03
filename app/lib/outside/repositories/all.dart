@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'account_deletion/account_deletion_repository.dart';
 import 'app_user/repository.dart';
 import 'auth/repository.dart';
 import 'base.dart';
@@ -20,6 +21,7 @@ import 'task_templates/repository.dart';
 ///     otherwise it will register the base class.
 class Repositories_All {
   const Repositories_All({
+    required this.accountDeletionRepository,
     required this.appUserRepository,
     required this.authRepository,
     required this.kidRepository,
@@ -33,6 +35,7 @@ class Repositories_All {
     required this.rewardRedemptionRepository,
   });
 
+  final AccountDeletion_Repository accountDeletionRepository;
   final AppUser_Repository appUserRepository;
   final Auth_Repository authRepository;
   final Kids_Repository kidRepository;
@@ -46,6 +49,7 @@ class Repositories_All {
   final RewardRedemption_Repository rewardRedemptionRepository;
 
   List<Repository_Base> getList() => [
+    accountDeletionRepository,
     appUserRepository,
     authRepository,
     kidRepository,
@@ -61,6 +65,9 @@ class Repositories_All {
 
   List<RepositoryProvider<Repository_Base>> createProviders() {
     return [
+      RepositoryProvider<AccountDeletion_Repository>.value(
+        value: accountDeletionRepository,
+      ),
       RepositoryProvider<AppUser_Repository>.value(value: appUserRepository),
       RepositoryProvider<Auth_Repository>.value(value: authRepository),
       RepositoryProvider<Kids_Repository>.value(value: kidRepository),

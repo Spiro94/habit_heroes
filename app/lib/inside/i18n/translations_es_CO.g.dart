@@ -58,6 +58,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsPartOfDayEsCo partOfDay = TranslationsPartOfDayEsCo._(_root);
 	late final TranslationsCommonEsCo common = TranslationsCommonEsCo._(_root);
 	late final TranslationsKidsDashboardEsCo kidsDashboard = TranslationsKidsDashboardEsCo._(_root);
+	late final TranslationsSettingsEsCo settings = TranslationsSettingsEsCo._(_root);
 }
 
 // Path: emailVerificationLinkSent
@@ -553,6 +554,20 @@ class TranslationsKidsDashboardEsCo {
 	late final TranslationsKidsDashboardDateHeaderEsCo dateHeader = TranslationsKidsDashboardDateHeaderEsCo._(_root);
 }
 
+// Path: settings
+class TranslationsSettingsEsCo {
+	TranslationsSettingsEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Configuración'
+	String get title => 'Configuración';
+
+	late final TranslationsSettingsAccountDeletionEsCo accountDeletion = TranslationsSettingsAccountDeletionEsCo._(_root);
+}
+
 // Path: forgotPassword.form
 class TranslationsForgotPasswordFormEsCo {
 	TranslationsForgotPasswordFormEsCo._(this._root);
@@ -1022,6 +1037,29 @@ class TranslationsKidsDashboardDateHeaderEsCo {
 	String date({required Object day, required Object month}) => '${day} de ${month}';
 }
 
+// Path: settings.accountDeletion
+class TranslationsSettingsAccountDeletionEsCo {
+	TranslationsSettingsAccountDeletionEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Solicitar Eliminación de Cuenta'
+	String get title => 'Solicitar Eliminación de Cuenta';
+
+	/// es-CO: 'Solicita que tu cuenta sea eliminada permanentemente'
+	String get subtitle => 'Solicita que tu cuenta sea eliminada permanentemente';
+
+	/// es-CO: 'Solicitud de Eliminación Pendiente'
+	String get pendingTitle => 'Solicitud de Eliminación Pendiente';
+
+	/// es-CO: 'Ya tienes una solicitud en proceso'
+	String get pendingSubtitle => 'Ya tienes una solicitud en proceso';
+
+	late final TranslationsSettingsAccountDeletionDialogEsCo dialog = TranslationsSettingsAccountDeletionDialogEsCo._(_root);
+}
+
 // Path: forgotPassword.form.email
 class TranslationsForgotPasswordFormEmailEsCo {
 	TranslationsForgotPasswordFormEmailEsCo._(this._root);
@@ -1325,6 +1363,32 @@ class TranslationsProfileFormAvatarUrlEsCo {
 	String get hint => 'https://example.com/avatar.png';
 }
 
+// Path: settings.accountDeletion.dialog
+class TranslationsSettingsAccountDeletionDialogEsCo {
+	TranslationsSettingsAccountDeletionDialogEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Confirmar Solicitud de Eliminación'
+	String get title => 'Confirmar Solicitud de Eliminación';
+
+	/// es-CO: 'Esta acción iniciará el proceso de eliminación de tu cuenta. Un administrador revisará tu solicitud.'
+	String get message => 'Esta acción iniciará el proceso de eliminación de tu cuenta. Un administrador revisará tu solicitud.';
+
+	late final TranslationsSettingsAccountDeletionDialogFormEsCo form = TranslationsSettingsAccountDeletionDialogFormEsCo._(_root);
+
+	/// es-CO: 'Enviar Solicitud'
+	String get submit => 'Enviar Solicitud';
+
+	/// es-CO: 'Cancelar'
+	String get cancel => 'Cancelar';
+
+	late final TranslationsSettingsAccountDeletionDialogSuccessEsCo success = TranslationsSettingsAccountDeletionDialogSuccessEsCo._(_root);
+	late final TranslationsSettingsAccountDeletionDialogErrorEsCo error = TranslationsSettingsAccountDeletionDialogErrorEsCo._(_root);
+}
+
 // Path: forgotPassword.form.email.error
 class TranslationsForgotPasswordFormEmailErrorEsCo {
 	TranslationsForgotPasswordFormEmailErrorEsCo._(this._root);
@@ -1494,6 +1558,97 @@ class TranslationsNewFamilyFormNameErrorEsCo {
 
 	/// es-CO: 'Por favor ingresa un nombre para la familia.'
 	String get empty => 'Por favor ingresa un nombre para la familia.';
+}
+
+// Path: settings.accountDeletion.dialog.form
+class TranslationsSettingsAccountDeletionDialogFormEsCo {
+	TranslationsSettingsAccountDeletionDialogFormEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsSettingsAccountDeletionDialogFormEmailEsCo email = TranslationsSettingsAccountDeletionDialogFormEmailEsCo._(_root);
+	late final TranslationsSettingsAccountDeletionDialogFormReasonEsCo reason = TranslationsSettingsAccountDeletionDialogFormReasonEsCo._(_root);
+}
+
+// Path: settings.accountDeletion.dialog.success
+class TranslationsSettingsAccountDeletionDialogSuccessEsCo {
+	TranslationsSettingsAccountDeletionDialogSuccessEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Solicitud Enviada'
+	String get title => 'Solicitud Enviada';
+
+	/// es-CO: 'Tu solicitud de eliminación de cuenta ha sido recibida. Un administrador la revisará pronto.'
+	String get message => 'Tu solicitud de eliminación de cuenta ha sido recibida. Un administrador la revisará pronto.';
+}
+
+// Path: settings.accountDeletion.dialog.error
+class TranslationsSettingsAccountDeletionDialogErrorEsCo {
+	TranslationsSettingsAccountDeletionDialogErrorEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Error'
+	String get title => 'Error';
+
+	/// es-CO: 'Ya existe una solicitud de eliminación para este correo electrónico.'
+	String get alreadyExists => 'Ya existe una solicitud de eliminación para este correo electrónico.';
+
+	/// es-CO: 'Error al enviar la solicitud. Intenta nuevamente.'
+	String get generic => 'Error al enviar la solicitud. Intenta nuevamente.';
+}
+
+// Path: settings.accountDeletion.dialog.form.email
+class TranslationsSettingsAccountDeletionDialogFormEmailEsCo {
+	TranslationsSettingsAccountDeletionDialogFormEmailEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Correo electrónico'
+	String get label => 'Correo electrónico';
+
+	/// es-CO: 'tu@correo.com'
+	String get hint => 'tu@correo.com';
+
+	late final TranslationsSettingsAccountDeletionDialogFormEmailErrorEsCo error = TranslationsSettingsAccountDeletionDialogFormEmailErrorEsCo._(_root);
+}
+
+// Path: settings.accountDeletion.dialog.form.reason
+class TranslationsSettingsAccountDeletionDialogFormReasonEsCo {
+	TranslationsSettingsAccountDeletionDialogFormReasonEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Razón (opcional)'
+	String get label => 'Razón (opcional)';
+
+	/// es-CO: '¿Por qué quieres eliminar tu cuenta?'
+	String get hint => '¿Por qué quieres eliminar tu cuenta?';
+}
+
+// Path: settings.accountDeletion.dialog.form.email.error
+class TranslationsSettingsAccountDeletionDialogFormEmailErrorEsCo {
+	TranslationsSettingsAccountDeletionDialogFormEmailErrorEsCo._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// es-CO: 'Por favor ingresa tu correo electrónico'
+	String get empty => 'Por favor ingresa tu correo electrónico';
+
+	/// es-CO: 'Por favor ingresa un correo electrónico válido'
+	String get invalid => 'Por favor ingresa un correo electrónico válido';
 }
 
 /// The flat map containing all translations for locale <es-CO>.
@@ -1715,6 +1870,26 @@ extension on Translations {
 			case 'kidsDashboard.rewardCard.notEnoughPoints': return 'No hay puntos';
 			case 'kidsDashboard.rewardCard.points': return ({required Object points}) => '${points} puntos';
 			case 'kidsDashboard.dateHeader.date': return ({required Object day, required Object month}) => '${day} de ${month}';
+			case 'settings.title': return 'Configuración';
+			case 'settings.accountDeletion.title': return 'Solicitar Eliminación de Cuenta';
+			case 'settings.accountDeletion.subtitle': return 'Solicita que tu cuenta sea eliminada permanentemente';
+			case 'settings.accountDeletion.pendingTitle': return 'Solicitud de Eliminación Pendiente';
+			case 'settings.accountDeletion.pendingSubtitle': return 'Ya tienes una solicitud en proceso';
+			case 'settings.accountDeletion.dialog.title': return 'Confirmar Solicitud de Eliminación';
+			case 'settings.accountDeletion.dialog.message': return 'Esta acción iniciará el proceso de eliminación de tu cuenta. Un administrador revisará tu solicitud.';
+			case 'settings.accountDeletion.dialog.form.email.label': return 'Correo electrónico';
+			case 'settings.accountDeletion.dialog.form.email.hint': return 'tu@correo.com';
+			case 'settings.accountDeletion.dialog.form.email.error.empty': return 'Por favor ingresa tu correo electrónico';
+			case 'settings.accountDeletion.dialog.form.email.error.invalid': return 'Por favor ingresa un correo electrónico válido';
+			case 'settings.accountDeletion.dialog.form.reason.label': return 'Razón (opcional)';
+			case 'settings.accountDeletion.dialog.form.reason.hint': return '¿Por qué quieres eliminar tu cuenta?';
+			case 'settings.accountDeletion.dialog.submit': return 'Enviar Solicitud';
+			case 'settings.accountDeletion.dialog.cancel': return 'Cancelar';
+			case 'settings.accountDeletion.dialog.success.title': return 'Solicitud Enviada';
+			case 'settings.accountDeletion.dialog.success.message': return 'Tu solicitud de eliminación de cuenta ha sido recibida. Un administrador la revisará pronto.';
+			case 'settings.accountDeletion.dialog.error.title': return 'Error';
+			case 'settings.accountDeletion.dialog.error.alreadyExists': return 'Ya existe una solicitud de eliminación para este correo electrónico.';
+			case 'settings.accountDeletion.dialog.error.generic': return 'Error al enviar la solicitud. Intenta nuevamente.';
 			default: return null;
 		}
 	}

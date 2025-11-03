@@ -10,6 +10,7 @@ import '../../outside/theme/theme.dart';
 /// - Colorful icons and accents
 /// - Smooth animations
 /// - Flexible content and action customization
+/// - Scrollable body for overflow protection
 ///
 /// Usage:
 /// ```dart
@@ -56,35 +57,10 @@ class HabitHeroes_Dialog extends StatelessWidget {
   /// The actions (buttons) to display at the bottom of the dialog
   final List<HabitHeroesDialogAction> actions;
 
-  AppColorGradient _getGradient(BuildContext context) {
-    final colors = context.colors;
-    return switch (dialogType) {
-      HabitHeroesDialogType.info => colors.datePickerCyan,
-      HabitHeroesDialogType.success => colors.taskCompletedGreen,
-      HabitHeroesDialogType.error => AppColorGradient(
-        start: context.solidColors.error,
-        end: context.solidColors.error.withValues(alpha: 0.8),
-      ),
-      HabitHeroesDialogType.warning => AppColorGradient(
-        start: context.solidColors.warning,
-        end: context.solidColors.warning.withValues(alpha: 0.8),
-      ),
-    };
-  }
-
-  IconData _getDefaultIcon() {
-    return switch (dialogType) {
-      HabitHeroesDialogType.info => Icons.info_outline,
-      HabitHeroesDialogType.success => Icons.check_circle_outline,
-      HabitHeroesDialogType.error => Icons.error_outline,
-      HabitHeroesDialogType.warning => Icons.warning_outlined,
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
-    final gradient = _getGradient(context);
-    final displayIcon = icon ?? _getDefaultIcon();
+    final gradient = _getGradientForType(context, dialogType);
+    final displayIcon = icon ?? _getDefaultIconForType(dialogType);
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -99,20 +75,66 @@ class HabitHeroes_Dialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildHeader(context, gradient, displayIcon),
-            _buildBody(context),
-            _buildActions(context, gradient),
+            HabitHeroes_Dialog_Widget_Header(
+              title: title,
+              icon: displayIcon,
+              gradient: gradient,
+            ),
+            HabitHeroes_Dialog_Widget_Body(body: body),
+            HabitHeroes_Dialog_Widget_Actions(
+              actions: actions,
+              gradient: gradient,
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHeader(
+  static AppColorGradient _getGradientForType(
     BuildContext context,
-    AppColorGradient gradient,
-    IconData displayIcon,
+    HabitHeroesDialogType type,
   ) {
+    final colors = context.colors;
+    return switch (type) {
+      HabitHeroesDialogType.info => colors.datePickerCyan,
+      HabitHeroesDialogType.success => colors.taskCompletedGreen,
+      HabitHeroesDialogType.error => AppColorGradient(
+        start: context.solidColors.error,
+        end: context.solidColors.error.withValues(alpha: 0.8),
+      ),
+      HabitHeroesDialogType.warning => AppColorGradient(
+        start: context.solidColors.warning,
+        end: context.solidColors.warning.withValues(alpha: 0.8),
+      ),
+    };
+  }
+
+  static IconData _getDefaultIconForType(HabitHeroesDialogType type) {
+    return switch (type) {
+      HabitHeroesDialogType.info => Icons.info_outline,
+      HabitHeroesDialogType.success => Icons.check_circle_outline,
+      HabitHeroesDialogType.error => Icons.error_outline,
+      HabitHeroesDialogType.warning => Icons.warning_outlined,
+    };
+  }
+}
+
+/// Dialog header widget with gradient background and icon
+class HabitHeroes_Dialog_Widget_Header extends StatelessWidget {
+  const HabitHeroes_Dialog_Widget_Header({
+    required this.title,
+    required this.icon,
+    required this.gradient,
+    super.key,
+  });
+
+  final String title;
+  final IconData icon;
+  final AppColorGradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: gradient.toLinearGradient(),
@@ -131,7 +153,7 @@ class HabitHeroes_Dialog extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.25),
               shape: BoxShape.circle,
             ),
-            child: Icon(displayIcon, color: Colors.white, size: 32),
+            child: Icon(icon, color: Colors.white, size: 32),
           ),
           const SizedBox(height: 12),
           Text(
@@ -147,27 +169,50 @@ class HabitHeroes_Dialog extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildBody(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: DefaultTextStyle(
-        style: TextStyle(
-          fontSize: 14,
-          color: context.solidColors.onSurface,
-          height: 1.5,
+/// Dialog body widget with scrollable content
+class HabitHeroes_Dialog_Widget_Body extends StatelessWidget {
+  const HabitHeroes_Dialog_Widget_Body({required this.body, super.key});
+
+  final Widget body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: DefaultTextStyle(
+          style: TextStyle(
+            fontSize: 14,
+            color: context.solidColors.onSurface,
+            height: 1.5,
+          ),
+          textAlign: TextAlign.center,
+          child: body,
         ),
-        textAlign: TextAlign.center,
-        child: body,
       ),
     );
   }
+}
 
-  Widget _buildActions(BuildContext context, AppColorGradient gradient) {
+/// Dialog actions widget with buttons
+class HabitHeroes_Dialog_Widget_Actions extends StatelessWidget {
+  const HabitHeroes_Dialog_Widget_Actions({
+    required this.actions,
+    required this.gradient,
+    super.key,
+  });
+
+  final List<HabitHeroesDialogAction> actions;
+  final AppColorGradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
     if (actions.isEmpty) return const SizedBox.shrink();
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+      padding: const EdgeInsets.fromLTRB(20, 4, 20, 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: actions.asMap().entries.map((entry) {
@@ -175,74 +220,121 @@ class HabitHeroes_Dialog extends StatelessWidget {
           final action = entry.value;
           return Padding(
             padding: EdgeInsets.only(left: index > 0 ? 12 : 0),
-            child: _buildActionButton(context, action, gradient),
+            child: HabitHeroes_Dialog_Widget_ActionButton(
+              action: action,
+              gradient: gradient,
+            ),
           );
         }).toList(),
       ),
     );
   }
+}
 
-  Widget _buildActionButton(
-    BuildContext context,
-    HabitHeroesDialogAction action,
-    AppColorGradient gradient,
-  ) {
+/// Dialog action button widget
+class HabitHeroes_Dialog_Widget_ActionButton extends StatelessWidget {
+  const HabitHeroes_Dialog_Widget_ActionButton({
+    required this.action,
+    required this.gradient,
+    super.key,
+  });
+
+  final HabitHeroesDialogAction action;
+  final AppColorGradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
     if (action.isPrimary) {
-      return Container(
-        decoration: BoxDecoration(
-          gradient: gradient.toLinearGradient(),
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: gradient.toShadowColor(0.3),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: action.onPressed,
-            borderRadius: BorderRadius.circular(12),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              child: Text(
-                action.label,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
-        ),
+      return HabitHeroes_Dialog_Widget_PrimaryActionButton(
+        action: action,
+        gradient: gradient,
       );
     } else {
-      return Material(
+      return HabitHeroes_Dialog_Widget_SecondaryActionButton(action: action);
+    }
+  }
+}
+
+/// Primary action button with gradient background
+class HabitHeroes_Dialog_Widget_PrimaryActionButton extends StatelessWidget {
+  const HabitHeroes_Dialog_Widget_PrimaryActionButton({
+    required this.action,
+    required this.gradient,
+    super.key,
+  });
+
+  final HabitHeroesDialogAction action;
+  final AppColorGradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: gradient.toLinearGradient(),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: gradient.toShadowColor(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: action.onPressed,
           borderRadius: BorderRadius.circular(12),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            decoration: BoxDecoration(
-              border: Border.all(color: context.solidColors.border, width: 1.5),
-              borderRadius: BorderRadius.circular(12),
-            ),
             child: Text(
               action.label,
-              style: TextStyle(
-                color: context.solidColors.onSurface,
-                fontWeight: FontWeight.w600,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
             ),
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
+}
+
+/// Secondary action button with border
+class HabitHeroes_Dialog_Widget_SecondaryActionButton extends StatelessWidget {
+  const HabitHeroes_Dialog_Widget_SecondaryActionButton({
+    required this.action,
+    super.key,
+  });
+
+  final HabitHeroesDialogAction action;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: action.onPressed,
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          decoration: BoxDecoration(
+            border: Border.all(color: context.solidColors.border, width: 1.5),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            action.label,
+            style: TextStyle(
+              color: context.solidColors.onSurface,
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

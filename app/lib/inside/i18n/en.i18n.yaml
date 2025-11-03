@@ -304,3 +304,33 @@ kidsDashboard:
     points(points): "$points points"
   dateHeader:
     date(day, month): "$month $day"
+
+settings:
+  title: "Settings"
+  accountDeletion:
+    title: "Request Account Deletion"
+    subtitle: "Request your account to be permanently deleted"
+    pendingTitle: "Account Deletion Request Pending"
+    pendingSubtitle: "You already have a request in progress"
+    dialog:
+      title: "Confirm Deletion Request"
+      message: "This action will initiate your account deletion process. An administrator will review your request."
+      form:
+        email:
+          label: "Email"
+          hint: "your@email.com"
+          error:
+            empty: "Please enter your email"
+            invalid: "Please enter a valid email"
+        reason:
+          label: "Reason (optional)"
+          hint: "Why do you want to delete your account?"
+      submit: "Submit Request"
+      cancel: "Cancel"
+      success:
+        title: "Request Sent"
+        message: "Your account deletion request has been received. An administrator will review it soon."
+      error:
+        title: "Error"
+        alreadyExists: "A deletion request already exists for this email."
+        generic: "Error submitting request. Please try again."

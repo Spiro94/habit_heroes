@@ -304,3 +304,33 @@ kidsDashboard:
     points(points): "$points puntos"
   dateHeader:
     date(day, month): "$day de $month"
+
+settings:
+  title: "Configuración"
+  accountDeletion:
+    title: "Solicitar Eliminación de Cuenta"
+    subtitle: "Solicita que tu cuenta sea eliminada permanentemente"
+    pendingTitle: "Solicitud de Eliminación Pendiente"
+    pendingSubtitle: "Ya tienes una solicitud en proceso"
+    dialog:
+      title: "Confirmar Solicitud de Eliminación"
+      message: "Esta acción iniciará el proceso de eliminación de tu cuenta. Un administrador revisará tu solicitud."
+      form:
+        email:
+          label: "Correo electrónico"
+          hint: "tu@correo.com"
+          error:
+            empty: "Por favor ingresa tu correo electrónico"
+            invalid: "Por favor ingresa un correo electrónico válido"
+        reason:
+          label: "Razón (opcional)"
+          hint: "¿Por qué quieres eliminar tu cuenta?"
+      submit: "Enviar Solicitud"
+      cancel: "Cancelar"
+      success:
+        title: "Solicitud Enviada"
+        message: "Tu solicitud de eliminación de cuenta ha sido recibida. Un administrador la revisará pronto."
+      error:
+        title: "Error"
+        alreadyExists: "Ya existe una solicitud de eliminación para este correo electrónico."
+        generic: "Error al enviar la solicitud. Intenta nuevamente."

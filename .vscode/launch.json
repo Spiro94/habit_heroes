@@ -31,31 +31,12 @@
       ]
     },
     {
-      "name": "run flow tests",
+      "name": "Account Deletion Web (Chrome)",
+      "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "program": "app/test/",
-      "args": [
-        "--update-goldens",
-        "--dart-define",
-        "createScreenshots=true"
-      ]
-    },
-    {
-      "name": "FlowTest",
-      "request": "launch",
-      "type": "dart",
-      "codeLens": {
-        "for": [
-          "run-test",
-          "run-test-file"
-        ]
-      },
-      "args": [
-        "--update-goldens",
-        "--dart-define",
-        "createScreenshots=true"
-      ],
+      "program": "lib/main_web_account_deletion.dart",
+      "deviceId": "chrome",
     }
   ]
 }
