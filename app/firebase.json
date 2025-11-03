@@ -1,16 +1,1 @@
-{
-  "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
-}
+{"hosting":{"public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"],"rewrites":[{"source":"**","destination":"/index.html"}]},"flutter":{"platforms":{"android":{"default":{"projectId":"habit-heroes-e5095","appId":"1:959551703401:android:abd0e4ce96bdc308f2d5f8","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"habit-heroes-e5095","configurations":{"android":"1:959551703401:android:abd0e4ce96bdc308f2d5f8","ios":"1:959551703401:ios:bab9dd017b99cdb1f2d5f8"}}}}}}

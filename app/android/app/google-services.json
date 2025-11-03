@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "959551703401",
+    "project_id": "habit-heroes-e5095",
+    "storage_bucket": "habit-heroes-e5095.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959551703401:android:abd0e4ce96bdc308f2d5f8",
+        "android_client_info": {
+          "package_name": "com.daniel.villamizar.habit_heroes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX-1xuheqCzGUN7_T5zrbk4Gj7zZVOeqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,14 @@
 // coverage:ignore-file
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:uuid/uuid.dart';
 
+import '../firebase_options.dart' show DefaultFirebaseOptions;
 import '../inside/blocs/observer.dart';
 import '../outside/client_providers/all.dart';
 import '../outside/client_providers/sentry/client_provider.dart';
@@ -41,6 +44,8 @@ Future<void> appRunner({required AppConfiguration configuration}) async {
   final log = Logger('app_runner');
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // If flutter error, log severe
   FlutterError.onError = (details) {
