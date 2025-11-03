@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 0.4.0
+
+- Implemented account deletion feature with dialog UI and repository integration backed by Supabase.
+- Created account deletion requests table with row-level security and policies for data privacy.
+- Added Privacy Policy document outlining data collection and usage practices.
+- Enhanced task creation with multi-select functionality for assigning tasks to multiple kids.
+- Implemented specific time handling for task scheduling, including time selection UI and point deduction logic.
+- Added uncomplete task functionality allowing tasks to be unmarked as completed from Kids Dashboard.
+- Refactored ParentTasks Bloc to use unified single-status enum pattern for cleaner state management.
+- Implemented flavor support for development and production environments with separate configurations.
+- Fixed deep link schemes in AndroidManifest.xml for both dev and production environments.
+- Enabled email confirmations in Supabase configuration.
+- Added Spanish translations for Kids Dashboard and Parent Rewards sections.
+- Enhanced PIN management with improved initialization and password input handling.
+- Refactored Create Task page with new widget structure following project conventions.
+- Updated Home page layout with tablet support and improved sign-out functionality.
+- Replaced FHeader with AppBar in Reset Password and Email Verification pages for consistency.
+- General UI enhancements with improved styling and layout adjustments across various pages.
+
 ## 0.3.0
 
 - Added parental access PIN flow backed by SharedPreferences, including bloc events for creating, verifying, and updating the code.

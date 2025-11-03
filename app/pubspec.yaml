@@ -2,7 +2,7 @@ name: habit_heroes
 description: A gamified family habit-tracking app.
 publish_to: "none"
 
-version: 0.3.0
+version: 0.4.0
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
