@@ -36,6 +36,7 @@ class AccountDeletionWebApp extends StatelessWidget {
       title: 'Habit Heroes - Account Deletion',
       theme: OutsideThemes.lightTheme.materialThemeData,
       darkTheme: OutsideThemes.darkTheme.materialThemeData,
+      themeMode: ThemeMode.light,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -65,6 +66,7 @@ class AccountDeletionWebPage extends StatelessWidget {
     final isTablet = MediaQuery.sizeOf(context).shortestSide >= 600;
 
     return Scaffold(
+      backgroundColor: context.solidColors.background,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
