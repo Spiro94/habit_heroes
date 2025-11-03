@@ -18,6 +18,20 @@
       ]
     },
     {
+      "name": "development (release)",
+      "cwd": "app",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "program": "lib/app/configurations/development.dart",
+      "args": [
+        "--target",
+        "lib/app/configurations/development.dart",
+        "--flavor",
+        "dev"
+      ]
+    },
+    {
       "name": "production (debug)",
       "cwd": "app",
       "request": "launch",

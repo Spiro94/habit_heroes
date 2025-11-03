@@ -1,11 +1,12 @@
 import 'dart:ui';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 part 'tokens/colors.dart';
-part 'tokens/icon_size.dart';
 part 'tokens/extensions.dart';
+part 'tokens/icon_size.dart';
 part 'tokens/radius.dart';
 part 'tokens/spacing.dart';
 part 'tokens/typography.dart';
@@ -32,10 +33,9 @@ class OutsideThemes {
 OutsideTheme _buildOutsideTheme({required Brightness brightness}) {
   return OutsideTheme._(
     materialThemeBuilder: () {
-      final colorTokens =
-          brightness == Brightness.dark
-              ? _colorTokensDark
-              : _colorTokensLight;
+      final colorTokens = brightness == Brightness.dark
+          ? _colorTokensDark
+          : _colorTokensLight;
 
       final tokenExtensions = _buildThemeTokenExtensions(
         brightness: brightness,

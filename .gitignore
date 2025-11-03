@@ -5,3 +5,7 @@
 .env
 
 settings.local.json
+
+# Firebase
+firebase-debug.log
+.firebase/
